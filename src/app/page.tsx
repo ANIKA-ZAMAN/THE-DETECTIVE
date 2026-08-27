@@ -11,6 +11,11 @@ import {
   TrendingUp,
   Shield,
   RefreshCw,
+  Activity,
+  Layers,
+  FileSearch,
+  Scale,
+  History as HistoryIcon,
 } from "lucide-react";
 
 export default function Home() {
@@ -99,7 +104,7 @@ export default function Home() {
         backgroundPosition: "center top, center",
       }}
     >
-      {/* ────────────────── TOP NAVBAR (EXACT REFERENCE SPEC) ────────────────── */}
+      {/* ────────────────── TOP NAVBAR WITH 5-PAGE PILL TABS ────────────────── */}
       <header className="w-full max-w-[1440px] mx-auto px-6 sm:px-12 h-16 sm:h-18 flex items-center justify-between z-30 shrink-0">
         {/* Brand Logo with Viewfinder Brackets */}
         <Link href="/" className="flex items-center gap-3 group select-none">
@@ -139,22 +144,42 @@ export default function Home() {
           </div>
         </Link>
 
-        {/* Centered Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-xs font-medium text-zinc-400">
-          <Link href="/overview" className="hover:text-zinc-100 transition-colors">
-            How it works
+        {/* Centered Navigation Pill Tabs (Overview, Details, Investigation, Compare, History) */}
+        <nav className="hidden md:flex items-center gap-1 bg-[#101014]/90 p-1 rounded-xl border border-zinc-800/80 backdrop-blur-md shadow-inner">
+          <Link
+            href="/overview"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-zinc-950 bg-[#d5b579] shadow-sm transition-all"
+          >
+            <Activity className="w-3.5 h-3.5" />
+            <span>Overview</span>
           </Link>
-          <Link href="/details" className="hover:text-zinc-100 transition-colors">
-            Features
+          <Link
+            href="/details"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50 transition-all"
+          >
+            <Layers className="w-3.5 h-3.5" />
+            <span>Details</span>
           </Link>
-          <Link href="/history" className="hover:text-zinc-100 transition-colors">
-            Cases
+          <Link
+            href="/investigation"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50 transition-all"
+          >
+            <FileSearch className="w-3.5 h-3.5" />
+            <span>Investigation</span>
           </Link>
-          <Link href="/compare" className="hover:text-zinc-100 transition-colors">
-            Pricing
+          <Link
+            href="/compare"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50 transition-all"
+          >
+            <Scale className="w-3.5 h-3.5" />
+            <span>Compare</span>
           </Link>
-          <Link href="/investigation" className="hover:text-zinc-100 transition-colors">
-            Docs
+          <Link
+            href="/history"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50 transition-all"
+          >
+            <HistoryIcon className="w-3.5 h-3.5" />
+            <span>History</span>
           </Link>
         </nav>
 
