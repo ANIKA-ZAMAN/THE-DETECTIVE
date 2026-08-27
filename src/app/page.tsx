@@ -296,17 +296,18 @@ export default function Home() {
             </div>
 
             {/* CENTERPIECE: SHERLOCK HOLMES MAGNIFYING GLASS */}
-            <div className="relative z-20 flex items-center justify-center -translate-x-4 -translate-y-2">
-              {/* Outer Metallic Brass Rim */}
-              <div className="relative w-[320px] h-[320px] rounded-full p-2 bg-gradient-to-br from-amber-200/80 via-amber-700 via-zinc-800 to-zinc-950 shadow-[0_25px_60px_rgba(0,0,0,0.95)] border-2 border-[#c8b082]/60">
-                {/* Inner Bezel Lens Groove */}
-                <div className="w-full h-full rounded-full bg-[#09090d] p-5 relative overflow-hidden flex flex-col justify-center border border-zinc-700/80 shadow-[inset_0_0_35px_rgba(0,0,0,0.95)]">
-                  {/* Curved Glass Lens Sheen Reflections */}
-                  <div className="absolute -top-14 -right-14 w-52 h-52 rounded-full bg-gradient-to-b from-white/25 via-white/5 to-transparent pointer-events-none transform rotate-45 blur-[1px]" />
-                  <div className="absolute top-2 right-6 w-28 h-14 rounded-full bg-white/10 pointer-events-none transform rotate-[-25deg] blur-[2px]" />
+            <div className="relative z-20 flex items-center justify-center -translate-x-8 -translate-y-2 select-none">
+              {/* Outer Metallic Antique Brass Rim */}
+              <div className="relative w-[310px] h-[310px] rounded-full p-[7px] bg-gradient-to-br from-[#c8b082] via-[#8c6f48] via-[#45321f] to-[#1a140e] shadow-[0_30px_70px_rgba(0,0,0,0.98),0_0_20px_rgba(200,176,130,0.15)] border border-[#c8b082]/70">
+                {/* Inner Bezel Groove */}
+                <div className="w-full h-full rounded-full bg-[#08080c] p-4 relative overflow-hidden flex flex-col justify-center border border-[#523d24]/60 shadow-[inset_0_0_40px_rgba(0,0,0,0.98)]">
+                  {/* Realistic Curved Lens Glare Highlights */}
+                  <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full bg-gradient-to-b from-white/20 via-white/5 to-transparent pointer-events-none transform rotate-45 blur-[1px]" />
+                  <div className="absolute top-3 right-5 w-24 h-12 rounded-full bg-white/10 pointer-events-none transform rotate-[-20deg] blur-[2px]" />
+                  <div className="absolute bottom-4 left-6 w-20 h-10 rounded-full bg-white/5 pointer-events-none transform rotate-[35deg] blur-[3px]" />
 
                   {/* UI Window inside Magnifying Glass Lens */}
-                  <div className="relative z-10 bg-[#0d0d12]/95 border border-zinc-800/90 rounded-xl p-4 shadow-2xl backdrop-blur-sm">
+                  <div className="relative z-10 bg-[#0e0e14]/90 border border-zinc-800/90 rounded-xl p-4 shadow-2xl backdrop-blur-md">
                     {/* Header title */}
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-[11px] font-serif italic text-[#c8b082]">
@@ -318,116 +319,118 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* URL */}
-                    <span className="text-base font-mono font-semibold text-white block tracking-tight mb-2.5">
+                    {/* URL in glowing phosphor green */}
+                    <span className="text-base font-mono font-bold text-[#86efac] block tracking-tight mb-2.5 drop-shadow-[0_0_8px_rgba(134,239,172,0.35)]">
                       https://example.com
                     </span>
 
-                    {/* Gold Progress Bar */}
-                    <div className="w-full h-1.5 bg-zinc-800/90 rounded-full overflow-hidden mb-3.5 border border-zinc-700/40">
-                      <div className="h-full w-[62%] bg-gradient-to-r from-[#b59a68] to-[#c8b082] rounded-full shadow-[0_0_8px_#c8b082]" />
+                    {/* Gold Progress Bar with Spinner Indicator */}
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="flex-1 h-1.5 bg-zinc-800/90 rounded-full overflow-hidden border border-zinc-700/40">
+                        <div className="h-full w-[58%] bg-gradient-to-r from-[#b59a68] to-[#c8b082] rounded-full shadow-[0_0_8px_#c8b082]" />
+                      </div>
+                      <div className="w-3 h-3 border-2 border-[#c8b082] border-t-transparent rounded-full animate-spin shrink-0 opacity-70" />
                     </div>
 
-                    {/* Status Checklist */}
+                    {/* Status Checklist with Green Glowing Dots */}
                     <ul className="space-y-1.5 text-[11px] text-zinc-300 font-sans">
                       <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#c8b082] shrink-0 shadow-[0_0_4px_#c8b082]" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#86efac] shrink-0 shadow-[0_0_6px_#86efac]" />
                         <span className="text-zinc-200">Collecting resources</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#c8b082] shrink-0 shadow-[0_0_4px_#c8b082]" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#86efac] shrink-0 shadow-[0_0_6px_#86efac]" />
                         <span className="text-zinc-200">Measuring performance</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 shrink-0" />
-                        <span className="text-zinc-400">Analyzing bottlenecks</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#86efac] shrink-0 shadow-[0_0_6px_#86efac]" />
+                        <span className="text-zinc-200">Analyzing bottlenecks</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-zinc-700 shrink-0" />
-                        <span className="text-zinc-500">Compiling evidence</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 shrink-0" />
+                        <span className="text-zinc-400">Compiling evidence</span>
                       </li>
                     </ul>
                   </div>
                 </div>
 
-                {/* Metallic Joint Collar - amber/gold ring at base of lens */}
-                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-gradient-to-b from-amber-600 via-amber-800 to-amber-950 rounded-b-full border-x border-b border-amber-500/60 shadow-[0_4px_12px_rgba(0,0,0,0.9)] z-20" />
+                {/* 42° Stepped Metallic Brass Collar Joint */}
+                <div className="absolute -bottom-4 -right-3 z-30 pointer-events-none transform rotate-[-45deg] flex flex-col items-center">
+                  {/* Step 1 Brass Ring */}
+                  <div className="w-8 h-4 rounded-t-sm bg-gradient-to-r from-[#c8b082] via-[#ffe0a3] to-[#5c3e1e] border-t border-x border-[#ffe0a3]/80 shadow-md" />
+                  {/* Step 2 Ribbed Joint Collar */}
+                  <div className="w-10 h-6 bg-gradient-to-r from-[#7a5328] via-[#c8b082] via-[#ffe0a3] to-[#3a220d] rounded-sm border border-[#c8b082]/90 shadow-lg" />
+                </div>
 
-                {/* Multiple curved leather/wood stripes hanging down from lens bottom */}
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 z-10 flex items-start justify-center" style={{width: '80px'}}>
-                  {/* Stripe group - 5 parallel curved dark strips */}
-                  {['-8px', '-4px', '0px', '4px', '8px'].map((offset, i) => (
-                    <div
-                      key={i}
-                      className="absolute top-0"
-                      style={{ left: `calc(50% + ${offset})`, transform: 'translateX(-50%)' }}
-                    >
-                      <svg width="8" height="110" viewBox="0 0 8 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d={`M4 0 C${3 + (i - 2) * 1.5} 30 ${5 + (i - 2) * 1.2} 70 4 110`}
-                          stroke="url(#stripe-grad)"
-                          strokeWidth="5"
-                          strokeLinecap="round"
-                        />
-                        <defs>
-                          <linearGradient id="stripe-grad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
-                            <stop offset="0%" stopColor="#5c3d1a" />
-                            <stop offset="40%" stopColor="#1a1008" />
-                            <stop offset="100%" stopColor="#000000" />
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                    </div>
-                  ))}
+                {/* Cylindrical Dark Walnut Wood Handle (Extending to Bottom Right at 45°) */}
+                <div
+                  className="absolute -bottom-36 -right-32 w-10 h-52 pointer-events-none z-20 transform rotate-[-45deg] origin-top-left rounded-b-2xl border-x border-b border-[#3d2415]/70 shadow-[0_25px_60px_rgba(0,0,0,0.98)]"
+                  style={{
+                    background: "linear-gradient(90deg, #1c0e07 0%, #4a2815 35%, #6a3c20 50%, #30170a 75%, #120703 100%)",
+                  }}
+                >
+                  {/* Handle Gloss Sheen Highlight */}
+                  <div className="absolute inset-y-0 left-[35%] w-1.5 bg-white/10 blur-[0.5px]" />
+                  {/* Bottom Metal Cap Ring */}
+                  <div className="absolute bottom-0 inset-x-0 h-4 rounded-b-2xl bg-gradient-to-r from-[#7a5328] via-[#c8b082] to-[#3a220d] border-t border-[#ffe0a3]/60" />
                 </div>
               </div>
             </div>
 
-            {/* FLOATING METRIC CARDS (RIGHT SIDE) */}
-            <div className="absolute right-6 bottom-6 flex flex-col gap-3.5 z-30 w-48">
+            {/* FLOATING TILTED METRIC REPORT CARDS (RIGHT SIDE) */}
+            <div className="absolute right-6 bottom-7 flex flex-col gap-3.5 z-30 w-52 transform -rotate-[2.5deg] select-none">
               {/* Card 1: PERFORMANCE SCORE */}
-              <div className="bg-[#0e0e13]/95 border border-zinc-800/90 rounded-xl p-3.5 shadow-2xl backdrop-blur-md">
+              <div className="bg-[#15151c]/95 border border-zinc-800/90 rounded-2xl p-4 shadow-[0_20px_45px_rgba(0,0,0,0.9)] backdrop-blur-md">
                 <div className="text-[10px] font-bold text-zinc-400 tracking-wider uppercase mb-1">
                   PERFORMANCE SCORE
                 </div>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-3xl font-black text-[#e06a3b] tracking-tight">
+                <div className="flex items-baseline gap-1.5 my-0.5">
+                  <span className="text-4xl font-extrabold text-[#d8a764] tracking-tight">
                     68
                   </span>
-                  <span className="text-xs text-zinc-500 font-medium">/100</span>
+                  <span className="text-sm text-zinc-500 font-medium">/100</span>
                 </div>
-                <div className="text-xs font-semibold text-[#e06a3b] mt-0.5">
+                <div className="text-xs font-semibold text-[#e88d43] mt-0.5">
                   Needs Improvement
                 </div>
               </div>
 
               {/* Card 2: CORE WEB VITALS */}
-              <div className="bg-[#0e0e13]/95 border border-zinc-800/90 rounded-xl p-3.5 shadow-2xl backdrop-blur-md">
-                <div className="text-[10px] font-bold text-zinc-400 tracking-wider uppercase mb-2">
+              <div className="bg-[#15151c]/95 border border-zinc-800/90 rounded-2xl p-4 shadow-[0_20px_45px_rgba(0,0,0,0.9)] backdrop-blur-md">
+                <div className="text-[10px] font-bold text-zinc-400 tracking-wider uppercase mb-2.5">
                   CORE WEB VITALS
                 </div>
-                <div className="space-y-2 text-xs font-mono">
+                <div className="space-y-2.5 text-xs font-mono">
+                  {/* LCP */}
                   <div className="flex items-center justify-between">
-                    <span className="text-zinc-400">LCP</span>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-zinc-100 font-semibold">4.2s</span>
-                      <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block shadow-[0_0_8px_#ef4444]" />
+                    <span className="text-zinc-400 font-medium">LCP</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#e0524c] font-bold">4.2s</span>
+                      <div className="w-3.5 h-3.5 rounded-full bg-[#2a1414] border border-[#e0524c]/40 flex items-center justify-center">
+                        <span className="w-2 h-2 rounded-full bg-[#e0524c] shadow-[0_0_6px_#e0524c]" />
+                      </div>
                     </div>
                   </div>
 
+                  {/* INP */}
                   <div className="flex items-center justify-between">
-                    <span className="text-zinc-400">INP</span>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-zinc-100 font-semibold">391ms</span>
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block shadow-[0_0_8px_#f59e0b]" />
+                    <span className="text-zinc-400 font-medium">INP</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#cbb04a] font-bold">391ms</span>
+                      <div className="w-3.5 h-3.5 rounded-full bg-[#242012] border border-[#cbb04a]/40 flex items-center justify-center">
+                        <span className="w-2 h-2 rounded-full bg-[#cbb04a] shadow-[0_0_6px_#cbb04a]" />
+                      </div>
                     </div>
                   </div>
 
+                  {/* CLS */}
                   <div className="flex items-center justify-between">
-                    <span className="text-zinc-400">CLS</span>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-zinc-100 font-semibold">0.28</span>
-                      <span className="w-2.5 h-2.5 rounded-full bg-red-500 inline-block shadow-[0_0_8px_#ef4444]" />
+                    <span className="text-zinc-400 font-medium">CLS</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#cbb04a] font-bold">0.28</span>
+                      <div className="w-3.5 h-3.5 rounded-full bg-[#242012] border border-[#cbb04a]/40 flex items-center justify-center">
+                        <span className="w-2 h-2 rounded-full bg-[#cbb04a] shadow-[0_0_6px_#cbb04a]" />
+                      </div>
                     </div>
                   </div>
                 </div>
