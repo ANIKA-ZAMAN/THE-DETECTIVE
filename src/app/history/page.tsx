@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -24,9 +24,13 @@ import {
   ArrowUpRight,
   BarChart3,
   GitCompare,
+  ChevronDown,
+  ExternalLink,
 } from "lucide-react";
 import type { HistoryEntry } from "@/types";
 import { Navbar } from "@/components/layout/Navbar";
+
+type HistoryMetric = "Performance Score" | "LCP (s)" | "Origin TTFB (ms)" | "Payload Size (KB)";
 
 function HistoryContent() {
   const searchParams = useSearchParams();
@@ -35,10 +39,16 @@ function HistoryContent() {
   const [mounted, setMounted] = useState(false);
   const [historyList, setHistoryList] = useState<HistoryEntry[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
   const [selectedBeforeId, setSelectedBeforeId] = useState<string | null>(null);
   const [selectedAfterId, setSelectedAfterId] = useState<string | null>(null);
   const [apiError, setApiError] = useState<string | null>(null);
+
+  // Chart Controls
+  const [selectedMetric, setSelectedMetric] = useState<HistoryMetric>("Performance Score");
+  const [timeFilter, setTimeFilter] = useState<string>("Last 30 Days");
+  const [hoveredPointIndex, setHoveredPointIndex] = useState<number | null>(null);
+
+  const chartScrollContainerRef = useRef<HTMLDivElement>(null);
 
   const fetchHistory = async () => {
     setLoading(true);
@@ -54,6 +64,7 @@ function HistoryContent() {
           setSelectedAfterId(json.data[0].id);
         } else if (json.data.length === 1) {
           setSelectedAfterId(json.data[0].id);
+          setSelectedBeforeId(json.data[0].id);
         }
       } else {
         setApiError("Failed to fetch scan history records.");
@@ -86,48 +97,94 @@ function HistoryContent() {
     fetchHistory();
   }, []);
 
-  const filteredHistory = historyList.filter((item) => {
-    if (!searchQuery.trim()) return true;
-    const q = searchQuery.toLowerCase().trim();
-    return (
-      item.targetUrl.toLowerCase().includes(q) ||
-      item.normalizedUrl.toLowerCase().includes(q) ||
-      item.caseId.toLowerCase().includes(q)
-    );
-  });
+  // Calculate before vs after delta values from selected records
+  const beforeEntry = historyList.find((h) => h.id === selectedBeforeId) || historyList[1] || historyList[0];
+  const afterEntry = historyList.find((h) => h.id === selectedAfterId) || historyList[0];
 
-  // Calculate before vs after diff
-  const beforeEntry = historyList.find((h) => h.id === selectedBeforeId);
-  const afterEntry = historyList.find((h) => h.id === selectedAfterId);
+  const score1 = beforeEntry?.overallHealthScore ?? 0;
+  const score2 = afterEntry?.overallHealthScore ?? 0;
+  const scoreDelta = score2 - score1;
 
-  const scoreDiff =
-    beforeEntry && afterEntry
-      ? afterEntry.overallHealthScore - beforeEntry.overallHealthScore
-      : 0;
+  const lcp1 = beforeEntry?.metrics?.lcpSec ?? 0;
+  const lcp2 = afterEntry?.metrics?.lcpSec ?? 0;
+  const lcpDelta = Number((lcp2 - lcp1).toFixed(2));
 
-  const lcpDiff =
-    beforeEntry && afterEntry
-      ? Number((afterEntry.metrics.lcpSec - beforeEntry.metrics.lcpSec).toFixed(2))
-      : 0;
+  const size1 = beforeEntry?.metrics?.pageSizeKb ?? 0;
+  const size2 = afterEntry?.metrics?.pageSizeKb ?? 0;
+  const sizeDelta = size2 - size1;
 
-  const sizeDiff =
-    beforeEntry && afterEntry
-      ? afterEntry.metrics.pageSizeKb - beforeEntry.metrics.pageSizeKb
-      : 0;
+  const ttfb1 = beforeEntry?.metrics?.ttfbMs ?? 0;
+  const ttfb2 = afterEntry?.metrics?.ttfbMs ?? 0;
+  const ttfbDelta = ttfb2 - ttfb1;
 
-  const ttfbDiff =
-    beforeEntry && afterEntry
-      ? afterEntry.metrics.ttfbMs - beforeEntry.metrics.ttfbMs
-      : 0;
+  // Prepare chronological chart points (oldest to newest)
+  const chronologicalHistory = [...historyList].reverse();
+
+  // Helper to get metric value for a history point
+  const getPointMetricValue = (entry: HistoryEntry) => {
+    if (selectedMetric === "LCP (s)") return entry.metrics?.lcpSec ?? 0;
+    if (selectedMetric === "Origin TTFB (ms)") return entry.metrics?.ttfbMs ?? 0;
+    if (selectedMetric === "Payload Size (KB)") return entry.metrics?.pageSizeKb ?? 0;
+    return entry.overallHealthScore ?? 0;
+  };
+
+  const getMetricUnit = () => {
+    if (selectedMetric === "LCP (s)") return "s";
+    if (selectedMetric === "Origin TTFB (ms)") return "ms";
+    if (selectedMetric === "Payload Size (KB)") return " KB";
+    return "/100";
+  };
+
+  // Compute SVG chart coordinates
+  const getChartPoints = () => {
+    if (chronologicalHistory.length === 0) return { points: [], maxY: 100, pathString: "", areaString: "", svgWidth: 700 };
+
+    const values = chronologicalHistory.map(getPointMetricValue);
+    const maxVal = Math.max(...values, selectedMetric === "Performance Score" ? 100 : 5);
+    const maxY = selectedMetric === "Performance Score" ? 100 : Math.ceil(maxVal * 1.25);
+
+    const totalPoints = Math.max(11, chronologicalHistory.length);
+    const svgWidth = Math.max(700, totalPoints * 75);
+
+    const points = chronologicalHistory.map((entry, idx) => {
+      const x = (idx / Math.max(1, chronologicalHistory.length - 1)) * (svgWidth - 60) + 30;
+      const val = getPointMetricValue(entry);
+      const y = 140 - Math.min(125, (val / (maxY || 1)) * 120);
+      return {
+        x,
+        y,
+        val,
+        entry,
+        date: entry.investigatedAt || "Scan Date",
+        caseId: entry.caseId,
+        url: entry.normalizedUrl.replace(/^https?:\/\//, ""),
+      };
+    });
+
+    const pathString = points.reduce((acc, p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `${acc} L ${p.x} ${p.y}`), "");
+    const areaString = points.length > 0
+      ? `${pathString} L ${points[points.length - 1].x} 140 L ${points[0].x} 140 Z`
+      : "";
+
+    return { points, maxY, pathString, areaString, svgWidth };
+  };
+
+  const chartData = getChartPoints();
+
+  // Relative time helper
+  const getRelativeTime = (dateStr?: string) => {
+    if (!dateStr) return "recently";
+    return "recent scan";
+  };
 
   if (!mounted) {
     return (
       <div className="min-h-screen bg-[#070709] text-zinc-100 detective-grid relative overflow-x-hidden flex flex-col justify-between">
         <Navbar />
         <main className="w-full max-w-7xl mx-auto px-6 py-8 flex-1 space-y-8">
-          <div className="bg-[#0e0e13]/95 border border-zinc-800/90 rounded-3xl p-8 shadow-2xl animate-pulse h-48 flex items-center justify-center text-zinc-500 text-sm">
+          <div className="bg-[#0e0e13]/95 border border-zinc-800/90 rounded-3xl p-8 shadow-2xl animate-pulse h-64 flex items-center justify-center text-zinc-500 text-sm">
             <RefreshCw className="w-5 h-5 animate-spin text-[#c8b082] mr-3" />
-            Loading Forensic Scan Archive...
+            Loading Forensic History Archive...
           </div>
         </main>
       </div>
@@ -136,15 +193,15 @@ function HistoryContent() {
 
   return (
     <div className="min-h-screen bg-[#070709] text-zinc-100 detective-grid relative overflow-x-hidden flex flex-col justify-between">
-      {/* ────────────────── NAVBAR ────────────────── */}
+      {/* ────────────────── TOP NAVBAR ────────────────── */}
       <Navbar />
 
-      {/* ────────────────── MAIN HISTORY DOSSIER ────────────────── */}
-      <main className="w-full max-w-7xl mx-auto px-6 py-8 flex-1 space-y-8">
-        {/* Header Title & Controls */}
+      {/* ────────────────── MAIN HISTORY WORKSPACE ────────────────── */}
+      <main className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 py-6 flex-1 space-y-5">
+        {/* Top Header Bar & Action Buttons */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-[#c8b082] uppercase mb-1">
+            <div className="inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] text-[#c8b082] uppercase mb-1">
               <HistoryIcon className="w-3.5 h-3.5" />
               CASE EVIDENCE CHRONOLOGY
             </div>
@@ -156,20 +213,21 @@ function HistoryContent() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             {historyList.length > 0 && (
               <button
                 onClick={handleClearHistory}
-                className="px-3.5 py-2 text-xs font-semibold text-red-400 hover:text-red-300 bg-red-950/30 hover:bg-red-900/40 border border-red-900/50 rounded-xl flex items-center gap-1.5 transition-all cursor-pointer"
+                className="px-4 py-2 text-xs font-semibold text-red-400 hover:text-red-300 bg-[#1e1111] hover:bg-red-950/60 border border-red-900/60 rounded-xl flex items-center gap-1.5 transition-all shadow cursor-pointer"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>Clear History</span>
               </button>
             )}
+
             <button
               onClick={fetchHistory}
               disabled={loading}
-              className="px-3.5 py-2 text-xs font-semibold text-zinc-300 bg-[#121218] hover:bg-zinc-800 border border-zinc-800 rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-4 py-2 text-xs font-semibold text-zinc-300 hover:text-white bg-[#14141c] hover:bg-zinc-800 border border-zinc-800 rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-[#c8b082]" : ""}`} />
               <span>Refresh Log</span>
@@ -177,364 +235,452 @@ function HistoryContent() {
           </div>
         </div>
 
-        {/* Error Alert */}
+        {/* Error Alert if any */}
         {apiError && (
-          <div className="bg-red-950/40 border border-red-800/80 rounded-2xl p-5 flex items-start gap-4 text-red-200 text-sm shadow-2xl backdrop-blur-md">
+          <div className="bg-red-950/40 border border-red-800/80 rounded-2xl p-4 flex items-start gap-3 text-red-200 text-sm shadow-2xl backdrop-blur-md">
             <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-            <div className="space-y-1">
-              <div className="font-bold text-red-300 text-base">Archive Notice</div>
-              <p className="text-xs text-red-200/90 leading-relaxed">{apiError}</p>
+            <div className="space-y-0.5">
+              <div className="font-bold text-red-300">History Notice</div>
+              <p className="text-xs text-red-200/90">{apiError}</p>
             </div>
           </div>
         )}
 
-        {/* 1. BEFORE VS. AFTER COMPARISON PANEL */}
-        {historyList.length >= 2 && beforeEntry && afterEntry && (
-          <div className="bg-[#0e0e13]/95 border border-zinc-800/90 rounded-3xl p-6 lg:p-8 shadow-2xl space-y-6">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-zinc-800 pb-4">
-              <div>
-                <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <GitCompare className="w-4 h-4 text-[#c8b082]" />
-                  Before vs. After Delta Comparison
-                </h2>
-                <p className="text-xs text-zinc-400 mt-0.5">
-                  Select any two historical scans to measure performance gains or regressions.
-                </p>
-              </div>
-
-              {/* Quick Selectors */}
-              <div className="flex items-center gap-3 text-xs flex-wrap">
-                <div className="flex items-center gap-1.5 bg-[#14141c] border border-zinc-800 px-2.5 py-1.5 rounded-xl">
-                  <span className="text-zinc-500 font-mono text-[11px]">Before:</span>
-                  <select
-                    value={selectedBeforeId || ""}
-                    onChange={(e) => setSelectedBeforeId(e.target.value)}
-                    className="bg-transparent text-zinc-200 outline-none font-mono text-xs cursor-pointer"
-                  >
-                    {historyList.map((h) => (
-                      <option key={h.id} value={h.id} className="bg-[#121218] text-white">
-                        {h.caseId} - {h.normalizedUrl.replace(/^https?:\/\//, "")} ({h.overallHealthScore}/100)
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="flex items-center gap-1.5 bg-[#14141c] border border-zinc-800 px-2.5 py-1.5 rounded-xl">
-                  <span className="text-zinc-500 font-mono text-[11px]">After:</span>
-                  <select
-                    value={selectedAfterId || ""}
-                    onChange={(e) => setSelectedAfterId(e.target.value)}
-                    className="bg-transparent text-zinc-200 outline-none font-mono text-xs cursor-pointer"
-                  >
-                    {historyList.map((h) => (
-                      <option key={h.id} value={h.id} className="bg-[#121218] text-white">
-                        {h.caseId} - {h.normalizedUrl.replace(/^https?:\/\//, "")} ({h.overallHealthScore}/100)
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            {/* Delta Highlights Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* Score Delta */}
-              <div className="bg-[#13131a] border border-zinc-800/90 rounded-2xl p-5 space-y-2">
-                <span className="text-xs text-zinc-400 font-medium">Score Evolution</span>
-                <div className="flex items-baseline justify-between">
-                  <div className="text-2xl font-black font-mono text-white">
-                    {beforeEntry.overallHealthScore}{" "}
-                    <span className="text-zinc-500 text-sm font-normal">→</span>{" "}
-                    <span className="text-[#d8a764]">{afterEntry.overallHealthScore}</span>
-                  </div>
-                  <span
-                    className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
-                      scoreDiff >= 0
-                        ? "text-emerald-400 bg-emerald-500/10 border border-emerald-500/30"
-                        : "text-red-400 bg-red-500/10 border border-red-500/30"
-                    }`}
-                  >
-                    {scoreDiff >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                    {scoreDiff >= 0 ? `+${scoreDiff}` : scoreDiff} pts
-                  </span>
-                </div>
-                <div className="text-[11px] text-zinc-500">
-                  {scoreDiff > 0
-                    ? "Optimization improved overall health score."
-                    : scoreDiff < 0
-                    ? "Performance regression detected."
-                    : "No net score change between audits."}
-                </div>
-              </div>
-
-              {/* LCP Delta */}
-              <div className="bg-[#13131a] border border-zinc-800/90 rounded-2xl p-5 space-y-2">
-                <span className="text-xs text-zinc-400 font-medium">Largest Contentful Paint</span>
-                <div className="flex items-baseline justify-between">
-                  <div className="text-2xl font-black font-mono text-white">
-                    {beforeEntry.metrics.lcpSec}s{" "}
-                    <span className="text-zinc-500 text-sm font-normal">→</span>{" "}
-                    <span>{afterEntry.metrics.lcpSec}s</span>
-                  </div>
-                  <span
-                    className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
-                      lcpDiff <= 0
-                        ? "text-emerald-400 bg-emerald-500/10 border border-emerald-500/30"
-                        : "text-red-400 bg-red-500/10 border border-red-500/30"
-                    }`}
-                  >
-                    {lcpDiff <= 0 ? `${lcpDiff}s faster` : `+${lcpDiff}s slower`}
-                  </span>
-                </div>
-                <div className="text-[11px] text-zinc-500">Perceived render timing delta.</div>
-              </div>
-
-              {/* Page Size Delta */}
-              <div className="bg-[#13131a] border border-zinc-800/90 rounded-2xl p-5 space-y-2">
-                <span className="text-xs text-zinc-400 font-medium">Payload Size</span>
-                <div className="flex items-baseline justify-between">
-                  <div className="text-2xl font-black font-mono text-white">
-                    {beforeEntry.metrics.pageSizeKb} KB{" "}
-                    <span className="text-zinc-500 text-sm font-normal">→</span>{" "}
-                    <span>{afterEntry.metrics.pageSizeKb} KB</span>
-                  </div>
-                  <span
-                    className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
-                      sizeDiff <= 0
-                        ? "text-emerald-400 bg-emerald-500/10 border border-emerald-500/30"
-                        : "text-amber-400 bg-amber-500/10 border border-amber-500/30"
-                    }`}
-                  >
-                    {sizeDiff <= 0 ? `${sizeDiff} KB` : `+${sizeDiff} KB`}
-                  </span>
-                </div>
-                <div className="text-[11px] text-zinc-500">Wire transfer reduction delta.</div>
-              </div>
-
-              {/* TTFB Delta */}
-              <div className="bg-[#13131a] border border-zinc-800/90 rounded-2xl p-5 space-y-2">
-                <span className="text-xs text-zinc-400 font-medium">Origin TTFB</span>
-                <div className="flex items-baseline justify-between">
-                  <div className="text-2xl font-black font-mono text-white">
-                    {beforeEntry.metrics.ttfbMs}ms{" "}
-                    <span className="text-zinc-500 text-sm font-normal">→</span>{" "}
-                    <span>{afterEntry.metrics.ttfbMs}ms</span>
-                  </div>
-                  <span
-                    className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
-                      ttfbDiff <= 0
-                        ? "text-emerald-400 bg-emerald-500/10 border border-emerald-500/30"
-                        : "text-red-400 bg-red-500/10 border border-red-500/30"
-                    }`}
-                  >
-                    {ttfbDiff <= 0 ? `${ttfbDiff}ms` : `+${ttfbDiff}ms`}
-                  </span>
-                </div>
-                <div className="text-[11px] text-zinc-500">Server response latency variance.</div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* 2. PERFORMANCE HISTORY TREND TIMELINE */}
-        {historyList.length > 0 && (
-          <div className="bg-[#0e0e13]/95 border border-zinc-800/90 rounded-3xl p-6 lg:p-8 shadow-2xl space-y-6">
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
-              <div>
-                <h3 className="text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                  <BarChart3 className="w-4 h-4 text-[#c8b082]" />
-                  Performance Score Trend Trajectory
-                </h3>
-                <p className="text-xs text-zinc-400 mt-0.5">Chronological audit score trajectory</p>
-              </div>
-              <span className="text-xs font-mono text-zinc-500">{historyList.length} Total Audits Logged</span>
-            </div>
-
-            {/* Visual Sparkline Trend Bars */}
-            <div className="h-32 flex items-end gap-2.5 pt-4 pb-2 px-2 overflow-x-auto">
-              {historyList
-                .slice(0, 18)
-                .reverse()
-                .map((entry, idx) => {
-                  const score = entry.overallHealthScore;
-                  const heightPercent = Math.max(15, score);
-                  return (
-                    <div
-                      key={idx}
-                      className="flex-1 min-w-8 flex flex-col items-center gap-1 group relative cursor-pointer"
-                      onClick={() => router.push(`/overview?url=${encodeURIComponent(entry.normalizedUrl)}`)}
-                    >
-                      {/* Tooltip on Hover */}
-                      <div className="absolute -top-10 bg-[#161622] border border-zinc-700 text-[10px] text-zinc-200 px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl z-20 font-mono">
-                        {entry.normalizedUrl.replace(/^https?:\/\//, "")}: {score}/100
-                      </div>
-
-                      <div
-                        style={{ height: `${heightPercent}%` }}
-                        className={`w-full rounded-t-lg transition-all ${
-                          score >= 80
-                            ? "bg-emerald-400 group-hover:bg-emerald-300"
-                            : score >= 60
-                            ? "bg-[#d8a764] group-hover:bg-[#e4c084]"
-                            : "bg-red-400 group-hover:bg-red-300"
-                        }`}
-                      />
-                      <span className="text-[9px] font-mono text-zinc-500 truncate w-full text-center">
-                        {score}
-                      </span>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
-        )}
-
-        {/* 3. HISTORICAL SCAN ARCHIVE TABLE */}
-        <div className="bg-[#0e0e13]/95 border border-zinc-800/90 rounded-3xl p-6 lg:p-8 shadow-2xl space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-zinc-800 pb-4">
+        {/* 1. BEFORE VS. AFTER DELTA COMPARISON CARD */}
+        <div className="bg-[#0e0e13]/95 border border-zinc-800/90 rounded-3xl p-6 lg:p-8 shadow-2xl space-y-6 backdrop-blur-md">
+          {/* Header & Dropdowns Row */}
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 border-b border-zinc-800/80 pb-4">
             <div>
-              <h3 className="text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-[#c8b082]" />
-                Forensic Scan Records
-              </h3>
+              <h2 className="text-base font-bold text-white flex items-center gap-2">
+                <GitCompare className="w-4 h-4 text-[#c8b082]" />
+                Before vs. After Delta Comparison
+              </h2>
               <p className="text-xs text-zinc-400 mt-0.5">
-                Every investigated URL is preserved with captured Core Web Vitals telemetry.
+                Select any two historical scans to measure performance gains or regressions.
               </p>
             </div>
 
-            {/* Filter Search */}
-            <div className="flex items-center gap-2 bg-[#121218] border border-zinc-800 rounded-xl px-3 py-1.5 w-full sm:w-72">
-              <Search className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Filter by domain or case ID..."
-                className="bg-transparent text-xs text-zinc-200 placeholder-zinc-500 outline-none w-full font-mono"
-              />
+            {/* Dropdowns */}
+            <div className="flex items-center gap-3 text-xs flex-wrap w-full lg:w-auto">
+              {/* Before Dropdown */}
+              <div className="flex items-center gap-1.5 bg-[#14141c] border border-zinc-800 px-3 py-2 rounded-xl">
+                <span className="text-zinc-500 font-mono text-[11px]">Before:</span>
+                <select
+                  value={selectedBeforeId || ""}
+                  onChange={(e) => setSelectedBeforeId(e.target.value)}
+                  className="bg-transparent text-zinc-200 outline-none font-mono text-xs cursor-pointer max-w-[220px]"
+                >
+                  {historyList.map((h) => (
+                    <option key={h.id} value={h.id} className="bg-[#121218] text-white">
+                      {h.caseId} - {h.normalizedUrl.replace(/^https?:\/\//, "")} ({h.overallHealthScore}/100)
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* After Dropdown */}
+              <div className="flex items-center gap-1.5 bg-[#14141c] border border-zinc-800 px-3 py-2 rounded-xl">
+                <span className="text-zinc-500 font-mono text-[11px]">After:</span>
+                <select
+                  value={selectedAfterId || ""}
+                  onChange={(e) => setSelectedAfterId(e.target.value)}
+                  className="bg-transparent text-zinc-200 outline-none font-mono text-xs cursor-pointer max-w-[220px]"
+                >
+                  {historyList.map((h) => (
+                    <option key={h.id} value={h.id} className="bg-[#121218] text-white">
+                      {h.caseId} - {h.normalizedUrl.replace(/^https?:\/\//, "")} ({h.overallHealthScore}/100)
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
+          </div>
+
+          {/* 4 Delta Metric Cards Row */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Score Evolution */}
+            <div className="bg-[#121218] border border-zinc-800/80 rounded-2xl p-5 space-y-2">
+              <span className="text-xs text-zinc-400 font-medium">Score Evolution</span>
+              <div className="flex items-baseline justify-between">
+                <div className="text-2xl font-black font-mono text-white">
+                  {score1} <span className="text-zinc-500 text-sm font-normal">→</span> <span>{score2}</span>
+                </div>
+                <span
+                  className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
+                    scoreDelta > 0
+                      ? "text-emerald-400 bg-emerald-500/10 border border-emerald-500/30"
+                      : scoreDelta < 0
+                      ? "text-red-400 bg-red-500/10 border border-red-500/30"
+                      : "text-zinc-400 bg-zinc-800 border border-zinc-700"
+                  }`}
+                >
+                  {scoreDelta > 0 ? `+${scoreDelta} pts` : scoreDelta < 0 ? `${scoreDelta} pts` : "+0 pts"}
+                </span>
+              </div>
+              <div className="text-[11px] text-zinc-500">
+                {scoreDelta > 0
+                  ? "Optimization improved overall health score."
+                  : scoreDelta < 0
+                  ? "Performance regression detected."
+                  : "No net score change between audits."}
+              </div>
+            </div>
+
+            {/* Largest Contentful Paint */}
+            <div className="bg-[#121218] border border-zinc-800/80 rounded-2xl p-5 space-y-2">
+              <span className="text-xs text-zinc-400 font-medium">Largest Contentful Paint</span>
+              <div className="flex items-baseline justify-between">
+                <div className="text-2xl font-black font-mono text-white">
+                  {lcp1}s <span className="text-zinc-500 text-sm font-normal">→</span> <span>{lcp2}s</span>
+                </div>
+                <span
+                  className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
+                    lcpDelta <= 0
+                      ? "text-emerald-400 bg-emerald-500/10 border border-emerald-500/30"
+                      : "text-red-400 bg-red-500/10 border border-red-500/30"
+                  }`}
+                >
+                  {lcpDelta <= 0 ? `${Math.abs(lcpDelta)}s faster` : `+${lcpDelta}s slower`}
+                </span>
+              </div>
+              <div className="text-[11px] text-zinc-500">Perceived render timing delta.</div>
+            </div>
+
+            {/* Payload Size */}
+            <div className="bg-[#121218] border border-zinc-800/80 rounded-2xl p-5 space-y-2">
+              <span className="text-xs text-zinc-400 font-medium">Payload Size</span>
+              <div className="flex items-baseline justify-between">
+                <div className="text-2xl font-black font-mono text-white">
+                  {size1} KB <span className="text-zinc-500 text-sm font-normal">→</span> <span>{size2} KB</span>
+                </div>
+                <span
+                  className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
+                    sizeDelta <= 0
+                      ? "text-emerald-400 bg-emerald-500/10 border border-emerald-500/30"
+                      : "text-amber-400 bg-amber-500/10 border border-amber-500/30"
+                  }`}
+                >
+                  {sizeDelta <= 0 ? `${sizeDelta} KB` : `+${sizeDelta} KB`}
+                </span>
+              </div>
+              <div className="text-[11px] text-zinc-500">Wire transfer reduction delta.</div>
+            </div>
+
+            {/* Origin TTFB */}
+            <div className="bg-[#121218] border border-zinc-800/80 rounded-2xl p-5 space-y-2">
+              <span className="text-xs text-zinc-400 font-medium">Origin TTFB</span>
+              <div className="flex items-baseline justify-between">
+                <div className="text-2xl font-black font-mono text-white">
+                  {ttfb1}ms <span className="text-zinc-500 text-sm font-normal">→</span> <span>{ttfb2}ms</span>
+                </div>
+                <span
+                  className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
+                    ttfbDelta <= 0
+                      ? "text-emerald-400 bg-emerald-500/10 border border-emerald-500/30"
+                      : "text-red-400 bg-red-500/10 border border-red-500/30"
+                  }`}
+                >
+                  {ttfbDelta <= 0 ? `${ttfbDelta}ms` : `+${ttfbDelta}ms`}
+                </span>
+              </div>
+              <div className="text-[11px] text-zinc-500">Server response latency variance.</div>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. PERFORMANCE HISTORY OVER TIME GOLDEN WAVE CHART */}
+        <div className="bg-[#0e0e13]/95 border border-zinc-800/90 rounded-3xl p-6 lg:p-8 shadow-2xl space-y-4 backdrop-blur-md">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-zinc-800/80 pb-3">
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-white font-mono flex items-center gap-2">
+                <BarChart3 className="w-4 h-4 text-[#c8b082]" />
+                PERFORMANCE HISTORY OVER TIME
+              </h3>
+              <p className="text-xs text-zinc-400 mt-0.5">
+                {selectedMetric} trend across all historical audits.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              {/* Metric Dropdown */}
+              <div className="bg-[#14141c] border border-zinc-800 rounded-xl px-3 py-1.5 text-xs font-mono">
+                <select
+                  value={selectedMetric}
+                  onChange={(e) => setSelectedMetric(e.target.value as HistoryMetric)}
+                  className="bg-transparent text-zinc-200 outline-none cursor-pointer"
+                >
+                  <option className="bg-[#121218]">Performance Score</option>
+                  <option className="bg-[#121218]">LCP (s)</option>
+                  <option className="bg-[#121218]">Origin TTFB (ms)</option>
+                  <option className="bg-[#121218]">Payload Size (KB)</option>
+                </select>
+              </div>
+
+              {/* Range Dropdown */}
+              <div className="bg-[#14141c] border border-zinc-800 rounded-xl px-3 py-1.5 text-xs font-mono text-zinc-300">
+                <select
+                  value={timeFilter}
+                  onChange={(e) => setTimeFilter(e.target.value)}
+                  className="bg-transparent text-zinc-200 outline-none cursor-pointer"
+                >
+                  <option className="bg-[#121218]">Last 30 Days</option>
+                  <option className="bg-[#121218]">Last 7 Days</option>
+                  <option className="bg-[#121218]">All Time</option>
+                </select>
+              </div>
+
+              <span className="text-xs font-mono text-zinc-500 hidden sm:inline">
+                {historyList.length} Total Audits
+              </span>
+            </div>
+          </div>
+
+          {/* SVG Golden Wave Chart with Horizontal Scroll Container */}
+          <div
+            ref={chartScrollContainerRef}
+            className="relative h-48 w-full bg-[#08080c] rounded-2xl border border-zinc-850 p-2 overflow-x-auto overflow-y-hidden select-none"
+          >
+            {chartData.points.length === 0 ? (
+              <div className="h-full flex items-center justify-center text-zinc-500 text-xs font-mono">
+                No historical audit records available. Run an investigation to generate trajectory data.
+              </div>
+            ) : (
+              <div style={{ width: `${chartData.svgWidth}px`, height: "100%" }} className="relative">
+                <svg
+                  className="w-full h-full"
+                  viewBox={`0 0 ${chartData.svgWidth} 150`}
+                  fill="none"
+                  onMouseLeave={() => setHoveredPointIndex(null)}
+                >
+                  <defs>
+                    <linearGradient id="gold-wave-grad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#c8b082" stopOpacity="0.25" />
+                      <stop offset="100%" stopColor="#c8b082" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Y Axis Grid Lines */}
+                  <line x1="30" y1="20" x2={chartData.svgWidth - 20} y2="20" stroke="#1c1c24" strokeWidth="0.8" strokeDasharray="3 3" />
+                  <text x="10" y="24" fill="#52525b" fontSize="8" fontFamily="monospace">100</text>
+
+                  <line x1="30" y1="55" x2={chartData.svgWidth - 20} y2="55" stroke="#1c1c24" strokeWidth="0.8" strokeDasharray="3 3" />
+                  <text x="10" y="59" fill="#52525b" fontSize="8" fontFamily="monospace">75</text>
+
+                  <line x1="30" y1="90" x2={chartData.svgWidth - 20} y2="90" stroke="#1c1c24" strokeWidth="0.8" strokeDasharray="3 3" />
+                  <text x="10" y="94" fill="#52525b" fontSize="8" fontFamily="monospace">50</text>
+
+                  <line x1="30" y1="120" x2={chartData.svgWidth - 20} y2="120" stroke="#1c1c24" strokeWidth="0.8" strokeDasharray="3 3" />
+                  <text x="10" y="124" fill="#52525b" fontSize="8" fontFamily="monospace">25</text>
+
+                  <text x="10" y="145" fill="#52525b" fontSize="8" fontFamily="monospace">0</text>
+
+                  {/* Golden Gradient Area */}
+                  {chartData.areaString && (
+                    <path d={chartData.areaString} fill="url(#gold-wave-grad)" />
+                  )}
+
+                  {/* Golden Stroke Wave */}
+                  {chartData.pathString && (
+                    <path
+                      d={chartData.pathString}
+                      stroke="#c8b082"
+                      strokeWidth="2.5"
+                      fill="none"
+                    />
+                  )}
+
+                  {/* Glowing Node Dots */}
+                  {chartData.points.map((p, i) => (
+                    <g key={i} className="cursor-pointer" onMouseEnter={() => setHoveredPointIndex(i)}>
+                      <circle
+                        cx={p.x}
+                        cy={p.y}
+                        r="4"
+                        fill="#c8b082"
+                        className="transition-all hover:r-6 shadow"
+                      />
+                      <circle cx={p.x} cy={p.y} r="2" fill="#ffffff" />
+                    </g>
+                  ))}
+
+                  {/* Hover Indicator Crosshair */}
+                  {hoveredPointIndex !== null && chartData.points[hoveredPointIndex] && (
+                    <line
+                      x1={chartData.points[hoveredPointIndex].x}
+                      y1="10"
+                      x2={chartData.points[hoveredPointIndex].x}
+                      y2="140"
+                      stroke="#c8b082"
+                      strokeWidth="1"
+                      strokeDasharray="2 2"
+                    />
+                  )}
+                </svg>
+
+                {/* Hover Tooltip Callout */}
+                {hoveredPointIndex !== null && chartData.points[hoveredPointIndex] && (
+                  <div
+                    style={{
+                      left: `${Math.min(chartData.svgWidth - 160, Math.max(10, chartData.points[hoveredPointIndex].x - 60))}px`,
+                      top: `${Math.max(10, chartData.points[hoveredPointIndex].y - 50)}px`,
+                    }}
+                    className="absolute bg-[#121218]/95 border border-[#c8b082]/60 text-[10px] font-mono px-3 py-2 rounded-xl shadow-2xl pointer-events-none z-20 space-y-0.5 backdrop-blur-md"
+                  >
+                    <div className="text-zinc-400 font-bold">
+                      {chartData.points[hoveredPointIndex].date}
+                    </div>
+                    <div className="text-white font-bold flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#c8b082]" />
+                      <span>{selectedMetric}:</span>
+                      <strong className="text-[#c8b082]">{chartData.points[hoveredPointIndex].val}{getMetricUnit()}</strong>
+                    </div>
+                    <div className="text-zinc-500 text-[9px]">
+                      {chartData.points[hoveredPointIndex].caseId} • {chartData.points[hoveredPointIndex].url}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* 3. HISTORICAL AUDIT LOGS TABLE */}
+        <div className="bg-[#0e0e13]/95 border border-zinc-800/90 rounded-3xl p-6 lg:p-8 shadow-2xl space-y-4 backdrop-blur-md">
+          <div className="border-b border-zinc-800/80 pb-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-white font-mono">
+              HISTORICAL AUDIT LOGS
+            </h3>
+            <p className="text-xs text-zinc-400 mt-0.5">
+              Chronological list of all website audits.
+            </p>
           </div>
 
           {loading ? (
             <div className="py-16 text-center text-zinc-500 text-sm flex flex-col items-center gap-3">
               <RefreshCw className="w-6 h-6 animate-spin text-[#c8b082]" />
-              <span>Retrieving historical scan logs...</span>
+              <span>Retrieving historical audit logs...</span>
             </div>
-          ) : filteredHistory.length === 0 ? (
+          ) : historyList.length === 0 ? (
             <div className="py-16 text-center text-zinc-400 text-sm flex flex-col items-center gap-3">
               <div className="w-12 h-12 rounded-2xl bg-[#14141c] border border-zinc-800 flex items-center justify-center text-[#c8b082]">
                 <Search className="w-6 h-6" />
               </div>
               <div className="space-y-1">
-                <div className="font-bold text-white text-base">No Scan Records Found</div>
+                <div className="font-bold text-white text-base">No Historical Audits Found</div>
                 <p className="text-xs text-zinc-500 max-w-sm">
-                  {searchQuery
-                    ? `No historical scans match "${searchQuery}".`
-                    : "Run your first performance audit from the home landing page to start recording scan history."}
+                  Run an investigation from the home or overview page to record your first scan.
                 </p>
               </div>
-              <Link
-                href="/"
-                className="mt-2 px-4 py-2 text-xs font-bold text-zinc-950 bg-[#c8b082] hover:bg-[#b89f71] rounded-xl flex items-center gap-1.5 transition-colors shadow"
-              >
-                <span>Initiate First Investigation</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse">
+              <table className="w-full text-left text-xs border-collapse font-mono">
                 <thead>
-                  <tr className="border-b border-zinc-800 text-zinc-400 font-mono">
-                    <th className="pb-3.5 font-semibold">Case File</th>
-                    <th className="pb-3.5 font-semibold">Target Website</th>
-                    <th className="pb-3.5 font-semibold">Scan Date</th>
-                    <th className="pb-3.5 font-semibold text-center">Score</th>
-                    <th className="pb-3.5 font-semibold text-center">LCP</th>
-                    <th className="pb-3.5 font-semibold text-center">INP</th>
-                    <th className="pb-3.5 font-semibold text-center">CLS</th>
-                    <th className="pb-3.5 font-semibold text-center">Size</th>
-                    <th className="pb-3.5 font-semibold text-center">Requests</th>
-                    <th className="pb-3.5 font-semibold text-right">Actions</th>
+                  <tr className="border-b border-zinc-800/80 text-zinc-500 text-[10px]">
+                    <th className="pb-3 font-semibold">Case ID</th>
+                    <th className="pb-3 font-semibold">URL</th>
+                    <th className="pb-3 font-semibold">Score</th>
+                    <th className="pb-3 font-semibold">Audit Date</th>
+                    <th className="pb-3 font-semibold">Changes</th>
+                    <th className="pb-3 font-semibold">Status</th>
+                    <th className="pb-3 font-semibold text-right">View</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-800/60 font-mono">
-                  {filteredHistory.map((entry) => (
-                    <tr key={entry.id} className="hover:bg-zinc-900/40 transition-colors">
-                      {/* Case ID */}
-                      <td className="py-4">
-                        <span className="px-2.5 py-1 rounded bg-[#dfd7c2] text-zinc-950 text-[11px] font-bold">
-                          {entry.caseId}
-                        </span>
-                      </td>
+                <tbody className="divide-y divide-zinc-800/40 text-xs">
+                  {historyList.map((entry, idx) => {
+                    const prevEntry = historyList[idx + 1];
+                    const diff = prevEntry
+                      ? entry.overallHealthScore - prevEntry.overallHealthScore
+                      : 0;
 
-                      {/* URL */}
-                      <td className="py-4 font-bold text-white">
-                        <div className="flex items-center gap-2">
-                          <Globe className="w-3.5 h-3.5 text-[#c8b082] shrink-0" />
-                          <span className="truncate max-w-xs block" title={entry.normalizedUrl}>
-                            {entry.normalizedUrl.replace(/^https?:\/\//, "")}
+                    const isImprovement = diff > 0;
+                    const isRegression = diff < 0;
+                    const isBaseline = !prevEntry || diff === 0;
+
+                    return (
+                      <tr key={entry.id} className="hover:bg-zinc-900/30 transition-colors">
+                        {/* Case ID */}
+                        <td className="py-3.5">
+                          <span className="text-zinc-400 font-bold">
+                            {entry.caseId}
                           </span>
-                        </div>
-                      </td>
+                        </td>
 
-                      {/* Date */}
-                      <td className="py-4 text-zinc-400 font-sans text-[11px]">
-                        {entry.investigatedAt}
-                      </td>
+                        {/* URL */}
+                        <td className="py-3.5 text-white font-bold">
+                          <div className="flex items-center gap-2">
+                            <Globe className="w-3.5 h-3.5 text-[#c8b082] shrink-0" />
+                            <span className="truncate max-w-xs block" title={entry.normalizedUrl}>
+                              {entry.normalizedUrl.replace(/^https?:\/\//, "")}
+                            </span>
+                          </div>
+                        </td>
 
-                      {/* Score */}
-                      <td className="py-4 text-center">
-                        <span
-                          className={`font-black px-2.5 py-1 rounded-lg text-xs border ${
-                            entry.overallHealthScore >= 80
-                              ? "text-emerald-400 bg-emerald-500/10 border-emerald-500/30"
-                              : entry.overallHealthScore >= 60
-                              ? "text-amber-400 bg-amber-500/10 border-amber-500/30"
-                              : "text-red-400 bg-red-500/10 border-red-500/30"
-                          }`}
-                        >
-                          {entry.overallHealthScore}
-                        </span>
-                      </td>
+                        {/* Score */}
+                        <td className="py-3.5">
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-5 h-5 rounded-full bg-[#181824] border border-zinc-700 flex items-center justify-center text-[10px] font-bold text-white">
+                              {entry.overallHealthScore}
+                            </span>
+                            <span className="text-zinc-500 text-[10px]">/100</span>
+                          </div>
+                        </td>
 
-                      {/* LCP */}
-                      <td className="py-4 text-center text-zinc-200">
-                        {entry.metrics.lcpSec}s
-                      </td>
+                        {/* Audit Date */}
+                        <td className="py-3.5 text-zinc-300 font-sans text-xs">
+                          <div>{entry.investigatedAt}</div>
+                          <div className="text-[10px] text-zinc-500 font-mono">{getRelativeTime(entry.investigatedAt)}</div>
+                        </td>
 
-                      {/* INP */}
-                      <td className="py-4 text-center text-zinc-300">
-                        {entry.metrics.inpMs ? `${entry.metrics.inpMs}ms` : "--"}
-                      </td>
+                        {/* Changes */}
+                        <td className="py-3.5">
+                          {isImprovement && (
+                            <span className="text-emerald-400 flex items-center gap-1 text-[11px]">
+                              ↑ Score increased by {diff} pts
+                            </span>
+                          )}
+                          {isRegression && (
+                            <span className="text-red-400 flex items-center gap-1 text-[11px]">
+                              ↓ Score decreased by {Math.abs(diff)} pts
+                            </span>
+                          )}
+                          {isBaseline && (
+                            <span className="text-zinc-500 text-[11px]">Baseline audit</span>
+                          )}
+                        </td>
 
-                      {/* CLS */}
-                      <td className="py-4 text-center text-zinc-200">
-                        {entry.metrics.cls}
-                      </td>
+                        {/* Status */}
+                        <td className="py-3.5">
+                          {isImprovement && (
+                            <span className="text-emerald-400 flex items-center gap-1.5 text-[11px]">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> Improvement
+                            </span>
+                          )}
+                          {isRegression && (
+                            <span className="text-red-400 flex items-center gap-1.5 text-[11px]">
+                              <span className="w-1.5 h-1.5 rounded-full bg-red-400" /> Regression
+                            </span>
+                          )}
+                          {isBaseline && (
+                            <span className="text-zinc-400 flex items-center gap-1.5 text-[11px]">
+                              <span className="w-1.5 h-1.5 rounded-full bg-zinc-500" /> Baseline
+                            </span>
+                          )}
+                        </td>
 
-                      {/* Size */}
-                      <td className="py-4 text-center text-zinc-300 font-bold">
-                        {entry.metrics.pageSizeKb} KB
-                      </td>
-
-                      {/* Requests */}
-                      <td className="py-4 text-center text-zinc-400">
-                        {entry.metrics.requestsCount}
-                      </td>
-
-                      {/* Actions */}
-                      <td className="py-4 text-right">
-                        <Link
-                          href={`/overview?url=${encodeURIComponent(entry.normalizedUrl)}`}
-                          className="inline-flex items-center gap-1 text-[11px] font-sans font-bold text-[#c8b082] hover:text-[#e8d098] bg-[#c8b082]/10 hover:bg-[#c8b082]/20 px-3 py-1.5 rounded-lg border border-[#c8b082]/30 transition-all"
-                        >
-                          <span>Open Dossier</span>
-                          <ArrowUpRight className="w-3 h-3" />
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
+                        {/* View Action */}
+                        <td className="py-3.5 text-right">
+                          <Link
+                            href={`/details?url=${encodeURIComponent(entry.normalizedUrl)}`}
+                            className="inline-flex items-center gap-1 px-3 py-1 bg-[#14141c] hover:bg-zinc-800 text-zinc-300 hover:text-white rounded-lg border border-zinc-800 text-xs font-semibold transition-colors"
+                          >
+                            <span>View Details</span>
+                            <ArrowRight className="w-3 h-3 text-[#c8b082]" />
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -552,7 +698,7 @@ export default function HistoryPage() {
         <div className="min-h-screen bg-[#070709] text-zinc-400 p-8 flex items-center justify-center">
           <div className="flex items-center gap-3 text-sm">
             <RefreshCw className="w-5 h-5 animate-spin text-[#c8b082]" />
-            <span>Loading History Dossier...</span>
+            <span>Loading History Archive...</span>
           </div>
         </div>
       }
