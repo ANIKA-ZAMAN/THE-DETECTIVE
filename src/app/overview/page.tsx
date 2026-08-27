@@ -18,27 +18,26 @@ import {
   Code2,
   FileText,
   Clock,
-  Layers,
   HardDrive,
-  BarChart3,
   Sparkles,
   ArrowUpRight,
-  ExternalLink,
+  ArrowRight,
 } from "lucide-react";
-import type { AnalysisResult, FaultItem } from "@/types";
+import type { AnalysisResult } from "@/types";
 import { Navbar } from "@/components/layout/Navbar";
 
 function OverviewContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const targetUrlParam = searchParams.get("url") || "https://example.com";
+  const targetUrlParam = searchParams.get("url") || "";
 
-  const [inputUrl, setInputUrl] = useState(targetUrlParam);
-  const [loading, setLoading] = useState(true);
+  const [inputUrl, setInputUrl] = useState(targetUrlParam || "https://example.com");
+  const [loading, setLoading] = useState(false);
   const [analysisData, setAnalysisData] = useState<AnalysisResult | null>(null);
   const [apiError, setApiError] = useState<string | null>(null);
 
   const fetchAnalysis = async (urlToFetch: string) => {
+    if (!urlToFetch.trim()) return;
     setLoading(true);
     setApiError(null);
     try {
@@ -65,6 +64,9 @@ function OverviewContent() {
     if (targetUrlParam) {
       setInputUrl(targetUrlParam);
       fetchAnalysis(targetUrlParam);
+    } else {
+      // Default to example.com if visited directly without a param
+      fetchAnalysis("https://example.com");
     }
   }, [targetUrlParam]);
 
@@ -74,14 +76,8 @@ function OverviewContent() {
     router.push(`/overview?url=${encodeURIComponent(inputUrl.trim())}`);
   };
 
-  // Metric status helpers
-  const getScoreColor = (score: number) => {
-    if (score >= 85) return "text-emerald-400 border-emerald-500/40 bg-emerald-500/10";
-    if (score >= 60) return "text-[#d8a764] border-[#d8a764]/40 bg-[#d8a764]/10";
-    return "text-red-400 border-red-500/40 bg-red-500/10";
-  };
-
-  const getMetricBadge = (val: number, goodLimit: number, warnLimit: number, unit = "s") => {
+  // Metric status badge helper
+  const getMetricBadge = (val: number, goodLimit: number, warnLimit: number) => {
     if (val <= goodLimit) {
       return {
         label: "Good",
@@ -103,25 +99,33 @@ function OverviewContent() {
     };
   };
 
-  const lcpBadge = analysisData ? getMetricBadge(analysisData.metrics.lcpSec, 2.5, 4.0) : null;
-  const fcpBadge = analysisData ? getMetricBadge(analysisData.metrics.fcpSec, 1.8, 3.0) : null;
-  const ttfbBadge = analysisData ? getMetricBadge(analysisData.metrics.ttfbMs, 600, 1200, "ms") : null;
-  const inpBadge = analysisData ? getMetricBadge(analysisData.metrics.inpMs, 200, 500, "ms") : null;
-  const clsBadge = analysisData ? getMetricBadge(analysisData.metrics.cls, 0.1, 0.25, "") : null;
+  const lcpSec = analysisData?.metrics?.lcpSec ?? 0;
+  const fcpSec = analysisData?.metrics?.fcpSec ?? 0;
+  const ttfbMs = analysisData?.metrics?.ttfbMs ?? 0;
+  const inpMs = analysisData?.metrics?.inpMs ?? 0;
+  const cls = analysisData?.metrics?.cls ?? 0;
 
-  // Filter top performance problems
-  const topProblems = analysisData
+  const lcpBadge = analysisData ? getMetricBadge(lcpSec, 2.5, 4.0) : null;
+  const fcpBadge = analysisData ? getMetricBadge(fcpSec, 1.8, 3.0) : null;
+  const ttfbBadge = analysisData ? getMetricBadge(ttfbMs, 600, 1200) : null;
+  const inpBadge = analysisData ? getMetricBadge(inpMs, 200, 500) : null;
+  const clsBadge = analysisData ? getMetricBadge(cls, 0.1, 0.25) : null;
+
+  // Filter top performance problems safely
+  const topProblems = analysisData?.faults
     ? analysisData.faults.filter((f) => f.category === "Performance" || f.impact === "Critical")
     : [];
 
+  const overallScore = analysisData?.overallHealthScore ?? 0;
+
   return (
-    <div className="min-h-screen bg-[#070709] text-zinc-100 detective-grid relative overflow-x-hidden flex flex-col">
+    <div className="min-h-screen bg-[#070709] text-zinc-100 detective-grid relative overflow-x-hidden flex flex-col justify-between">
       {/* ────────────────── TOP NAVBAR ────────────────── */}
       <Navbar />
 
       {/* ────────────────── MAIN OVERVIEW DOSSIER ────────────────── */}
       <main className="w-full max-w-7xl mx-auto px-6 py-8 flex-1 space-y-8">
-        {/* Error Alert if any */}
+        {/* Error Alert Banner */}
         {apiError && (
           <div className="bg-red-950/40 border border-red-800/80 rounded-2xl p-5 flex items-start gap-4 text-red-200 text-sm shadow-2xl backdrop-blur-md">
             <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
@@ -137,60 +141,80 @@ function OverviewContent() {
           {/* Ambient Background Gold Glare */}
           <div className="absolute top-0 right-1/4 w-96 h-96 bg-[radial-gradient(circle,_rgba(200,176,130,0.06)_0%,_transparent_70%)] pointer-events-none" />
 
-          <div className="space-y-3 relative z-10">
+          <div className="space-y-3 relative z-10 w-full lg:w-auto">
             <div className="flex flex-wrap items-center gap-3">
               <span className="px-3 py-1 rounded-md bg-[#dfd7c2] text-zinc-950 text-xs font-mono font-black tracking-widest uppercase border border-[#c7beaa] shadow-sm">
-                {analysisData?.caseId || "#CASE-0001"}
+                {analysisData?.caseId || "#CASE-AUDIT"}
               </span>
               <span className="text-xs text-zinc-400 font-mono flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-[#c8b082]" />
-                Audited on {analysisData?.investigatedAt || "Live Probe"}
+                Audited: {analysisData?.investigatedAt || (loading ? "Probing..." : "Ready")}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-[11px] font-mono border border-emerald-500/30 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                Live Inspection Complete
-              </span>
+              {loading ? (
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 text-[11px] font-mono border border-amber-500/30 flex items-center gap-1.5">
+                  <RefreshCw className="w-3 h-3 animate-spin" />
+                  Analyzing Target Assets...
+                </span>
+              ) : (
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-[11px] font-mono border border-emerald-500/30 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                  Telemetry Verified
+                </span>
+              )}
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-mono font-bold text-white flex items-center gap-3 tracking-tight break-all">
               <Globe className="w-6 h-6 text-[#c8b082] shrink-0" />
-              {analysisData?.normalizedUrl || targetUrlParam}
+              {analysisData?.normalizedUrl || targetUrlParam || "Ready for Investigation"}
             </h1>
 
-            <p className="text-xs text-zinc-400 flex items-center gap-4 flex-wrap">
-              <span>Payload: <strong className="text-zinc-200">{analysisData?.metrics.pageSizeKb || 0} KB</strong></span>
-              <span>•</span>
-              <span>Requests: <strong className="text-zinc-200">{analysisData?.metrics.requestsCount || 0} Total</strong></span>
-              <span>•</span>
-              <span>DOM Complexity: <strong className="text-zinc-200">{analysisData?.metrics.domNodesCount || 0} Elements</strong></span>
-            </p>
+            {/* Sub-bar URL quick inspection */}
+            <form onSubmit={handleSubmit} className="flex items-center gap-2 pt-1 max-w-lg">
+              <div className="flex items-center gap-2 bg-[#121218] border border-zinc-800 rounded-xl px-3 py-1.5 w-full">
+                <Search className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+                <input
+                  type="text"
+                  value={inputUrl}
+                  onChange={(e) => setInputUrl(e.target.value)}
+                  placeholder="Analyze another URL (e.g. target.com)..."
+                  className="bg-transparent text-xs text-zinc-200 placeholder-zinc-500 outline-none w-full font-mono"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-[#c8b082] hover:bg-[#b89f71] disabled:opacity-50 text-zinc-950 font-bold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition-colors shrink-0 shadow cursor-pointer"
+              >
+                {loading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <span>Scan</span>}
+              </button>
+            </form>
           </div>
 
           {/* Master Performance Gauge / Dial */}
-          <div className="flex items-center gap-6 bg-[#13131a] border border-zinc-800/90 rounded-2xl p-6 shrink-0 relative shadow-2xl">
-            <div className="text-right">
+          <div className="flex items-center gap-6 bg-[#13131a] border border-zinc-800/90 rounded-2xl p-6 shrink-0 relative shadow-2xl w-full sm:w-auto justify-between sm:justify-end">
+            <div className="text-left sm:text-right">
               <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
                 OVERALL HEALTH SCORE
               </div>
-              <div className="flex items-baseline justify-end gap-1.5 my-1">
+              <div className="flex items-baseline justify-start sm:justify-end gap-1.5 my-1">
                 <span className="text-4xl lg:text-5xl font-black text-[#d8a764] tracking-tight">
-                  {loading ? "--" : analysisData?.overallHealthScore}
+                  {loading ? "--" : overallScore}
                 </span>
                 <span className="text-sm font-semibold text-zinc-500">/100</span>
               </div>
               <div className="text-xs font-semibold text-[#e88d43]">
                 {loading
-                  ? "Analyzing..."
-                  : (analysisData?.overallHealthScore || 0) >= 85
+                  ? "Evaluating Telemetry..."
+                  : overallScore >= 85
                   ? "Optimal Condition"
-                  : (analysisData?.overallHealthScore || 0) >= 65
+                  : overallScore >= 65
                   ? "Needs Improvement"
                   : "Critical Remediation Required"}
               </div>
             </div>
 
             {/* Circular Brass Shield Badge */}
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#c8b082] via-[#8c6f48] to-[#2a1d12] p-0.5 flex items-center justify-center shadow-lg border border-[#c8b082]/60">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#c8b082] via-[#8c6f48] to-[#2a1d12] p-0.5 flex items-center justify-center shadow-lg border border-[#c8b082]/60 shrink-0">
               <div className="w-full h-full rounded-2xl bg-[#0e0e14] flex items-center justify-center">
                 <Zap className="w-7 h-7 text-[#d8a764]" />
               </div>
@@ -221,7 +245,7 @@ function OverviewContent() {
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-3xl font-black text-white font-mono">
-                  {loading ? "--" : `${analysisData?.metrics.lcpSec}s`}
+                  {loading ? "--" : `${lcpSec}s`}
                 </span>
               </div>
               <div className="text-[11px] text-zinc-400 leading-tight">
@@ -229,15 +253,9 @@ function OverviewContent() {
               </div>
               <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
                 <div
-                  style={{
-                    width: `${Math.min(100, ((analysisData?.metrics.lcpSec || 1) / 5) * 100)}%`,
-                  }}
+                  style={{ width: `${Math.min(100, (lcpSec / 5) * 100)}%` }}
                   className={`h-full rounded-full ${
-                    (analysisData?.metrics.lcpSec || 0) <= 2.5
-                      ? "bg-emerald-400"
-                      : (analysisData?.metrics.lcpSec || 0) <= 4.0
-                      ? "bg-amber-400"
-                      : "bg-red-400"
+                    lcpSec <= 2.5 ? "bg-emerald-400" : lcpSec <= 4.0 ? "bg-amber-400" : "bg-red-400"
                   }`}
                 />
               </div>
@@ -255,7 +273,7 @@ function OverviewContent() {
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-3xl font-black text-white font-mono">
-                  {loading ? "--" : `${analysisData?.metrics.fcpSec}s`}
+                  {loading ? "--" : `${fcpSec}s`}
                 </span>
               </div>
               <div className="text-[11px] text-zinc-400 leading-tight">
@@ -263,15 +281,9 @@ function OverviewContent() {
               </div>
               <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
                 <div
-                  style={{
-                    width: `${Math.min(100, ((analysisData?.metrics.fcpSec || 1) / 4) * 100)}%`,
-                  }}
+                  style={{ width: `${Math.min(100, (fcpSec / 4) * 100)}%` }}
                   className={`h-full rounded-full ${
-                    (analysisData?.metrics.fcpSec || 0) <= 1.8
-                      ? "bg-emerald-400"
-                      : (analysisData?.metrics.fcpSec || 0) <= 3.0
-                      ? "bg-amber-400"
-                      : "bg-red-400"
+                    fcpSec <= 1.8 ? "bg-emerald-400" : fcpSec <= 3.0 ? "bg-amber-400" : "bg-red-400"
                   }`}
                 />
               </div>
@@ -289,7 +301,7 @@ function OverviewContent() {
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-3xl font-black text-white font-mono">
-                  {loading ? "--" : `${analysisData?.metrics.ttfbMs}ms`}
+                  {loading ? "--" : `${ttfbMs}ms`}
                 </span>
               </div>
               <div className="text-[11px] text-zinc-400 leading-tight">
@@ -297,15 +309,9 @@ function OverviewContent() {
               </div>
               <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
                 <div
-                  style={{
-                    width: `${Math.min(100, ((analysisData?.metrics.ttfbMs || 100) / 1500) * 100)}%`,
-                  }}
+                  style={{ width: `${Math.min(100, (ttfbMs / 1500) * 100)}%` }}
                   className={`h-full rounded-full ${
-                    (analysisData?.metrics.ttfbMs || 0) <= 600
-                      ? "bg-emerald-400"
-                      : (analysisData?.metrics.ttfbMs || 0) <= 1200
-                      ? "bg-amber-400"
-                      : "bg-red-400"
+                    ttfbMs <= 600 ? "bg-emerald-400" : ttfbMs <= 1200 ? "bg-amber-400" : "bg-red-400"
                   }`}
                 />
               </div>
@@ -323,7 +329,7 @@ function OverviewContent() {
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-3xl font-black text-white font-mono">
-                  {loading ? "--" : `${analysisData?.metrics.inpMs}ms`}
+                  {loading ? "--" : `${inpMs}ms`}
                 </span>
               </div>
               <div className="text-[11px] text-zinc-400 leading-tight">
@@ -331,15 +337,9 @@ function OverviewContent() {
               </div>
               <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
                 <div
-                  style={{
-                    width: `${Math.min(100, ((analysisData?.metrics.inpMs || 50) / 600) * 100)}%`,
-                  }}
+                  style={{ width: `${Math.min(100, (inpMs / 600) * 100)}%` }}
                   className={`h-full rounded-full ${
-                    (analysisData?.metrics.inpMs || 0) <= 200
-                      ? "bg-emerald-400"
-                      : (analysisData?.metrics.inpMs || 0) <= 500
-                      ? "bg-amber-400"
-                      : "bg-red-400"
+                    inpMs <= 200 ? "bg-emerald-400" : inpMs <= 500 ? "bg-amber-400" : "bg-red-400"
                   }`}
                 />
               </div>
@@ -357,7 +357,7 @@ function OverviewContent() {
               </div>
               <div className="flex items-baseline gap-1">
                 <span className="text-3xl font-black text-white font-mono">
-                  {loading ? "--" : `${analysisData?.metrics.cls}`}
+                  {loading ? "--" : `${cls}`}
                 </span>
               </div>
               <div className="text-[11px] text-zinc-400 leading-tight">
@@ -365,15 +365,9 @@ function OverviewContent() {
               </div>
               <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
                 <div
-                  style={{
-                    width: `${Math.min(100, ((analysisData?.metrics.cls || 0.01) / 0.3) * 100)}%`,
-                  }}
+                  style={{ width: `${Math.min(100, (cls / 0.3) * 100)}%` }}
                   className={`h-full rounded-full ${
-                    (analysisData?.metrics.cls || 0) <= 0.1
-                      ? "bg-emerald-400"
-                      : (analysisData?.metrics.cls || 0) <= 0.25
-                      ? "bg-amber-400"
-                      : "bg-red-400"
+                    cls <= 0.1 ? "bg-emerald-400" : cls <= 0.25 ? "bg-amber-400" : "bg-red-400"
                   }`}
                 />
               </div>
@@ -401,12 +395,12 @@ function OverviewContent() {
                   <span className="text-zinc-500 font-mono">40%</span>
                 </div>
                 <div className="text-2xl font-black text-white">
-                  {loading ? "--" : analysisData?.categoryScores.performance}
+                  {loading ? "--" : analysisData?.categoryScores?.performance ?? 0}
                   <span className="text-xs text-zinc-500 font-normal">/100</span>
                 </div>
                 <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
                   <div
-                    style={{ width: `${analysisData?.categoryScores.performance || 0}%` }}
+                    style={{ width: `${analysisData?.categoryScores?.performance ?? 0}%` }}
                     className="h-full bg-amber-500 rounded-full"
                   />
                 </div>
@@ -422,12 +416,12 @@ function OverviewContent() {
                   <span className="text-zinc-500 font-mono">25%</span>
                 </div>
                 <div className="text-2xl font-black text-white">
-                  {loading ? "--" : analysisData?.categoryScores.seo}
+                  {loading ? "--" : analysisData?.categoryScores?.seo ?? 0}
                   <span className="text-xs text-zinc-500 font-normal">/100</span>
                 </div>
                 <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
                   <div
-                    style={{ width: `${analysisData?.categoryScores.seo || 0}%` }}
+                    style={{ width: `${analysisData?.categoryScores?.seo ?? 0}%` }}
                     className="h-full bg-blue-500 rounded-full"
                   />
                 </div>
@@ -443,12 +437,12 @@ function OverviewContent() {
                   <span className="text-zinc-500 font-mono">20%</span>
                 </div>
                 <div className="text-2xl font-black text-white">
-                  {loading ? "--" : analysisData?.categoryScores.security}
+                  {loading ? "--" : analysisData?.categoryScores?.security ?? 0}
                   <span className="text-xs text-zinc-500 font-normal">/100</span>
                 </div>
                 <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
                   <div
-                    style={{ width: `${analysisData?.categoryScores.security || 0}%` }}
+                    style={{ width: `${analysisData?.categoryScores?.security ?? 0}%` }}
                     className="h-full bg-emerald-500 rounded-full"
                   />
                 </div>
@@ -464,12 +458,12 @@ function OverviewContent() {
                   <span className="text-zinc-500 font-mono">15%</span>
                 </div>
                 <div className="text-2xl font-black text-white">
-                  {loading ? "--" : analysisData?.categoryScores.accessibility}
+                  {loading ? "--" : analysisData?.categoryScores?.accessibility ?? 0}
                   <span className="text-xs text-zinc-500 font-normal">/100</span>
                 </div>
                 <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
                   <div
-                    style={{ width: `${analysisData?.categoryScores.accessibility || 0}%` }}
+                    style={{ width: `${analysisData?.categoryScores?.accessibility ?? 0}%` }}
                     className="h-full bg-purple-500 rounded-full"
                   />
                 </div>
@@ -489,26 +483,56 @@ function OverviewContent() {
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-zinc-400 font-medium">Total Wire Transfer</span>
-                  <span className="font-mono font-bold text-white">{analysisData?.metrics.pageSizeKb || 0} KB</span>
+                  <span className="font-mono font-bold text-white">
+                    {analysisData?.metrics?.pageSizeKb ?? 0} KB
+                  </span>
                 </div>
                 <div className="h-3 w-full bg-zinc-900 rounded-full overflow-hidden flex shadow-inner">
                   <div
-                    style={{ width: `${Math.min(100, ((analysisData?.resourceBreakdown.jsKb || 1) / (analysisData?.metrics.pageSizeKb || 1)) * 100)}%` }}
+                    style={{
+                      width: `${Math.min(
+                        100,
+                        ((analysisData?.resourceBreakdown?.jsKb ?? 1) /
+                          (analysisData?.metrics?.pageSizeKb || 1)) *
+                          100
+                      )}%`,
+                    }}
                     className="bg-amber-400 h-full"
                     title="JavaScript"
                   />
                   <div
-                    style={{ width: `${Math.min(100, ((analysisData?.resourceBreakdown.imageKb || 1) / (analysisData?.metrics.pageSizeKb || 1)) * 100)}%` }}
+                    style={{
+                      width: `${Math.min(
+                        100,
+                        ((analysisData?.resourceBreakdown?.imageKb ?? 1) /
+                          (analysisData?.metrics?.pageSizeKb || 1)) *
+                          100
+                      )}%`,
+                    }}
                     className="bg-emerald-400 h-full"
                     title="Images"
                   />
                   <div
-                    style={{ width: `${Math.min(100, ((analysisData?.resourceBreakdown.cssKb || 1) / (analysisData?.metrics.pageSizeKb || 1)) * 100)}%` }}
+                    style={{
+                      width: `${Math.min(
+                        100,
+                        ((analysisData?.resourceBreakdown?.cssKb ?? 1) /
+                          (analysisData?.metrics?.pageSizeKb || 1)) *
+                          100
+                      )}%`,
+                    }}
                     className="bg-blue-400 h-full"
                     title="CSS"
                   />
                   <div
-                    style={{ width: `${Math.min(100, ((analysisData?.resourceBreakdown.htmlKb || 1) / (analysisData?.metrics.pageSizeKb || 1)) * 100)}%` }}
+                    style={{
+                      width: `${Math.min(
+                        100,
+                        ((analysisData?.resourceBreakdown?.htmlKb ?? 1) /
+                          (analysisData?.metrics?.pageSizeKb || 1)) *
+                          100
+                      )}%`,
+                    }}
                     className="bg-purple-400 h-full"
                     title="HTML"
                   />
@@ -523,10 +547,10 @@ function OverviewContent() {
                     JavaScript
                   </div>
                   <div className="text-base font-bold font-mono text-white">
-                    {analysisData?.resourceBreakdown.jsKb || 0} KB
+                    {analysisData?.resourceBreakdown?.jsKb ?? 0} KB
                   </div>
                   <div className="text-[10px] text-zinc-500 font-mono">
-                    {analysisData?.resourceBreakdown.counts?.js || 0} files
+                    {analysisData?.resourceBreakdown?.counts?.js ?? 0} files
                   </div>
                 </div>
 
@@ -536,10 +560,10 @@ function OverviewContent() {
                     Images
                   </div>
                   <div className="text-base font-bold font-mono text-white">
-                    {analysisData?.resourceBreakdown.imageKb || 0} KB
+                    {analysisData?.resourceBreakdown?.imageKb ?? 0} KB
                   </div>
                   <div className="text-[10px] text-zinc-500 font-mono">
-                    {analysisData?.resourceBreakdown.counts?.image || 0} files
+                    {analysisData?.resourceBreakdown?.counts?.image ?? 0} files
                   </div>
                 </div>
 
@@ -549,10 +573,10 @@ function OverviewContent() {
                     CSS Styles
                   </div>
                   <div className="text-base font-bold font-mono text-white">
-                    {analysisData?.resourceBreakdown.cssKb || 0} KB
+                    {analysisData?.resourceBreakdown?.cssKb ?? 0} KB
                   </div>
                   <div className="text-[10px] text-zinc-500 font-mono">
-                    {analysisData?.resourceBreakdown.counts?.css || 0} files
+                    {analysisData?.resourceBreakdown?.counts?.css ?? 0} files
                   </div>
                 </div>
 
@@ -562,7 +586,7 @@ function OverviewContent() {
                     HTML Document
                   </div>
                   <div className="text-base font-bold font-mono text-white">
-                    {analysisData?.resourceBreakdown.htmlKb || 0} KB
+                    {analysisData?.resourceBreakdown?.htmlKb ?? 0} KB
                   </div>
                   <div className="text-[10px] text-zinc-500 font-mono">1 document</div>
                 </div>
@@ -585,10 +609,10 @@ function OverviewContent() {
             </div>
 
             <Link
-              href={`/admin?url=${encodeURIComponent(targetUrlParam)}`}
+              href={`/admin?url=${encodeURIComponent(targetUrlParam || "https://example.com")}`}
               className="text-xs font-bold text-[#c8b082] hover:text-[#e4cf9c] flex items-center gap-1 transition-colors"
             >
-              View Full Evidence Log ({analysisData?.faults.length || 0} items)
+              View Full Evidence Log ({analysisData?.faults?.length ?? 0} items)
               <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -667,7 +691,16 @@ function OverviewContent() {
 
 export default function OverviewPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#070709] text-zinc-400 p-8">Loading Overview Dossier...</div>}>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#070709] text-zinc-400 p-8 flex items-center justify-center">
+          <div className="flex items-center gap-3 text-sm">
+            <RefreshCw className="w-5 h-5 animate-spin text-[#c8b082]" />
+            <span>Loading Overview Dossier...</span>
+          </div>
+        </div>
+      }
+    >
       <OverviewContent />
     </Suspense>
   );
