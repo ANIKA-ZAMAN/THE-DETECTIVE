@@ -574,8 +574,22 @@ export function OverviewContent() {
 
             {/* Central Polar Radar Canvas */}
             <div className="relative my-auto flex items-center justify-center w-full max-w-[420px] aspect-square select-none">
-              {/* 1. Radar Grid SVG (Concentric Rings + Radial Spokes + Degree Labels) */}
+              {/* 1. Radar Grid SVG (Concentric Rings + Radial Spokes + Degree Labels + Clipped Sweep Beam) */}
               <svg className="absolute inset-0 w-full h-full text-zinc-800/80" viewBox="0 0 400 400" fill="none">
+                <defs>
+                  {/* Strict Circular Radar Boundary Clip */}
+                  <clipPath id="radar-boundary-clip">
+                    <circle cx="200" cy="200" r="185" />
+                  </clipPath>
+
+                  {/* Radial Conic Beam Gradient */}
+                  <radialGradient id="radar-beam-glow" cx="200" cy="200" r="185" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#c8b082" stopOpacity="0.45" />
+                    <stop offset="65%" stopColor="#c8b082" stopOpacity="0.15" />
+                    <stop offset="100%" stopColor="#c8b082" stopOpacity="0.0" />
+                  </radialGradient>
+                </defs>
+
                 {/* Outer Polar Ring */}
                 <circle cx="200" cy="200" r="185" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 3" />
                 {/* 75% Ring */}
@@ -591,32 +605,29 @@ export function OverviewContent() {
                 <line x1="69" y1="69" x2="331" y2="331" stroke="currentColor" strokeWidth="0.6" opacity="0.3" />
                 <line x1="69" y1="331" x2="331" y2="69" stroke="currentColor" strokeWidth="0.6" opacity="0.3" />
 
+                {/* 2. Rotating Radar Sweep Beam — Mathematically Clipped Inside Circle */}
+                <g clipPath="url(#radar-boundary-clip)">
+                  <g
+                    className={loading ? "animate-radar-sweep-fast" : "animate-radar-sweep"}
+                    style={{ transformOrigin: "200px 200px" }}
+                  >
+                    {/* 45-degree circular pie sector */}
+                    <path
+                      d="M 200 200 L 200 15 A 185 185 0 0 1 330.8 69.2 Z"
+                      fill="url(#radar-beam-glow)"
+                      opacity={loading ? 0.95 : 0.45}
+                    />
+                    {/* Sweep Leading Edge Line */}
+                    <line x1="200" y1="200" x2="200" y2="15" stroke="#c8b082" strokeWidth="1.5" />
+                  </g>
+                </g>
+
                 {/* Degree Tick Marks */}
                 <text x="200" y="10" fill="#71717a" fontSize="8" fontFamily="monospace" textAnchor="middle">0°</text>
                 <text x="390" y="203" fill="#71717a" fontSize="8" fontFamily="monospace" textAnchor="middle">90°</text>
                 <text x="200" y="396" fill="#71717a" fontSize="8" fontFamily="monospace" textAnchor="middle">180°</text>
                 <text x="10" y="203" fill="#71717a" fontSize="8" fontFamily="monospace" textAnchor="middle">270°</text>
               </svg>
-
-              {/* 2. Rotating Radar Sweep Beam (Active during loading / slow idle) */}
-              <div
-                className={`absolute inset-[3.75%] rounded-full overflow-hidden pointer-events-none ${
-                  loading ? "animate-radar-sweep-fast" : "animate-radar-sweep"
-                }`}
-              >
-                <div className="w-full h-full relative rounded-full overflow-hidden">
-                  {/* Conical Gradient Sweep Cone - strictly bounded inside round radar perimeter */}
-                  <div
-                    className="absolute inset-0 rounded-full"
-                    style={{
-                      background: "conic-gradient(from 0deg at 50% 50%, #c8b082 0deg, rgba(200, 176, 130, 0.25) 4deg, rgba(200, 176, 130, 0.08) 30deg, transparent 48deg, transparent 360deg)",
-                      opacity: loading ? 0.95 : 0.45,
-                    }}
-                  />
-                  {/* Sweep Leading Edge Line */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-1/2 bg-gradient-to-t from-[#c8b082] via-[#e5d4ab] to-transparent shadow-[0_0_10px_#c8b082]" />
-                </div>
-              </div>
 
               {/* 3. Interactive Evidence Radar Blips */}
               {radarBlips.map((blip) => {
