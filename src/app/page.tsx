@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Globe,
   ArrowRight,
@@ -6,15 +9,27 @@ import {
   Folder,
   TrendingUp,
   Shield,
+  RefreshCw,
 } from "lucide-react";
 
 export default function Home() {
+  const router = useRouter();
+  const [urlInput, setUrlInput] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleInvestigate = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!urlInput.trim()) return;
+    setIsSubmitting(true);
+    router.push(`/admin?url=${encodeURIComponent(urlInput.trim())}`);
+  };
+
   return (
     <div className="min-h-screen bg-[#070709] text-zinc-100 detective-grid detective-radial-glow relative overflow-hidden flex flex-col justify-between">
       {/* ----------------- NAVBAR ----------------- */}
       <header className="w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between z-30 relative">
         {/* Logo */}
-        <div className="flex items-center gap-3 cursor-pointer group">
+        <div className="flex items-center gap-3 cursor-pointer group" onClick={() => router.push("/")}>
           {/* Fingerprint logo inside corner brackets frame */}
           <div className="relative w-9 h-9 flex items-center justify-center bg-[#101014] rounded border border-zinc-800/80 group-hover:border-[#c8b082]/50 transition-colors">
             {/* Top-left corner bracket */}
@@ -77,13 +92,13 @@ export default function Home() {
         {/* Right CTA */}
         <div className="flex items-center gap-6">
           <a
-            href="#login"
+            href="/admin"
             className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
           >
             Log in
           </a>
           <a
-            href="#investigate"
+            href="/admin"
             className="px-4 py-2 text-xs font-medium text-zinc-200 border border-zinc-800 hover:border-zinc-700 bg-[#0d0d12]/80 hover:bg-zinc-900 rounded-lg flex items-center gap-2 transition-all shadow-sm"
           >
             Start Investigation
@@ -122,34 +137,55 @@ export default function Home() {
               what to fix.
             </p>
 
-            {/* Input Bar */}
-            <div className="w-full max-w-md bg-[#101015] border border-zinc-800/90 rounded-xl p-1.5 flex items-center shadow-2xl focus-within:border-[#c8b082]/60 transition-all mb-3">
+            {/* Input Bar Form */}
+            <form
+              onSubmit={handleInvestigate}
+              className="w-full max-w-md bg-[#101015] border border-zinc-800/90 rounded-xl p-1.5 flex items-center shadow-2xl focus-within:border-[#c8b082]/60 transition-all mb-3"
+            >
               <div className="flex items-center gap-2 pl-3 pr-2 text-zinc-500 w-full">
                 <Globe className="w-4 h-4 shrink-0 text-zinc-400" />
                 <input
                   type="url"
+                  required
+                  value={urlInput}
+                  onChange={(e) => setUrlInput(e.target.value)}
                   placeholder="Enter website URL to investigate"
                   className="bg-transparent text-xs sm:text-sm text-zinc-200 placeholder-zinc-500 outline-none w-full py-2"
                 />
               </div>
 
-              <button className="bg-[#c8b082] hover:bg-[#b89f71] text-zinc-950 font-semibold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-lg flex items-center gap-2 transition-colors shrink-0 cursor-pointer shadow-md">
-                <span>Begin Investigation</span>
-                <ArrowRight className="w-4 h-4 text-zinc-950" />
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="bg-[#c8b082] hover:bg-[#b89f71] text-zinc-950 font-semibold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-lg flex items-center gap-2 transition-colors shrink-0 cursor-pointer shadow-md"
+              >
+                {isSubmitting ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 text-zinc-950 animate-spin" />
+                    <span>Analyzing...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Begin Investigation</span>
+                    <ArrowRight className="w-4 h-4 text-zinc-950" />
+                  </>
+                )}
               </button>
-            </div>
+            </form>
 
             {/* Example Link */}
             <p className="text-xs text-zinc-500 font-normal">
               Example:{" "}
-              <a
-                href="https://example.com"
-                target="_blank"
-                rel="noreferrer"
+              <button
+                type="button"
+                onClick={() => {
+                  setUrlInput("https://example.com");
+                  router.push(`/admin?url=${encodeURIComponent("https://example.com")}`);
+                }}
                 className="text-[#c8b082] hover:underline"
               >
                 https://yourwebsite.com
-              </a>
+              </button>
             </p>
           </div>
 
