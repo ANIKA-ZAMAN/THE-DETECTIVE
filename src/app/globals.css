@@ -1,26 +1,48 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: var(--font-sans-custom), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif-custom), Georgia, serif;
+  --color-gold: #c8b082;
+  --color-gold-muted: #9e8a64;
+  --color-gold-light: #e6dfc5;
+  --color-dark-bg: #070709;
+  --color-card-bg: #0d0d11;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-serif-custom), Georgia, "Times New Roman", serif;
+  }
+  .font-sans {
+    font-family: var(--font-sans-custom), system-ui, sans-serif;
   }
 }
 
+:root {
+  --background: #070709;
+  --foreground: #f4f4f5;
+}
+
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans-custom), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Atmospheric detective noir grid background */
+.detective-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.detective-radial-glow {
+  background: radial-gradient(circle at 65% 45%, rgba(200, 176, 130, 0.07) 0%, rgba(7, 7, 9, 0) 65%);
+}
+
+.magnifier-lens-glow {
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.12) 0%, rgba(13, 13, 17, 0.9) 75%);
 }
