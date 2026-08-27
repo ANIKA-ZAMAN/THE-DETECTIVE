@@ -392,7 +392,7 @@ export function OverviewContent() {
 
               <div className="space-y-3 font-mono text-xs">
                 {/* LCP */}
-                <div className="flex items-center justify-between p-2 rounded-xl bg-[#13131b] border border-zinc-800/70 hover:border-zinc-700 transition-colors">
+                <div className="flex items-center justify-between p-2 rounded-xl bg-[#13131b] border border-zinc-800/70 hover:border-zinc-700 transition-colors hover-row cursor-default">
                   <div className="space-y-0.5">
                     <span className="text-[10px] text-zinc-400 font-sans font-semibold">LCP (Largest Paint)</span>
                     <div className="text-sm font-bold text-white">
@@ -413,7 +413,7 @@ export function OverviewContent() {
                 </div>
 
                 {/* INP */}
-                <div className="flex items-center justify-between p-2 rounded-xl bg-[#13131b] border border-zinc-800/70 hover:border-zinc-700 transition-colors">
+                <div className="flex items-center justify-between p-2 rounded-xl bg-[#13131b] border border-zinc-800/70 hover:border-zinc-700 transition-colors hover-row cursor-default">
                   <div className="space-y-0.5">
                     <span className="text-[10px] text-zinc-400 font-sans font-semibold">INP (Responsiveness)</span>
                     <div className="text-sm font-bold text-white">
@@ -434,7 +434,7 @@ export function OverviewContent() {
                 </div>
 
                 {/* CLS */}
-                <div className="flex items-center justify-between p-2 rounded-xl bg-[#13131b] border border-zinc-800/70 hover:border-zinc-700 transition-colors">
+                <div className="flex items-center justify-between p-2 rounded-xl bg-[#13131b] border border-zinc-800/70 hover:border-zinc-700 transition-colors hover-row cursor-default">
                   <div className="space-y-0.5">
                     <span className="text-[10px] text-zinc-400 font-sans font-semibold">CLS (Visual Shift)</span>
                     <div className="text-sm font-bold text-white">
@@ -788,7 +788,7 @@ export function OverviewContent() {
                   faults.slice(0, 5).map((fault) => (
                     <div
                       key={fault.id}
-                      className="bg-[#121218] border border-zinc-800/80 rounded-xl p-3 space-y-2 hover:border-zinc-700 transition-colors"
+                      className="bg-[#121218] border border-zinc-800/80 rounded-xl p-3 space-y-2 hover-lift transition-all"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <span className="text-xs font-bold text-white leading-tight">
@@ -813,7 +813,7 @@ export function OverviewContent() {
                       <div className="flex items-center justify-end gap-2 pt-1 border-t border-zinc-800/60">
                         <Link
                           href={`/investigation?url=${encodeURIComponent(analysisData?.normalizedUrl || "")}`}
-                          className="px-2.5 py-1 text-[10px] font-semibold text-zinc-300 hover:text-white bg-zinc-900 hover:bg-zinc-800 rounded-lg border border-zinc-800 transition-colors"
+                          className="px-2.5 py-1 text-[10px] font-semibold text-zinc-300 hover:text-white bg-zinc-900 hover:bg-zinc-800 rounded-lg border border-zinc-800 transition-colors hover-btn-subtle"
                         >
                           View Clue
                         </Link>
@@ -906,7 +906,7 @@ export function OverviewContent() {
             </div>
 
             {/* Images */}
-            <div className="bg-[#121218] p-3 rounded-xl border border-zinc-800/80 flex items-center justify-between">
+            <div className="bg-[#121218] p-3 rounded-xl border border-zinc-800/80 flex items-center justify-between hover-lift cursor-default">
               <div className="space-y-0.5">
                 <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-400">
                   <ImageIcon className="w-3.5 h-3.5" />
@@ -920,7 +920,7 @@ export function OverviewContent() {
             </div>
 
             {/* CSS */}
-            <div className="bg-[#121218] p-3 rounded-xl border border-zinc-800/80 flex items-center justify-between">
+            <div className="bg-[#121218] p-3 rounded-xl border border-zinc-800/80 flex items-center justify-between hover-lift cursor-default">
               <div className="space-y-0.5">
                 <div className="flex items-center gap-1.5 text-[11px] font-semibold text-blue-400">
                   <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -934,7 +934,7 @@ export function OverviewContent() {
             </div>
 
             {/* Fonts */}
-            <div className="bg-[#121218] p-3 rounded-xl border border-zinc-800/80 flex items-center justify-between">
+            <div className="bg-[#121218] p-3 rounded-xl border border-zinc-800/80 flex items-center justify-between hover-lift cursor-default">
               <div className="space-y-0.5">
                 <div className="flex items-center gap-1.5 text-[11px] font-semibold text-purple-400">
                   <Type className="w-3.5 h-3.5" />
@@ -948,7 +948,7 @@ export function OverviewContent() {
             </div>
 
             {/* HTML */}
-            <div className="bg-[#121218] p-3 rounded-xl border border-zinc-800/80 flex items-center justify-between">
+            <div className="bg-[#121218] p-3 rounded-xl border border-zinc-800/80 flex items-center justify-between hover-lift cursor-default">
               <div className="space-y-0.5">
                 <div className="flex items-center gap-1.5 text-[11px] font-semibold text-rose-400">
                   <Globe className="w-3.5 h-3.5" />
@@ -962,7 +962,7 @@ export function OverviewContent() {
             </div>
 
             {/* DOM Complexity */}
-            <div className="bg-[#121218] p-3 rounded-xl border border-zinc-800/80 flex items-center justify-between">
+            <div className="bg-[#121218] p-3 rounded-xl border border-zinc-800/80 flex items-center justify-between hover-lift cursor-default">
               <div className="space-y-0.5">
                 <div className="flex items-center gap-1.5 text-[11px] font-semibold text-zinc-300">
                   <Layers className="w-3.5 h-3.5 text-[#c8b082]" />

@@ -191,6 +191,43 @@ input, textarea, select {
   animation: progress-scan 4s ease-in-out infinite;
 }
 
+/* ────────────────── SUBTLE DETECTIVE HOVER INTERACTION SYSTEM ────────────────── */
+.hover-lift {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 16px rgba(200, 176, 130, 0.08);
+  border-color: rgba(200, 176, 130, 0.35);
+}
+
+.hover-glow {
+  transition: box-shadow 0.22s ease, border-color 0.22s ease, transform 0.2s ease;
+}
+.hover-glow:hover {
+  box-shadow: 0 0 14px rgba(200, 176, 130, 0.12);
+  border-color: rgba(200, 176, 130, 0.4);
+}
+
+.hover-row {
+  transition: background-color 0.16s ease, transform 0.16s ease;
+}
+.hover-row:hover {
+  background-color: rgba(200, 176, 130, 0.04);
+  transform: translateX(2px);
+}
+
+.hover-btn-subtle {
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.18s ease, box-shadow 0.18s ease;
+}
+.hover-btn-subtle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(200, 176, 130, 0.18);
+}
+.hover-btn-subtle:active {
+  transform: translateY(0px) scale(0.98);
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,

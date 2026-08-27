@@ -599,10 +599,10 @@ function HistoryContent() {
                     const isBaseline = !prevEntry || diff === 0;
 
                     return (
-                      <tr key={entry.id} className="hover:bg-zinc-900/30 transition-colors">
+                      <tr key={entry.id} className="hover:bg-zinc-800/40 transition-colors group cursor-default">
                         {/* Case ID */}
                         <td className="py-3.5">
-                          <span className="text-zinc-400 font-bold">
+                          <span className="text-zinc-400 font-bold group-hover:text-[#c8b082] transition-colors">
                             {entry.caseId}
                           </span>
                         </td>

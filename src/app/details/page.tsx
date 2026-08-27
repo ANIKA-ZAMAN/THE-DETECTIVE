@@ -500,7 +500,7 @@ function DetailsContent() {
               {/* Bottom 4 Core Web Vitals Summary Pills */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-zinc-800/80">
                 {/* LCP */}
-                <div className="bg-[#121218] p-2.5 rounded-xl border border-zinc-800/80 space-y-0.5 font-mono">
+                <div className="bg-[#121218] p-2.5 rounded-xl border border-zinc-800/80 space-y-0.5 font-mono hover-lift cursor-default">
                   <div className="text-[10px] text-emerald-400 font-bold">LCP</div>
                   <div className="flex items-baseline justify-between">
                     <span className="text-base font-bold text-white">{lcpSec}s</span>
@@ -509,7 +509,7 @@ function DetailsContent() {
                 </div>
 
                 {/* INP */}
-                <div className="bg-[#121218] p-2.5 rounded-xl border border-zinc-800/80 space-y-0.5 font-mono">
+                <div className="bg-[#121218] p-2.5 rounded-xl border border-zinc-800/80 space-y-0.5 font-mono hover-lift cursor-default">
                   <div className="text-[10px] text-amber-400 font-bold">INP</div>
                   <div className="flex items-baseline justify-between">
                     <span className="text-base font-bold text-white">{inpMs}ms</span>
@@ -518,7 +518,7 @@ function DetailsContent() {
                 </div>
 
                 {/* CLS */}
-                <div className="bg-[#121218] p-2.5 rounded-xl border border-zinc-800/80 space-y-0.5 font-mono">
+                <div className="bg-[#121218] p-2.5 rounded-xl border border-zinc-800/80 space-y-0.5 font-mono hover-lift cursor-default">
                   <div className="text-[10px] text-emerald-400 font-bold">CLS</div>
                   <div className="flex items-baseline justify-between">
                     <span className="text-base font-bold text-white">{cls}</span>
@@ -527,7 +527,7 @@ function DetailsContent() {
                 </div>
 
                 {/* TBT */}
-                <div className="bg-[#121218] p-2.5 rounded-xl border border-zinc-800/80 space-y-0.5 font-mono">
+                <div className="bg-[#121218] p-2.5 rounded-xl border border-zinc-800/80 space-y-0.5 font-mono hover-lift cursor-default">
                   <div className="text-[10px] text-red-400 font-bold">TBT</div>
                   <div className="flex items-baseline justify-between">
                     <span className="text-base font-bold text-white">{tbtMs}ms</span>
@@ -576,7 +576,7 @@ function DetailsContent() {
                           },
                         ]
                     ).map((item, idx) => (
-                      <div key={idx} className="grid grid-cols-12 items-center py-2.5 hover:bg-zinc-900/30 transition-colors">
+                      <div key={idx} className="grid grid-cols-12 items-center py-2.5 hover-row transition-all rounded-lg px-1">
                         {/* Name */}
                         <div className="col-span-4 flex items-center gap-2 truncate pr-2">
                           <FileCode className="w-3.5 h-3.5 text-zinc-400 shrink-0" />

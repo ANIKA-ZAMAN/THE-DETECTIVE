@@ -236,7 +236,7 @@ export default function Home() {
             {/* URL Investigation Input Bar */}
             <form
               onSubmit={handleInvestigate}
-              className="w-full max-w-md bg-[#101015] border border-zinc-800/90 rounded-xl p-1.5 flex items-center shadow-2xl focus-within:border-[#c8b082]/70 transition-all mb-2.5"
+              className="w-full max-w-md bg-[#101015] border border-zinc-800/90 hover:border-zinc-700 rounded-xl p-1.5 flex items-center shadow-2xl focus-within:border-[#c8b082]/70 focus-within:shadow-[0_0_20px_rgba(200,176,130,0.1)] transition-all mb-2.5"
             >
               <div className="flex items-center gap-2.5 pl-3 pr-2 text-zinc-500 w-full">
                 <Globe className="w-4 h-4 shrink-0 text-zinc-500" />
@@ -256,7 +256,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-[#d5b579] hover:bg-[#c4a367] text-zinc-950 font-bold text-xs sm:text-xs px-4 sm:px-5 py-2.5 rounded-lg flex items-center gap-1.5 transition-colors shrink-0 cursor-pointer shadow-md"
+                className="bg-[#d5b579] hover:bg-[#c4a367] text-zinc-950 font-bold text-xs sm:text-xs px-4 sm:px-5 py-2.5 rounded-lg flex items-center gap-1.5 transition-colors shrink-0 cursor-pointer shadow-md hover-btn-subtle group"
               >
                 {isSubmitting ? (
                   <>
@@ -266,7 +266,7 @@ export default function Home() {
                 ) : (
                   <>
                     <span>Begin Investigation</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                   </>
                 )}
               </button>
@@ -335,7 +335,7 @@ export default function Home() {
             </svg>
 
             {/* Evidence Node 1 (Top Left) */}
-            <div className="absolute top-8 left-6 bg-[#121217]/95 border border-zinc-800/90 rounded-xl px-3 py-1 text-[10px] sm:text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2 z-10">
+            <div className="absolute top-8 left-6 bg-[#121217]/95 border border-zinc-800/90 hover:border-[#c8b082]/50 rounded-xl px-3 py-1 text-[10px] sm:text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2 z-10 hover-lift cursor-default">
               <span className="w-2 h-2 rounded-full bg-[#c8b082] shadow-[0_0_8px_#c8b082]" />
               <div>
                 <div className="text-zinc-200 font-medium leading-tight">Render Blocking</div>
@@ -344,7 +344,7 @@ export default function Home() {
             </div>
 
             {/* Evidence Node 2 (Middle Left) */}
-            <div className="absolute top-[210px] left-2 bg-[#121217]/95 border border-zinc-800/90 rounded-xl px-3 py-1 text-[10px] sm:text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2 z-10">
+            <div className="absolute top-[210px] left-2 bg-[#121217]/95 border border-zinc-800/90 hover:border-[#c8b082]/50 rounded-xl px-3 py-1 text-[10px] sm:text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2 z-10 hover-lift cursor-default">
               <span className="w-2 h-2 rounded-full bg-[#c8b082] shadow-[0_0_8px_#c8b082]" />
               <div>
                 <div className="text-zinc-200 font-medium leading-tight">Large Image</div>
@@ -353,7 +353,7 @@ export default function Home() {
             </div>
 
             {/* Evidence Node 3 (Bottom Left) */}
-            <div className="absolute bottom-12 left-10 bg-[#121217]/95 border border-zinc-800/90 rounded-xl px-3 py-1 text-[10px] sm:text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2 z-10">
+            <div className="absolute bottom-12 left-10 bg-[#121217]/95 border border-zinc-800/90 hover:border-[#c8b082]/50 rounded-xl px-3 py-1 text-[10px] sm:text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2 z-10 hover-lift cursor-default">
               <span className="w-2 h-2 rounded-full bg-[#c8b082] shadow-[0_0_8px_#c8b082]" />
               <div>
                 <div className="text-zinc-200 font-medium leading-tight">Third Party Script</div>
@@ -571,10 +571,10 @@ export default function Home() {
       <footer className="w-full max-w-[1440px] mx-auto px-6 sm:px-12 pb-3 pt-1 z-20 shrink-0">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 bg-[#0a0a0f]/90 border border-zinc-800/80 rounded-2xl divide-y sm:divide-y-0 sm:divide-x divide-zinc-800/80 backdrop-blur-md shadow-xl overflow-hidden">
           {/* 01. Deep Investigation */}
-          <div className="flex items-center gap-3.5 p-3 sm:p-3.5 hover:bg-zinc-900/30 transition-colors">
-            <span className="text-[10px] font-mono font-bold text-[#c8b082]/70 shrink-0">01</span>
+          <div className="flex items-center gap-3.5 p-3 sm:p-3.5 hover:bg-zinc-850/40 transition-all hover:-translate-y-0.5 cursor-default group">
+            <span className="text-[10px] font-mono font-bold text-[#c8b082]/70 group-hover:text-[#c8b082] transition-colors shrink-0">01</span>
             <div>
-              <h3 className="text-xs font-bold text-zinc-100 mb-0.5 tracking-tight">
+              <h3 className="text-xs font-bold text-zinc-100 mb-0.5 tracking-tight group-hover:text-white transition-colors">
                 Deep Investigation
               </h3>
               <p className="text-[11px] text-zinc-400 leading-tight font-normal">
@@ -584,10 +584,10 @@ export default function Home() {
           </div>
 
           {/* 02. Actionable Evidence */}
-          <div className="flex items-center gap-3.5 p-3 sm:p-3.5 hover:bg-zinc-900/30 transition-colors">
-            <span className="text-[10px] font-mono font-bold text-[#c8b082]/70 shrink-0">02</span>
+          <div className="flex items-center gap-3.5 p-3 sm:p-3.5 hover:bg-zinc-850/40 transition-all hover:-translate-y-0.5 cursor-default group">
+            <span className="text-[10px] font-mono font-bold text-[#c8b082]/70 group-hover:text-[#c8b082] transition-colors shrink-0">02</span>
             <div>
-              <h3 className="text-xs font-bold text-zinc-100 mb-0.5 tracking-tight">
+              <h3 className="text-xs font-bold text-zinc-100 mb-0.5 tracking-tight group-hover:text-white transition-colors">
                 Actionable Evidence
               </h3>
               <p className="text-[11px] text-zinc-400 leading-tight font-normal">
@@ -597,10 +597,10 @@ export default function Home() {
           </div>
 
           {/* 03. Track Progress */}
-          <div className="flex items-center gap-3.5 p-3 sm:p-3.5 hover:bg-zinc-900/30 transition-colors">
-            <span className="text-[10px] font-mono font-bold text-[#c8b082]/70 shrink-0">03</span>
+          <div className="flex items-center gap-3.5 p-3 sm:p-3.5 hover:bg-zinc-850/40 transition-all hover:-translate-y-0.5 cursor-default group">
+            <span className="text-[10px] font-mono font-bold text-[#c8b082]/70 group-hover:text-[#c8b082] transition-colors shrink-0">03</span>
             <div>
-              <h3 className="text-xs font-bold text-zinc-100 mb-0.5 tracking-tight">
+              <h3 className="text-xs font-bold text-zinc-100 mb-0.5 tracking-tight group-hover:text-white transition-colors">
                 Track Progress
               </h3>
               <p className="text-[11px] text-zinc-400 leading-tight font-normal">
@@ -610,10 +610,10 @@ export default function Home() {
           </div>
 
           {/* 04. Privacy Focused */}
-          <div className="flex items-center gap-3.5 p-3 sm:p-3.5 hover:bg-zinc-900/30 transition-colors">
-            <span className="text-[10px] font-mono font-bold text-[#c8b082]/70 shrink-0">04</span>
+          <div className="flex items-center gap-3.5 p-3 sm:p-3.5 hover:bg-zinc-850/40 transition-all hover:-translate-y-0.5 cursor-default group">
+            <span className="text-[10px] font-mono font-bold text-[#c8b082]/70 group-hover:text-[#c8b082] transition-colors shrink-0">04</span>
             <div>
-              <h3 className="text-xs font-bold text-zinc-100 mb-0.5 tracking-tight">
+              <h3 className="text-xs font-bold text-zinc-100 mb-0.5 tracking-tight group-hover:text-white transition-colors">
                 Privacy Focused
               </h3>
               <p className="text-[11px] text-zinc-400 leading-tight font-normal">

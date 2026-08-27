@@ -211,10 +211,10 @@ function NavbarContent({ className = "" }: NavbarProps) {
 
             <button
               onClick={() => setModalOpen(true)}
-              className="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-xl text-sm font-semibold text-zinc-200 hover:text-white bg-[#0e0e14]/90 hover:bg-[#161622] border border-zinc-800 hover:border-zinc-700 transition-all shadow-sm cursor-pointer"
+              className="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-xl text-sm font-semibold text-zinc-200 hover:text-white bg-[#0e0e14]/90 hover:bg-[#161622] border border-zinc-800 hover:border-zinc-700 transition-all shadow-sm cursor-pointer hover-btn-subtle group"
             >
               <span>Start Investigation</span>
-              <ArrowRight className="w-4 h-4 text-zinc-400" />
+              <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
 
