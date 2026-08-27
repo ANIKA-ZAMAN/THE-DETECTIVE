@@ -568,65 +568,57 @@ export default function Home() {
         </div>
       </main>
 
-      {/* ────────────────── BOTTOM FEATURE STRIP (FIT TO 100VH) ────────────────── */}
+      {/* ────────────────── BOTTOM FEATURE STRIP (EDITORIAL ARCHITECTURAL GRID) ────────────────── */}
       <footer className="w-full max-w-[1440px] mx-auto px-6 sm:px-12 pb-3 pt-1 z-20 shrink-0">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 p-2.5 sm:p-3 bg-[#0a0a0f]/80 border border-zinc-800/80 rounded-2xl backdrop-blur-md shadow-xl">
-          {/* 1. Deep Investigation */}
-          <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-zinc-900/40 transition-colors">
-            <div className="w-8 h-8 rounded-lg bg-[#121218] border border-zinc-800 flex items-center justify-center shrink-0 shadow-sm">
-              <Search className="w-3.5 h-3.5 text-[#c8b082]" />
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 bg-[#0a0a0f]/90 border border-zinc-800/80 rounded-2xl divide-y sm:divide-y-0 sm:divide-x divide-zinc-800/80 backdrop-blur-md shadow-xl overflow-hidden">
+          {/* 01. Deep Investigation */}
+          <div className="flex items-center gap-3.5 p-3 sm:p-3.5 hover:bg-zinc-900/30 transition-colors">
+            <span className="text-[10px] font-mono font-bold text-[#c8b082]/70 shrink-0">01</span>
             <div>
-              <h3 className="text-xs font-bold text-zinc-100 mb-0.5">
+              <h3 className="text-xs font-bold text-zinc-100 mb-0.5 tracking-tight">
                 Deep Investigation
               </h3>
               <p className="text-[11px] text-zinc-400 leading-tight font-normal">
-                We don&apos;t just show metrics. We find the root cause.
+                Identifies root bottlenecks, not just surface metrics.
               </p>
             </div>
           </div>
 
-          {/* 2. Actionable Evidence */}
-          <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-zinc-900/40 transition-colors">
-            <div className="w-8 h-8 rounded-lg bg-[#121218] border border-zinc-800 flex items-center justify-center shrink-0 shadow-sm">
-              <Folder className="w-3.5 h-3.5 text-[#c8b082]" />
-            </div>
+          {/* 02. Actionable Evidence */}
+          <div className="flex items-center gap-3.5 p-3 sm:p-3.5 hover:bg-zinc-900/30 transition-colors">
+            <span className="text-[10px] font-mono font-bold text-[#c8b082]/70 shrink-0">02</span>
             <div>
-              <h3 className="text-xs font-bold text-zinc-100 mb-0.5">
+              <h3 className="text-xs font-bold text-zinc-100 mb-0.5 tracking-tight">
                 Actionable Evidence
               </h3>
               <p className="text-[11px] text-zinc-400 leading-tight font-normal">
-                See exactly what&apos;s wrong and why it matters.
+                Pinpoints exact code lines and heavy payload assets.
               </p>
             </div>
           </div>
 
-          {/* 3. Track Progress */}
-          <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-zinc-900/40 transition-colors">
-            <div className="w-8 h-8 rounded-lg bg-[#121218] border border-zinc-800 flex items-center justify-center shrink-0 shadow-sm">
-              <TrendingUp className="w-3.5 h-3.5 text-[#c8b082]" />
-            </div>
+          {/* 03. Track Progress */}
+          <div className="flex items-center gap-3.5 p-3 sm:p-3.5 hover:bg-zinc-900/30 transition-colors">
+            <span className="text-[10px] font-mono font-bold text-[#c8b082]/70 shrink-0">03</span>
             <div>
-              <h3 className="text-xs font-bold text-zinc-100 mb-0.5">
+              <h3 className="text-xs font-bold text-zinc-100 mb-0.5 tracking-tight">
                 Track Progress
               </h3>
               <p className="text-[11px] text-zinc-400 leading-tight font-normal">
-                Monitor performance over time and improve with confidence.
+                Continuous chronological audits and delta comparisons.
               </p>
             </div>
           </div>
 
-          {/* 4. Privacy Focused */}
-          <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-zinc-900/40 transition-colors">
-            <div className="w-8 h-8 rounded-lg bg-[#121218] border border-zinc-800 flex items-center justify-center shrink-0 shadow-sm">
-              <Shield className="w-3.5 h-3.5 text-[#c8b082]" />
-            </div>
+          {/* 04. Privacy Focused */}
+          <div className="flex items-center gap-3.5 p-3 sm:p-3.5 hover:bg-zinc-900/30 transition-colors">
+            <span className="text-[10px] font-mono font-bold text-[#c8b082]/70 shrink-0">04</span>
             <div>
-              <h3 className="text-xs font-bold text-zinc-100 mb-0.5">
+              <h3 className="text-xs font-bold text-zinc-100 mb-0.5 tracking-tight">
                 Privacy Focused
               </h3>
               <p className="text-[11px] text-zinc-400 leading-tight font-normal">
-                Your data stays yours. Always.
+                Diagnostic audits run cleanly without intrusive tracking.
               </p>
             </div>
           </div>

@@ -180,8 +180,8 @@ function DetailsContent() {
                 <Clock className="w-3.5 h-3.5 text-[#c8b082]" />
                 Audited: {analysisData?.investigatedAt || "Aug 27, 2026"}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-[#38bdf8]/10 text-[#38bdf8] text-[11px] font-mono border border-[#38bdf8]/30">
-                🌐 Deep Website Forensic Breakdown
+              <span className="px-2.5 py-0.5 rounded bg-zinc-900/80 text-zinc-300 text-[11px] font-mono border border-zinc-800">
+                Forensic Breakdown
               </span>
             </div>
 
@@ -776,8 +776,8 @@ function DetailsContent() {
                   <Sparkles className="w-3.5 h-3.5 text-[#c8b082]" />
                   PERFORMANCE INSIGHTS
                 </h4>
-                <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/30">
-                  ✨ AI
+                <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
+                  DIAGNOSTIC
                 </span>
               </div>
 
