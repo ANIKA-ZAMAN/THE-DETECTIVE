@@ -218,13 +218,13 @@ export default function Home() {
             </div>
 
             {/* Main Dramatic Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-[44px] leading-[1.08] tracking-tight font-extrabold text-white mb-4 select-none">
-              <span className="block font-sans">Every website</span>
-              <span className="block font-sans">leaves clues.</span>
-              <span className="block font-serif font-normal italic text-[#f3eedc] mt-0.5">
+            <h1 className="text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight font-serif italic font-normal text-[#f3eedc] mb-4 select-none">
+              <span className="block">Every website</span>
+              <span className="block">leaves clues.</span>
+              <span className="block mt-0.5">
                 Find what slows
               </span>
-              <span className="block font-serif font-normal italic text-[#f3eedc]">
+              <span className="block">
                 it down.
               </span>
             </h1>
