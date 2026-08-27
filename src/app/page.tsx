@@ -235,14 +235,14 @@ export default function Home() {
               <div>103 &lt;/header&gt;</div>
             </div>
 
-            {/* Faint Chalk Fingerprint Arch Lines behind/below the lens */}
-            <div className="absolute left-[36%] bottom-3 pointer-events-none opacity-40 z-0">
+            {/* Chalk Fingerprint Arch Lines directly behind the magnifying glass */}
+            <div className="absolute left-[34%] bottom-2 pointer-events-none opacity-45 z-0">
               <svg
-                className="w-56 h-56 text-[#c8b082]"
+                className="w-60 h-60 text-[#c8b082]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.2"
+                strokeWidth="1.3"
               >
                 <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" />
                 <path d="M14 13.12c0 2.38 0 6.38-1 8.88" />
@@ -254,16 +254,16 @@ export default function Home() {
               </svg>
             </div>
 
-            {/* Connecting Golden Constellation Network Graph */}
+            {/* Radiating Golden Dotted Connection Lines */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-60 z-0">
-              <line x1="120" y1="90" x2="240" y2="180" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
-              <line x1="80" y1="270" x2="250" y2="240" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
-              <line x1="130" y1="430" x2="260" y2="340" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
-              <line x1="250" y1="240" x2="500" y2="130" stroke="#c8b082" strokeWidth="0.8" strokeDasharray="2 2" />
-              <circle cx="240" cy="180" r="3.5" fill="#c8b082" className="animate-pulse" />
+              <line x1="130" y1="90" x2="250" y2="190" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
+              <line x1="90" y1="270" x2="250" y2="240" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
+              <line x1="140" y1="430" x2="270" y2="340" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
+              <line x1="270" y1="240" x2="510" y2="130" stroke="#c8b082" strokeWidth="0.8" strokeDasharray="2 2" />
+              <circle cx="250" cy="190" r="3.5" fill="#c8b082" className="animate-pulse" />
               <circle cx="250" cy="240" r="3.5" fill="#c8b082" />
-              <circle cx="260" cy="340" r="3.5" fill="#c8b082" />
-              <circle cx="500" cy="130" r="2.5" fill="#c8b082" />
+              <circle cx="270" cy="340" r="3.5" fill="#c8b082" />
+              <circle cx="510" cy="130" r="2.5" fill="#c8b082" />
             </svg>
 
             {/* Evidence Node 1 (Top Left) */}
@@ -326,34 +326,39 @@ export default function Home() {
               </div>
             </div>
 
-            {/* ══════════════════════════════════════════════════
-                MAIN FOCAL POINT: MAGNIFYING GLASS SCANNER
+            {/* ══════════════════════════════════════════════════════════════════
+                MAIN FOCAL POINT: PHOTO-ACCURATE CONVEX GLASS MAGNIFYING GLASS
                ══════════════════════════════════════════════════ */}
             <div className="relative z-20 flex items-center justify-center -translate-x-8 -translate-y-2 select-none">
-              {/* Outer Metallic Brass Bezel Ring */}
-              <div className="relative w-[305px] h-[305px] rounded-full p-[7px] bg-gradient-to-br from-[#c8b082] via-[#8c6f48] via-[#45321f] to-[#1a140e] shadow-[0_30px_70px_rgba(0,0,0,0.98),0_0_20px_rgba(200,176,130,0.15)] border border-[#c8b082]/70">
-                {/* Inner Lens Body */}
-                <div className="w-full h-full rounded-full bg-[#08080c] p-4 relative overflow-hidden flex flex-col justify-center border border-[#523d24]/60 shadow-[inset_0_0_40px_rgba(0,0,0,0.98)]">
-                  {/* Curved Glass Optical Reflections */}
-                  <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full bg-gradient-to-b from-white/20 via-white/5 to-transparent pointer-events-none transform rotate-45 blur-[1px]" />
-                  <div className="absolute top-3 right-5 w-24 h-12 rounded-full bg-white/10 pointer-events-none transform rotate-[-20deg] blur-[2px]" />
-                  <div className="absolute bottom-4 left-6 w-20 h-10 rounded-full bg-white/5 pointer-events-none transform rotate-[35deg] blur-[3px]" />
+              {/* Outer Metallic Brass Bezel Ring (Round Double-Rim Bezel) */}
+              <div className="relative w-[310px] h-[310px] rounded-full p-[8px] bg-gradient-to-br from-[#c8b082] via-[#8c6f48] via-[#45321f] to-[#1a140e] shadow-[0_35px_80px_rgba(0,0,0,0.98),0_0_25px_rgba(200,176,130,0.2)] border border-[#c8b082]/70">
+                {/* Inner Convex Lens Container (Strictly Rounded with Seamless Glass Effects) */}
+                <div className="w-full h-full rounded-full bg-[#09090e] relative overflow-hidden flex items-center justify-center border border-[#523d24]/80 shadow-[inset_0_0_45px_rgba(0,0,0,0.98)]">
+                  {/* Spherical Convex Glass Lens Shading & Ambient Vignette */}
+                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_45%_45%,_rgba(25,25,35,0.25)_0%,_rgba(10,10,15,0.75)_65%,_rgba(0,0,0,0.95)_100%)] pointer-events-none z-10" />
 
-                  {/* UI Window inside Glass */}
-                  <div className="relative z-10 bg-[#0e0e14]/90 border border-zinc-800/90 rounded-xl p-4 shadow-2xl backdrop-blur-md">
+                  {/* Primary Curving Glass Specular Glare (Top-Left Angle) */}
+                  <div className="absolute -top-12 -left-12 w-52 h-52 rounded-full bg-gradient-to-br from-white/25 via-white/5 to-transparent pointer-events-none transform rotate-12 blur-[1.5px] z-20" />
+
+                  {/* Secondary Rim Glare Arcs (Top Right & Bottom Left) */}
+                  <div className="absolute top-2 right-6 w-28 h-8 rounded-full bg-white/12 pointer-events-none transform rotate-[-25deg] blur-[2px] z-20" />
+                  <div className="absolute bottom-3 left-8 w-24 h-6 rounded-full bg-white/8 pointer-events-none transform rotate-[35deg] blur-[3px] z-20" />
+
+                  {/* UI Window FULLY CONTAINED INSIDE the Circular Glass Lens */}
+                  <div className="relative z-10 w-[84%] bg-[#0e0e14]/85 border border-zinc-800/80 rounded-2xl p-4 shadow-2xl backdrop-blur-md">
                     {/* Header */}
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-[11px] font-serif italic text-[#c8b082]">
                         analyzing...
                       </span>
-                      <div className="flex items-center gap-1 opacity-40">
+                      <div className="flex items-center gap-1 opacity-50">
                         <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
                         <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
                       </div>
                     </div>
 
-                    {/* URL */}
-                    <span className="text-base font-mono font-bold text-[#86efac] block tracking-tight mb-2.5 drop-shadow-[0_0_8px_rgba(134,239,172,0.35)]">
+                    {/* Green Monospace URL */}
+                    <span className="text-base font-mono font-bold text-[#86efac] block tracking-tight mb-2.5 drop-shadow-[0_0_8px_rgba(134,239,172,0.4)]">
                       https://example.com
                     </span>
 
@@ -365,7 +370,7 @@ export default function Home() {
                       <div className="w-3 h-3 border-2 border-[#c8b082] border-t-transparent rounded-full animate-spin shrink-0 opacity-70" />
                     </div>
 
-                    {/* Checklist */}
+                    {/* Checklist with Glowing Status Dots */}
                     <ul className="space-y-1.5 text-[11px] text-zinc-300 font-sans">
                       <li className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#86efac] shrink-0 shadow-[0_0_6px_#86efac]" />
@@ -393,7 +398,7 @@ export default function Home() {
                   <div className="w-10 h-6 bg-gradient-to-r from-[#7a5328] via-[#c8b082] via-[#ffe0a3] to-[#3a220d] rounded-sm border border-[#c8b082]/90 shadow-lg" />
                 </div>
 
-                {/* Cylindrical Walnut Wood Handle */}
+                {/* Cylindrical Dark Walnut Wood Handle */}
                 <div
                   className="absolute -bottom-36 -right-32 w-10 h-52 pointer-events-none z-20 transform rotate-[-45deg] origin-top-left rounded-b-2xl border-x border-b border-[#3d2415]/70 shadow-[0_25px_60px_rgba(0,0,0,0.98)]"
                   style={{

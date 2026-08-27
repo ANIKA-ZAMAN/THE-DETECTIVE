@@ -1,59 +1,59 @@
 [
   {
-    "id": "HIST-1787829775512-173",
-    "caseId": "#CASE-2530",
+    "id": "HIST-1787829921960-454",
+    "caseId": "#CASE-3459",
     "targetUrl": "https://example.com",
     "normalizedUrl": "https://example.com",
     "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787829775512,
-    "overallHealthScore": 59,
+    "timestamp": 1787829921960,
+    "overallHealthScore": 69,
     "categoryScores": {
-      "performance": 53,
+      "performance": 78,
       "seo": 60,
       "security": 40,
       "accessibility": 100
     },
     "metrics": {
-      "ttfbMs": 2479,
-      "fcpSec": 2.7,
-      "lcpSec": 3.4,
-      "inpMs": 1122,
+      "ttfbMs": 608,
+      "fcpSec": 0.7,
+      "lcpSec": 1.4,
+      "inpMs": 280,
       "cls": 0.01,
       "pageSizeKb": 4,
       "requestsCount": 1
     }
   },
   {
-    "id": "HIST-1787829774733-917",
-    "caseId": "#CASE-6620",
+    "id": "HIST-1787829921607-949",
+    "caseId": "#CASE-6385",
     "targetUrl": "https://httpbin.org",
     "normalizedUrl": "https://httpbin.org",
     "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787829774733,
-    "overallHealthScore": 35,
+    "timestamp": 1787829921607,
+    "overallHealthScore": 48,
     "categoryScores": {
-      "performance": 20,
+      "performance": 53,
       "seo": 20,
       "security": 35,
       "accessibility": 100
     },
     "metrics": {
-      "ttfbMs": 1698,
-      "fcpSec": 2.4,
-      "lcpSec": 3.1,
-      "inpMs": 915,
+      "ttfbMs": 246,
+      "fcpSec": 0.8,
+      "lcpSec": 1.5,
+      "inpMs": 262,
       "cls": 0.06,
-      "pageSizeKb": 135,
+      "pageSizeKb": 157,
       "requestsCount": 6
     }
   },
   {
-    "id": "HIST-1787829772889-459",
-    "caseId": "#CASE-2035",
+    "id": "HIST-1787829920477-358",
+    "caseId": "#CASE-5025",
     "targetUrl": "https://httpbin.org",
     "normalizedUrl": "https://httpbin.org",
     "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787829772889,
+    "timestamp": 1787829920477,
     "overallHealthScore": 35,
     "categoryScores": {
       "performance": 20,
@@ -62,12 +62,12 @@
       "accessibility": 100
     },
     "metrics": {
-      "ttfbMs": 1727,
-      "fcpSec": 2.4,
-      "lcpSec": 3.1,
-      "inpMs": 928,
+      "ttfbMs": 1588,
+      "fcpSec": 2.3,
+      "lcpSec": 3,
+      "inpMs": 866,
       "cls": 0.06,
-      "pageSizeKb": 191,
+      "pageSizeKb": 186,
       "requestsCount": 6
     }
   }
