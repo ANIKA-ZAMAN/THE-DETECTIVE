@@ -105,7 +105,14 @@ function CompareContent() {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push(`/compare?u1=${encodeURIComponent(url1.trim())}&u2=${encodeURIComponent(url2.trim())}`);
+    if (!url1.trim() || !url2.trim()) return;
+    const curU1 = searchParams.get("u1") || "";
+    const curU2 = searchParams.get("u2") || "";
+    if (url1.trim() === curU1 && url2.trim() === curU2) {
+      runComparison([url1.trim(), url2.trim()]);
+    } else {
+      router.push(`/compare?u1=${encodeURIComponent(url1.trim())}&u2=${encodeURIComponent(url2.trim())}`);
+    }
   };
 
   const sites = compareData?.sites ?? [];
