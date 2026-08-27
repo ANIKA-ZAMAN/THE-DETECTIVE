@@ -1,5 +1,53 @@
 [
   {
+    "id": "HIST-1787840160912-28",
+    "caseId": "#CASE-7703",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787840160912,
+    "overallHealthScore": 65,
+    "categoryScores": {
+      "performance": 68,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 1005,
+      "fcpSec": 1.1,
+      "lcpSec": 1.8,
+      "inpMs": 458,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787840160901-994",
+    "caseId": "#CASE-2780",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787840160901,
+    "overallHealthScore": 65,
+    "categoryScores": {
+      "performance": 68,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 1023,
+      "fcpSec": 1.1,
+      "lcpSec": 1.8,
+      "inpMs": 466,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
     "id": "HIST-1787840143912-88",
     "caseId": "#CASE-1519",
     "targetUrl": "https://example.com",
@@ -1389,54 +1437,6 @@
       "cls": 0.06,
       "pageSizeKb": 159,
       "requestsCount": 6
-    }
-  },
-  {
-    "id": "HIST-1787836582746-2",
-    "caseId": "#CASE-6612",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836582746,
-    "overallHealthScore": 78,
-    "categoryScores": {
-      "performance": 99,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 21,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 60,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836582743-887",
-    "caseId": "#CASE-7142",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836582743,
-    "overallHealthScore": 78,
-    "categoryScores": {
-      "performance": 99,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 29,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 60,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
     }
   }
 ]

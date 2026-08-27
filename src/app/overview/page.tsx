@@ -185,75 +185,80 @@ export function OverviewContent() {
   const radarBlips: RadarBlip[] = [];
 
   if (analysisData) {
-    // 1. TTFB blip (Angle ~40°, Inner ring)
+    // 1. TTFB blip (Angle 35°, Inner ring)
     radarBlips.push({
       id: "blip-ttfb",
       label: "TTFB Origin Latency",
       value: `${ttfbMs}ms`,
       category: "network",
       status: ttfbMs <= 600 ? "good" : ttfbMs <= 1200 ? "warn" : "poor",
-      angleDeg: 42,
-      radiusPercent: 32,
+      angleDeg: 35,
+      radiusPercent: 38,
       detail: `Time to First Byte measured from origin server. Target: < 600ms.`,
+      codeClue: `Origin Latency: ${ttfbMs}ms`,
       actionHref: `/details?url=${encodeURIComponent(analysisData.normalizedUrl)}`,
     });
 
-    // 2. FCP blip (Angle ~115°, Mid ring)
+    // 2. FCP blip (Angle 75°, Mid ring)
     radarBlips.push({
       id: "blip-fcp",
       label: "First Contentful Paint",
       value: `${fcpSec}s`,
       category: "vitals",
       status: fcpSec <= 1.8 ? "good" : fcpSec <= 3.0 ? "warn" : "poor",
-      angleDeg: 118,
-      radiusPercent: 52,
+      angleDeg: 75,
+      radiusPercent: 62,
       detail: `First visual paint timestamp. Target: < 1.8s.`,
+      codeClue: `FCP Render Time: ${fcpSec}s`,
       actionHref: `/details?url=${encodeURIComponent(analysisData.normalizedUrl)}`,
     });
 
-    // 3. LCP blip (Angle ~210°, Mid-outer ring)
+    // 3. LCP blip (Angle 120°, Outer ring)
     radarBlips.push({
       id: "blip-lcp",
       label: "Largest Contentful Paint",
       value: `${lcpSec}s`,
       category: "vitals",
       status: lcpSec <= 2.5 ? "good" : lcpSec <= 4.0 ? "warn" : "poor",
-      angleDeg: 215,
-      radiusPercent: 68,
+      angleDeg: 120,
+      radiusPercent: 74,
       detail: `Main viewport content render time. Target: < 2.5s.`,
+      codeClue: `LCP Element Render: ${lcpSec}s`,
       actionHref: `/details?url=${encodeURIComponent(analysisData.normalizedUrl)}`,
     });
 
-    // 4. INP blip (Angle ~290°, Mid ring)
+    // 4. INP blip (Angle 165°, Mid ring)
     radarBlips.push({
       id: "blip-inp",
       label: "Interaction Responsiveness",
       value: `${inpMs}ms`,
       category: "vitals",
       status: inpMs <= 200 ? "good" : inpMs <= 500 ? "warn" : "poor",
-      angleDeg: 292,
-      radiusPercent: 46,
+      angleDeg: 165,
+      radiusPercent: 48,
       detail: `Main thread interaction responsiveness. Target: < 200ms.`,
+      codeClue: `INP Latency: ${inpMs}ms`,
       actionHref: `/details?url=${encodeURIComponent(analysisData.normalizedUrl)}`,
     });
 
-    // 5. CLS blip (Angle ~340°, Outer ring)
+    // 5. CLS blip (Angle 210°, Outer ring)
     radarBlips.push({
       id: "blip-cls",
       label: "Cumulative Layout Shift",
       value: `${cls}`,
       category: "vitals",
       status: cls <= 0.1 ? "good" : cls <= 0.25 ? "warn" : "poor",
-      angleDeg: 342,
-      radiusPercent: 78,
+      angleDeg: 210,
+      radiusPercent: 80,
       detail: `Visual stability metric. Target: < 0.1 unexpected movement.`,
+      codeClue: `Layout Shift Score: ${cls}`,
       actionHref: `/details?url=${encodeURIComponent(analysisData.normalizedUrl)}`,
     });
 
-    // 6. Add blips for detected critical/warning faults
-    faults.slice(0, 4).forEach((fault, i) => {
-      const angles = [75, 165, 255, 320];
-      const radii = [62, 74, 82, 58];
+    // 6. Add blips for detected critical/warning faults (Distributed cleanly in open sectors)
+    faults.slice(0, 3).forEach((fault, i) => {
+      const angles = [55, 100, 145, 190, 235];
+      const radii = [60, 78, 64, 76, 56];
       radarBlips.push({
         id: `blip-fault-${fault.id}`,
         label: fault.title,
@@ -263,7 +268,7 @@ export function OverviewContent() {
         angleDeg: angles[i % angles.length],
         radiusPercent: radii[i % radii.length],
         detail: fault.description,
-        codeClue: fault.clueCode,
+        codeClue: fault.clueCode || `<resource src="${fault.title}" />`,
         actionHref: `/investigation?url=${encodeURIComponent(analysisData.normalizedUrl)}`,
       });
     });
@@ -667,17 +672,17 @@ export function OverviewContent() {
                 );
               })}
 
-              {/* 4. Attached Forensic HUD Card (Inspired by reference "Malware Infection" card) */}
-              {activeBlip && (
+              {/* 4. Attached Forensic HUD Card — Uniform Fixed Size & Only Visible When Scan Completes */}
+              {!loading && activeBlip && (
                 <div
-                  className="absolute top-4 left-4 z-40 bg-[#0d0d12]/95 border border-[#c8b082]/60 rounded-2xl p-4 shadow-2xl backdrop-blur-md max-w-[210px] space-y-2 animate-popup-reveal pointer-events-auto"
+                  className="absolute top-3 left-3 z-40 bg-[#0d0d12]/95 border border-[#c8b082]/60 rounded-2xl p-3.5 shadow-2xl backdrop-blur-md w-[225px] h-[190px] flex flex-col justify-between animate-popup-reveal pointer-events-auto select-none"
                 >
-                  <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-                    <span className="text-[10px] font-bold font-mono text-[#c8b082] uppercase truncate">
+                  <div className="flex items-center justify-between border-b border-zinc-800 pb-1.5 gap-2">
+                    <span className="text-[10px] font-bold font-mono text-[#c8b082] uppercase truncate max-w-[130px]" title={activeBlip.label}>
                       {activeBlip.label}
                     </span>
                     <span
-                      className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
+                      className={`text-[8.5px] font-bold px-1.5 py-0.5 rounded shrink-0 ${
                         activeBlip.status === "good"
                           ? "bg-emerald-500/20 text-emerald-400"
                           : activeBlip.status === "warn"
@@ -689,20 +694,18 @@ export function OverviewContent() {
                     </span>
                   </div>
 
-                  <p className="text-[10px] text-zinc-300 leading-tight">
+                  <p className="text-[9.5px] text-zinc-300 leading-snug line-clamp-2 my-0.5">
                     {activeBlip.detail}
                   </p>
 
-                  {activeBlip.codeClue && (
-                    <div className="bg-[#07070a] p-1.5 rounded text-[9px] font-mono text-[#d8a764] truncate border border-zinc-800">
-                      <code>{activeBlip.codeClue}</code>
-                    </div>
-                  )}
+                  <div className="bg-[#07070a] px-2 py-1 rounded text-[8.5px] font-mono text-[#d8a764] truncate border border-zinc-800 h-6 flex items-center">
+                    <code className="truncate">{activeBlip.codeClue || `<evidence target="${activeBlip.label}" />`}</code>
+                  </div>
 
-                  <div className="pt-1">
+                  <div className="pt-0.5">
                     <Link
                       href={activeBlip.actionHref || `/details?url=${encodeURIComponent(analysisData?.normalizedUrl || "")}`}
-                      className="w-full py-1 text-center bg-[#c8b082] hover:bg-[#b89f71] text-zinc-950 text-[10px] font-bold rounded-lg flex items-center justify-center gap-1 transition-colors shadow"
+                      className="w-full py-1 text-center bg-[#c8b082] hover:bg-[#b89f71] text-zinc-950 text-[10px] font-bold rounded-lg flex items-center justify-center gap-1 transition-colors shadow hover-btn-subtle"
                     >
                       <span>Investigate</span>
                       <ArrowRight className="w-2.5 h-2.5" />
