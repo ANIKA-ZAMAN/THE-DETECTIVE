@@ -535,24 +535,9 @@ function DetailsContent() {
                   RESOURCE WATERFALL
                 </h3>
 
-                <div className="flex items-center gap-1 bg-[#14141a] p-0.5 rounded-lg border border-zinc-800 text-[11px] font-mono">
-                  <button
-                    onClick={() => setWaterfallViewMode("TIMELINE")}
-                    className={`px-2.5 py-0.5 rounded-md transition-colors cursor-pointer ${
-                      waterfallViewMode === "TIMELINE" ? "bg-[#c8b082] text-zinc-950 font-bold" : "text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    Timeline
-                  </button>
-                  <button
-                    onClick={() => setWaterfallViewMode("TABLE")}
-                    className={`px-2.5 py-0.5 rounded-md transition-colors cursor-pointer ${
-                      waterfallViewMode === "TABLE" ? "bg-[#c8b082] text-zinc-950 font-bold" : "text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    Table
-                  </button>
-                </div>
+                <span className="text-[10px] font-mono text-zinc-950 bg-[#c8b082] px-2.5 py-0.5 rounded-md font-bold shadow-sm">
+                  Timeline
+                </span>
               </div>
 
               {/* Waterfall Timeline List */}
