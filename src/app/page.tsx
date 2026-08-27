@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -17,6 +17,48 @@ export default function Home() {
   const router = useRouter();
   const [urlInput, setUrlInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [liveData, setLiveData] = useState<{
+    overallHealthScore?: number;
+    lcpSec?: number;
+    inpMs?: number;
+    cls?: number;
+    url?: string;
+    domain?: string;
+    caseId?: string;
+    timestamp?: string;
+  } | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    async function loadLatestMetrics() {
+      try {
+        const histRes = await fetch("/api/history");
+        const histJson = await histRes.json();
+        if (mounted && histJson.success && histJson.data && histJson.data.length > 0) {
+          setLiveData(histJson.data[0]);
+          return;
+        }
+
+        // Fetch real data for example.com if history is empty
+        const invRes = await fetch("/api/investigate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: "https://example.com" }),
+        });
+        const invJson = await invRes.json();
+        if (mounted && invJson.success && invJson.data) {
+          setLiveData(invJson.data);
+        }
+      } catch (err) {
+        console.error("Failed to load live hero metrics", err);
+      }
+    }
+
+    loadLatestMetrics();
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const handleInvestigate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +66,28 @@ export default function Home() {
     setIsSubmitting(true);
     router.push(`/overview?url=${encodeURIComponent(urlInput.trim())}`);
   };
+
+  const score = liveData?.overallHealthScore ?? 68;
+  const scoreVerdict =
+    score >= 90
+      ? "Good"
+      : score >= 50
+      ? "Needs Improvement"
+      : "Poor";
+  const scoreColor =
+    score >= 90 ? "#4ade80" : score >= 50 ? "#d8a764" : "#f87171";
+  const scoreVerdictColor =
+    score >= 90 ? "#4ade80" : score >= 50 ? "#e88d43" : "#f87171";
+
+  const lcpValue =
+    liveData?.lcpSec !== undefined ? `${liveData.lcpSec.toFixed(1)}s` : "4.2s";
+  const inpValue =
+    liveData?.inpMs !== undefined ? `${Math.round(liveData.inpMs)}ms` : "391ms";
+  const clsValue =
+    liveData?.cls !== undefined ? `${liveData.cls.toFixed(2)}` : "0.28";
+
+  const displayUrl = liveData?.url || "https://example.com";
+  const displayDomain = liveData?.domain || "example.com";
 
   return (
     <div
@@ -215,7 +279,7 @@ export default function Home() {
             </div>
 
             {/* Subtle Fingerprint in lower center-right of investigation scene */}
-            <div className="absolute right-[22%] bottom-4 pointer-events-none opacity-25 z-0">
+            <div className="absolute right-[24%] bottom-4 pointer-events-none opacity-25 z-0">
               <svg
                 className="w-48 h-48 text-[#c8b082]"
                 viewBox="0 0 24 24"
@@ -292,7 +356,7 @@ export default function Home() {
 
                 <div className="space-y-1 text-[11px] text-zinc-800">
                   <div className="font-semibold text-zinc-950 tracking-tight text-xs">
-                    example.com
+                    {displayDomain}
                   </div>
                   <div className="text-zinc-600 text-[10px]">Investigated on</div>
                   <div className="text-zinc-800 font-medium">May 21, 2024</div>
@@ -338,8 +402,8 @@ export default function Home() {
                     </div>
 
                     {/* Green Monospace URL */}
-                    <span className="text-base font-mono font-bold text-[#86efac] block tracking-tight drop-shadow-[0_0_8px_rgba(134,239,172,0.5)]">
-                      https://example.com
+                    <span className="text-base font-mono font-bold text-[#86efac] block tracking-tight drop-shadow-[0_0_8px_rgba(134,239,172,0.5)] truncate">
+                      {displayUrl}
                     </span>
 
                     {/* Progress Bar with Scanner Keyframes */}
@@ -408,39 +472,45 @@ export default function Home() {
               </div>
             </div>
 
-            {/* ══════════════════════════════════════════════════
-                FLOATING REPORT CARDS (PERFORMANCE SCORE & VITALS)
-               ══════════════════════════════════════════════════ */}
-            <div className="absolute right-4 bottom-6 flex flex-col gap-3.5 z-30 w-52 transform -rotate-[2.5deg] select-none animate-float-slow">
+            {/* ══════════════════════════════════════════════════════════════════════
+                COMPACT FLOATING REPORT CARDS (POSITIONED ABOVE THE HANDLE)
+               ══════════════════════════════════════════════════════════════════════ */}
+            <div className="absolute right-2 sm:right-6 top-[22%] sm:top-[20%] flex flex-col gap-2.5 z-30 w-44 sm:w-48 transform -rotate-[1.5deg] select-none animate-float-slow">
               {/* Card 1: PERFORMANCE SCORE */}
-              <div className="bg-[#13131a]/95 border border-zinc-800/90 rounded-2xl p-4 shadow-[0_20px_45px_rgba(0,0,0,0.9)] backdrop-blur-md">
-                <div className="text-[10px] font-bold text-zinc-400 tracking-wider uppercase mb-1">
+              <div className="bg-[#13131a]/95 border border-zinc-800/90 rounded-xl p-3 sm:p-3.5 shadow-[0_20px_45px_rgba(0,0,0,0.9)] backdrop-blur-md">
+                <div className="text-[9px] font-bold text-zinc-400 tracking-wider uppercase mb-0.5">
                   PERFORMANCE SCORE
                 </div>
-                <div className="flex items-baseline gap-1.5 my-0.5">
-                  <span className="text-4xl font-extrabold text-[#d8a764] tracking-tight">
-                    68
+                <div className="flex items-baseline gap-1 my-0.5">
+                  <span
+                    className="text-3xl font-extrabold tracking-tight"
+                    style={{ color: scoreColor }}
+                  >
+                    {score}
                   </span>
-                  <span className="text-sm text-zinc-500 font-medium">/100</span>
+                  <span className="text-xs text-zinc-500 font-medium">/100</span>
                 </div>
-                <div className="text-xs font-semibold text-[#e88d43] mt-0.5">
-                  Needs Improvement
+                <div
+                  className="text-[11px] font-semibold mt-0.5"
+                  style={{ color: scoreVerdictColor }}
+                >
+                  {scoreVerdict}
                 </div>
               </div>
 
               {/* Card 2: CORE WEB VITALS */}
-              <div className="bg-[#13131a]/95 border border-zinc-800/90 rounded-2xl p-4 shadow-[0_20px_45px_rgba(0,0,0,0.9)] backdrop-blur-md">
-                <div className="text-[10px] font-bold text-zinc-400 tracking-wider uppercase mb-2.5">
+              <div className="bg-[#13131a]/95 border border-zinc-800/90 rounded-xl p-3 sm:p-3.5 shadow-[0_20px_45px_rgba(0,0,0,0.9)] backdrop-blur-md">
+                <div className="text-[9px] font-bold text-zinc-400 tracking-wider uppercase mb-2">
                   CORE WEB VITALS
                 </div>
-                <div className="space-y-2.5 text-xs font-mono">
+                <div className="space-y-2 text-[11px] font-mono">
                   {/* LCP */}
                   <div className="flex items-center justify-between">
                     <span className="text-zinc-400 font-medium">LCP</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#e0524c] font-bold">4.2s</span>
-                      <div className="w-3.5 h-3.5 rounded-full bg-[#2a1414] border border-[#e0524c]/40 flex items-center justify-center">
-                        <span className="w-2 h-2 rounded-full bg-[#e0524c] shadow-[0_0_6px_#e0524c]" />
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[#e0524c] font-bold">{lcpValue}</span>
+                      <div className="w-3 h-3 rounded-full bg-[#2a1414] border border-[#e0524c]/40 flex items-center justify-center">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#e0524c] shadow-[0_0_6px_#e0524c]" />
                       </div>
                     </div>
                   </div>
@@ -448,10 +518,10 @@ export default function Home() {
                   {/* INP */}
                   <div className="flex items-center justify-between">
                     <span className="text-zinc-400 font-medium">INP</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#cbb04a] font-bold">391ms</span>
-                      <div className="w-3.5 h-3.5 rounded-full bg-[#242012] border border-[#cbb04a]/40 flex items-center justify-center">
-                        <span className="w-2 h-2 rounded-full bg-[#cbb04a] shadow-[0_0_6px_#cbb04a]" />
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[#cbb04a] font-bold">{inpValue}</span>
+                      <div className="w-3 h-3 rounded-full bg-[#242012] border border-[#cbb04a]/40 flex items-center justify-center">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#cbb04a] shadow-[0_0_6px_#cbb04a]" />
                       </div>
                     </div>
                   </div>
@@ -459,10 +529,10 @@ export default function Home() {
                   {/* CLS */}
                   <div className="flex items-center justify-between">
                     <span className="text-zinc-400 font-medium">CLS</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[#cbb04a] font-bold">0.28</span>
-                      <div className="w-3.5 h-3.5 rounded-full bg-[#242012] border border-[#cbb04a]/40 flex items-center justify-center">
-                        <span className="w-2 h-2 rounded-full bg-[#cbb04a] shadow-[0_0_6px_#cbb04a]" />
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[#cbb04a] font-bold">{clsValue}</span>
+                      <div className="w-3 h-3 rounded-full bg-[#242012] border border-[#cbb04a]/40 flex items-center justify-center">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#cbb04a] shadow-[0_0_6px_#cbb04a]" />
                       </div>
                     </div>
                   </div>
