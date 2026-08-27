@@ -405,24 +405,9 @@ export function InvestigationContent() {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-1 bg-[#14141a] p-1 rounded-xl border border-zinc-800 text-xs font-mono">
-                  <button
-                    onClick={() => setActiveTab("GRAPH")}
-                    className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
-                      activeTab === "GRAPH" ? "bg-[#c8b082] text-zinc-950 font-bold" : "text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    Graph
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("TIMELINE")}
-                    className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
-                      activeTab === "TIMELINE" ? "bg-[#c8b082] text-zinc-950 font-bold" : "text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    Timeline
-                  </button>
-                </div>
+                <span className="text-[10px] font-mono text-zinc-950 bg-[#c8b082] px-2.5 py-0.5 rounded-md font-bold shadow-sm">
+                  Graph
+                </span>
               </div>
 
               {/* Topology SVG Canvas */}
