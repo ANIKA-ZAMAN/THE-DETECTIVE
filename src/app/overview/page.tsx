@@ -5,7 +5,6 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   Globe,
-  ArrowLeft,
   RefreshCw,
   Zap,
   Activity,
@@ -16,12 +15,10 @@ import {
   CheckCircle2,
   SlidersHorizontal,
   Code2,
-  FileText,
   Clock,
   HardDrive,
   Sparkles,
   ArrowUpRight,
-  ArrowRight,
 } from "lucide-react";
 import type { AnalysisResult } from "@/types";
 import { Navbar } from "@/components/layout/Navbar";
@@ -31,10 +28,18 @@ function OverviewContent() {
   const router = useRouter();
   const targetUrlParam = searchParams.get("url") || "";
 
-  const [inputUrl, setInputUrl] = useState(targetUrlParam || "https://example.com");
+  const [mounted, setMounted] = useState(false);
+  const [inputUrl, setInputUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [analysisData, setAnalysisData] = useState<AnalysisResult | null>(null);
   const [apiError, setApiError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+    const initialUrl = targetUrlParam || "https://example.com";
+    setInputUrl(initialUrl);
+    fetchAnalysis(initialUrl);
+  }, [targetUrlParam]);
 
   const fetchAnalysis = async (urlToFetch: string) => {
     if (!urlToFetch.trim()) return;
@@ -60,16 +65,6 @@ function OverviewContent() {
     }
   };
 
-  useEffect(() => {
-    if (targetUrlParam) {
-      setInputUrl(targetUrlParam);
-      fetchAnalysis(targetUrlParam);
-    } else {
-      // Default to example.com if visited directly without a param
-      fetchAnalysis("https://example.com");
-    }
-  }, [targetUrlParam]);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputUrl.trim()) return;
@@ -82,20 +77,17 @@ function OverviewContent() {
       return {
         label: "Good",
         color: "text-emerald-400 bg-emerald-500/15 border-emerald-500/40",
-        dot: "bg-emerald-400 shadow-[0_0_8px_#34d399]",
       };
     }
     if (val <= warnLimit) {
       return {
         label: "Needs Improvement",
         color: "text-amber-400 bg-amber-500/15 border-amber-500/40",
-        dot: "bg-amber-400 shadow-[0_0_8px_#fbbf24]",
       };
     }
     return {
       label: "Poor",
       color: "text-red-400 bg-red-500/15 border-red-500/40",
-      dot: "bg-red-400 shadow-[0_0_8px_#f87171]",
     };
   };
 
@@ -111,12 +103,25 @@ function OverviewContent() {
   const inpBadge = analysisData ? getMetricBadge(inpMs, 200, 500) : null;
   const clsBadge = analysisData ? getMetricBadge(cls, 0.1, 0.25) : null;
 
-  // Filter top performance problems safely
   const topProblems = analysisData?.faults
     ? analysisData.faults.filter((f) => f.category === "Performance" || f.impact === "Critical")
     : [];
 
   const overallScore = analysisData?.overallHealthScore ?? 0;
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-[#070709] text-zinc-100 detective-grid relative overflow-x-hidden flex flex-col justify-between">
+        <Navbar />
+        <main className="w-full max-w-7xl mx-auto px-6 py-8 flex-1 space-y-8">
+          <div className="bg-[#0e0e13]/95 border border-zinc-800/90 rounded-3xl p-6 lg:p-8 shadow-2xl animate-pulse h-48 flex items-center justify-center text-zinc-500 text-sm">
+            <RefreshCw className="w-5 h-5 animate-spin text-[#c8b082] mr-3" />
+            Initializing Case File Dossier...
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#070709] text-zinc-100 detective-grid relative overflow-x-hidden flex flex-col justify-between">
@@ -148,7 +153,7 @@ function OverviewContent() {
               </span>
               <span className="text-xs text-zinc-400 font-mono flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-[#c8b082]" />
-                Audited: {analysisData?.investigatedAt || (loading ? "Probing..." : "Ready")}
+                Audited: {analysisData?.investigatedAt || (loading ? "Probing..." : "Live Probe")}
               </span>
               {loading ? (
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 text-[11px] font-mono border border-amber-500/30 flex items-center gap-1.5">
@@ -677,7 +682,7 @@ function OverviewContent() {
         {/* 5. AUDIT LAB / FIELD DATA NOTICE */}
         <div className="bg-[#0b0b10] border border-zinc-800/60 rounded-2xl p-4 flex items-center justify-between gap-4 text-xs text-zinc-400">
           <div className="flex items-center gap-3">
-            <Sparkles className="w-4 h-4 text-[#c8b082] shrink-0" />
+            <Sparkles className="w-4 h-4 text-[#c8b082]" />
             <span>
               <strong>Diagnostic Lab Probe:</strong> Metrics captured under controlled headless browser inspection with HTTP/2 and standard synthetic network emulation.
             </span>
