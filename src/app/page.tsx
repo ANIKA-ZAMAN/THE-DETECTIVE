@@ -206,24 +206,11 @@ export default function Home() {
           <div
             className="lg:col-span-7 relative w-full min-h-[520px] sm:min-h-[560px] rounded-2xl border border-zinc-800/80 bg-[#07070a] overflow-hidden shadow-[0_25px_65px_rgba(0,0,0,0.95)] flex items-center justify-center p-4"
             style={{
-              backgroundImage: "url('/elements/texture.svg'), radial-gradient(circle at 48% 45%, rgba(45,36,20,0.65) 0%, rgba(7,7,10,0.98) 85%)",
-              backgroundSize: "cover, cover",
-              backgroundPosition: "center, center",
-              backgroundBlendMode: "overlay, normal",
+              backgroundImage: "radial-gradient(circle at 48% 45%, rgba(45,36,20,0.55) 0%, rgba(7,7,10,0.98) 85%)",
             }}
           >
-            {/* Additional Chalkboard Grain Texture Overlay */}
-            <div
-              className="absolute inset-0 opacity-40 pointer-events-none mix-blend-screen"
-              style={{
-                backgroundImage: "url('/elements/board.png')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            />
-
             {/* Ambient Sepia Noir Vignette Glow */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_45%,_rgba(40,32,18,0.5)_0%,_rgba(7,7,10,0.92)_85%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_45%,_rgba(40,32,18,0.4)_0%,_rgba(7,7,10,0.95)_85%)] pointer-events-none" />
 
             {/* Faint Background HTML/JS Code Snippets */}
             <div className="absolute left-6 bottom-6 pointer-events-none font-mono text-[10px] sm:text-[11px] text-[#6b583c]/80 space-y-1 select-none z-10">
