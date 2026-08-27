@@ -1,5 +1,53 @@
 [
   {
+    "id": "HIST-1787837847422-411",
+    "caseId": "#CASE-8448",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787837847422,
+    "overallHealthScore": 69,
+    "categoryScores": {
+      "performance": 78,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 538,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 248,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787837847406-310",
+    "caseId": "#CASE-7169",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787837847406,
+    "overallHealthScore": 69,
+    "categoryScores": {
+      "performance": 78,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 562,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 259,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
     "id": "HIST-1787836734492-38",
     "caseId": "#CASE-5275",
     "targetUrl": "https://example.com",

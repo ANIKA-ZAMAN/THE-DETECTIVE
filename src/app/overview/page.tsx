@@ -582,12 +582,13 @@ export function OverviewContent() {
                     <circle cx="200" cy="200" r="185" />
                   </clipPath>
 
-                  {/* Radial Conic Beam Gradient */}
-                  <radialGradient id="radar-beam-glow" cx="200" cy="200" r="185" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="#c8b082" stopOpacity="0.45" />
-                    <stop offset="65%" stopColor="#c8b082" stopOpacity="0.15" />
-                    <stop offset="100%" stopColor="#c8b082" stopOpacity="0.0" />
-                  </radialGradient>
+                  {/* Rich Golden Sweep Gradient across the sector */}
+                  <linearGradient id="radar-beam-glow" x1="200" y1="15" x2="330" y2="70" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#fef08a" stopOpacity="0.75" />
+                    <stop offset="20%" stopColor="#c8b082" stopOpacity="0.55" />
+                    <stop offset="60%" stopColor="#9e8555" stopOpacity="0.32" />
+                    <stop offset="100%" stopColor="#c8b082" stopOpacity="0.08" />
+                  </linearGradient>
                 </defs>
 
                 {/* Outer Polar Ring */}
@@ -605,20 +606,21 @@ export function OverviewContent() {
                 <line x1="69" y1="69" x2="331" y2="331" stroke="currentColor" strokeWidth="0.6" opacity="0.3" />
                 <line x1="69" y1="331" x2="331" y2="69" stroke="currentColor" strokeWidth="0.6" opacity="0.3" />
 
-                {/* 2. Rotating Radar Sweep Beam — Mathematically Clipped Inside Circle */}
+                {/* 2. Rotating Radar Sweep Beam — Richly Filled and Clipped Inside Circle */}
                 <g clipPath="url(#radar-boundary-clip)">
                   <g
                     className={loading ? "animate-radar-sweep-fast" : "animate-radar-sweep"}
                     style={{ transformOrigin: "200px 200px" }}
                   >
-                    {/* 45-degree circular pie sector */}
+                    {/* 45-degree rich golden circular pie sector */}
                     <path
                       d="M 200 200 L 200 15 A 185 185 0 0 1 330.8 69.2 Z"
                       fill="url(#radar-beam-glow)"
-                      opacity={loading ? 0.95 : 0.45}
+                      opacity="0.95"
                     />
-                    {/* Sweep Leading Edge Line */}
-                    <line x1="200" y1="200" x2="200" y2="15" stroke="#c8b082" strokeWidth="1.5" />
+                    {/* Glowing Leading Edge Beam Ray */}
+                    <line x1="200" y1="200" x2="200" y2="15" stroke="#fef08a" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="200" y1="200" x2="200" y2="15" stroke="#c8b082" strokeWidth="4" opacity="0.5" />
                   </g>
                 </g>
 
