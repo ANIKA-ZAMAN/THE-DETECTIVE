@@ -554,22 +554,11 @@ export function OverviewContent() {
                 </span>
               </div>
 
-              {/* View Mode Chips (Inspired by 1 Day / 1 Week / 1 Month in reference) */}
-              <div className="flex items-center gap-1 bg-[#121218] p-1 rounded-xl border border-zinc-800 text-[11px] font-mono">
-                {(["LIVE", "LAB", "CRUX"] as const).map((mode) => (
-                  <button
-                    key={mode}
-                    onClick={() => setViewTimeFilter(mode)}
-                    className={`px-2.5 py-0.5 rounded-lg transition-colors cursor-pointer ${
-                      viewTimeFilter === mode
-                        ? "bg-[#c8b082] text-zinc-950 font-bold"
-                        : "text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    {mode}
-                  </button>
-                ))}
-              </div>
+              {/* Live Status Badge */}
+              <span className="text-[10px] font-mono text-zinc-950 bg-[#c8b082] px-2.5 py-0.5 rounded-md font-bold shadow-sm flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-zinc-950 animate-pulse" />
+                LIVE
+              </span>
             </div>
 
             {/* Central Polar Radar Canvas */}
