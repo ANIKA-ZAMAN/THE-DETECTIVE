@@ -49,7 +49,7 @@ function NavbarContent({ className = "" }: NavbarProps) {
   const navItems = [
     { label: "Overview", path: "/overview", icon: Activity },
     { label: "Details", path: "/details", icon: Layers },
-    { label: "Investigation", path: "/admin", icon: FileSearch },
+    { label: "Investigation", path: "/investigation", icon: FileSearch },
     { label: "Compare", path: "/compare", icon: Scale },
     { label: "History", path: "/history", icon: HistoryIcon },
   ];
@@ -63,8 +63,8 @@ function NavbarContent({ className = "" }: NavbarProps) {
   };
 
   const isItemActive = (path: string) => {
-    if (path === "/admin") {
-      return pathname === "/admin" || pathname === "/investigation";
+    if (path === "/investigation" || path === "/admin") {
+      return pathname === "/investigation" || pathname === "/admin";
     }
     return pathname === path;
   };

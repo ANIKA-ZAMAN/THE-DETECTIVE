@@ -614,7 +614,7 @@ function OverviewContent() {
             </div>
 
             <Link
-              href={`/admin?url=${encodeURIComponent(targetUrlParam || "https://example.com")}`}
+              href={`/investigation?url=${encodeURIComponent(targetUrlParam || "https://example.com")}`}
               className="text-xs font-bold text-[#c8b082] hover:text-[#e4cf9c] flex items-center gap-1 transition-colors"
             >
               View Full Evidence Log ({analysisData?.faults?.length ?? 0} items)
