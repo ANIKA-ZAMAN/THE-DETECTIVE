@@ -430,6 +430,7 @@ function DetailsContent() {
                     d="M 30 115 Q 90 95 160 100 Q 210 110 240 70 Q 255 25 270 75 Q 310 110 360 85 Q 420 105 480 90"
                     stroke={lcpSec > 2.5 ? "#ef4444" : "#22c55e"}
                     strokeWidth="2"
+                    className="animate-draw-line"
                   />
 
                   {/* INP Curve (Amber) */}
@@ -437,6 +438,7 @@ function DetailsContent() {
                     d="M 30 125 Q 90 120 160 115 Q 210 118 255 110 Q 310 122 360 115 Q 420 120 480 118"
                     stroke="#f59e0b"
                     strokeWidth="1.5"
+                    className="animate-draw-line"
                   />
 
                   {/* CLS Curve (Purple) */}
@@ -444,6 +446,7 @@ function DetailsContent() {
                     d="M 30 130 Q 90 132 160 131 Q 255 128 360 131 Q 480 130"
                     stroke="#a855f7"
                     strokeWidth="1.5"
+                    className="animate-draw-line"
                   />
 
                   {/* TBT Curve (Red) */}
@@ -452,6 +455,7 @@ function DetailsContent() {
                     stroke="#f43f5e"
                     strokeWidth="1.2"
                     strokeDasharray="2 2"
+                    className="animate-draw-line"
                   />
 
                   {/* Peak Incident Annotation Callout */}
@@ -603,7 +607,7 @@ function DetailsContent() {
                           <div className="h-4 w-full bg-zinc-900 rounded-md overflow-hidden relative flex items-center">
                             <div
                               style={{ width: `${Math.min(100, Math.max(20, (item.durationMs / 3000) * 100))}%` }}
-                              className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-md flex items-center justify-end pr-1 text-[9px] font-bold text-zinc-950"
+                              className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-md flex items-center justify-end pr-1 text-[9px] font-bold text-zinc-950 animate-bar-grow"
                             >
                               {(item.durationMs / 1000).toFixed(2)}s
                             </div>
@@ -634,7 +638,7 @@ function DetailsContent() {
                   <div className="text-lg font-black text-white">{lcpSec}s</div>
                   <div className="h-6 w-full">
                     <svg className="w-full h-full" viewBox="0 0 100 25" fill="none">
-                      <path d="M 0 20 Q 25 15 45 5 Q 65 22 80 10 L 100 18" stroke="#ef4444" strokeWidth="1.5" />
+                      <path d="M 0 20 Q 25 15 45 5 Q 65 22 80 10 L 100 18" stroke="#ef4444" strokeWidth="1.5" className="animate-draw-line" />
                     </svg>
                   </div>
                 </div>
@@ -645,7 +649,7 @@ function DetailsContent() {
                   <div className="text-lg font-black text-white">{inpMs}ms</div>
                   <div className="h-6 w-full">
                     <svg className="w-full h-full" viewBox="0 0 100 25" fill="none">
-                      <path d="M 0 18 Q 30 10 50 15 Q 70 8 100 12" stroke="#f59e0b" strokeWidth="1.5" />
+                      <path d="M 0 18 Q 30 10 50 15 Q 70 8 100 12" stroke="#f59e0b" strokeWidth="1.5" className="animate-draw-line" />
                     </svg>
                   </div>
                 </div>
@@ -656,7 +660,7 @@ function DetailsContent() {
                   <div className="text-lg font-black text-white">{cls}</div>
                   <div className="h-6 w-full">
                     <svg className="w-full h-full" viewBox="0 0 100 25" fill="none">
-                      <path d="M 0 22 Q 40 20 60 18 Q 80 21 100 19" stroke="#22c55e" strokeWidth="1.5" />
+                      <path d="M 0 22 Q 40 20 60 18 Q 80 21 100 19" stroke="#22c55e" strokeWidth="1.5" className="animate-draw-line" />
                     </svg>
                   </div>
                 </div>

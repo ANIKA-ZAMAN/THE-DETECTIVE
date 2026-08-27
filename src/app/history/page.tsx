@@ -486,6 +486,7 @@ function HistoryContent() {
                       stroke="#c8b082"
                       strokeWidth="2.5"
                       fill="none"
+                      className="animate-draw-line"
                     />
                   )}
 

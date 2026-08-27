@@ -629,7 +629,7 @@ export function InvestigationContent() {
                   <div className="flex items-center justify-between">
                     <span className="text-zinc-400 text-[11px] w-28 truncate">DNS & Connect</span>
                     <div className="flex-1 mx-3 h-2 bg-zinc-900 rounded-full overflow-hidden">
-                      <div className="h-full bg-emerald-400 w-[15%]" />
+                      <div className="h-full bg-emerald-400 w-[15%] animate-bar-grow" />
                     </div>
                     <span className="text-zinc-300 text-[11px]">{dnsClientTiming}ms</span>
                   </div>
@@ -638,7 +638,7 @@ export function InvestigationContent() {
                   <div className="flex items-center justify-between">
                     <span className="text-zinc-400 text-[11px] w-28 truncate">Origin TTFB</span>
                     <div className="flex-1 mx-3 h-2 bg-zinc-900 rounded-full overflow-hidden">
-                      <div className="h-full bg-amber-400 w-[30%] ml-[15%]" />
+                      <div className="h-full bg-amber-400 w-[30%] ml-[15%] animate-bar-grow" />
                     </div>
                     <span className="text-zinc-300 text-[11px]">{ttfbMs}ms</span>
                   </div>
@@ -647,7 +647,7 @@ export function InvestigationContent() {
                   <div className="flex items-center justify-between">
                     <span className="text-zinc-400 text-[11px] w-28 truncate">DOM Parse (FCP)</span>
                     <div className="flex-1 mx-3 h-2 bg-zinc-900 rounded-full overflow-hidden">
-                      <div className="h-full bg-emerald-400 w-[35%] ml-[30%]" />
+                      <div className="h-full bg-emerald-400 w-[35%] ml-[30%] animate-bar-grow" />
                     </div>
                     <span className="text-zinc-300 text-[11px]">{fcpSec}s</span>
                   </div>
@@ -656,7 +656,7 @@ export function InvestigationContent() {
                   <div className="flex items-center justify-between">
                     <span className="text-zinc-400 text-[11px] w-28 truncate">Script Execution</span>
                     <div className="flex-1 mx-3 h-2 bg-zinc-900 rounded-full overflow-hidden">
-                      <div className="h-full bg-amber-400 w-[45%] ml-[45%]" />
+                      <div className="h-full bg-amber-400 w-[45%] ml-[45%] animate-bar-grow" />
                     </div>
                     <span className="text-zinc-300 text-[11px]">{jsKb} KB</span>
                   </div>
@@ -665,7 +665,7 @@ export function InvestigationContent() {
                   <div className="flex items-center justify-between">
                     <span className="text-red-400 font-bold text-[11px] w-28 truncate">LCP Paint</span>
                     <div className="flex-1 mx-3 h-2.5 bg-zinc-900 rounded-full overflow-hidden shadow">
-                      <div className="h-full bg-red-500 w-[80%] ml-[20%] shadow-[0_0_8px_#ef4444]" />
+                      <div className="h-full bg-red-500 w-[80%] ml-[20%] shadow-[0_0_8px_#ef4444] animate-bar-grow" />
                     </div>
                     <span className="text-red-400 font-bold text-[11px]">{lcpSec}s</span>
                   </div>
@@ -674,7 +674,7 @@ export function InvestigationContent() {
                   <div className="flex items-center justify-between">
                     <span className="text-zinc-400 text-[11px] w-28 truncate">3rd Party APIs</span>
                     <div className="flex-1 mx-3 h-2 bg-zinc-900 rounded-full overflow-hidden">
-                      <div className="h-full bg-sky-400 w-[20%] ml-[80%]" />
+                      <div className="h-full bg-sky-400 w-[20%] ml-[80%] animate-bar-grow" />
                     </div>
                     <span className="text-zinc-300 text-[11px]">{thirdParties.length} reqs</span>
                   </div>
@@ -727,6 +727,7 @@ export function InvestigationContent() {
                       d="M 0 70 Q 60 68 110 65 Q 135 60 145 30 Q 155 10 165 20 Q 185 45 220 62 L 300 66"
                       stroke="#ef4444"
                       strokeWidth="1.5"
+                      className="animate-draw-line"
                     />
 
                     {/* Peak Dot */}

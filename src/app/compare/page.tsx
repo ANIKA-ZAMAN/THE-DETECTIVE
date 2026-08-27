@@ -339,7 +339,7 @@ function CompareContent() {
               <div className="h-1.5 w-full bg-zinc-900 rounded-full overflow-hidden">
                 <div
                   style={{ width: `${winnerSite?.overallHealthScore ?? 0}%` }}
-                  className="h-full bg-gradient-to-r from-[#c8b082] to-[#dfd7c2] rounded-full shadow"
+                  className="h-full bg-gradient-to-r from-[#c8b082] to-[#dfd7c2] rounded-full shadow animate-bar-grow"
                 />
               </div>
             </div>
@@ -606,6 +606,7 @@ function CompareContent() {
                 stroke="#22c55e"
                 strokeWidth="2"
                 fill="none"
+                className="animate-draw-line"
               />
 
               {/* Curve 2: Site 2 (Red) */}
@@ -617,6 +618,7 @@ function CompareContent() {
                 stroke="#ef4444"
                 strokeWidth="2"
                 fill="none"
+                className="animate-draw-line"
               />
 
               {/* Data Point Circles */}

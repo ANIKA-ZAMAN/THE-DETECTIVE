@@ -47,7 +47,7 @@ body {
   background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.12) 0%, rgba(13, 13, 17, 0.9) 75%);
 }
 
-/* ────────────────── FORENSIC RADAR SCANNER ANIMATIONS ────────────────── */
+/* ────────────────── CONSISTENT FORENSIC ANIMATION SYSTEM ────────────────── */
 @keyframes radar-sweep {
   from {
     transform: rotate(0deg);
@@ -71,7 +71,7 @@ body {
 @keyframes popup-pop {
   0% {
     opacity: 0;
-    transform: scale(0.92) translateY(6px);
+    transform: scale(0.95) translateY(4px);
   }
   100% {
     opacity: 1;
@@ -79,12 +79,45 @@ body {
   }
 }
 
-@keyframes float-slow {
-  0%, 100% {
-    transform: translateY(0px) rotate(-2.5deg);
+@keyframes draw-path {
+  from {
+    stroke-dashoffset: 1200;
   }
-  50% {
-    transform: translateY(-5px) rotate(-2deg);
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes bar-grow-x {
+  from {
+    transform: scaleX(0);
+    opacity: 0.2;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bar-grow-y {
+  from {
+    transform: scaleY(0);
+    opacity: 0.2;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -105,23 +138,45 @@ body {
   transform-origin: center center;
 }
 
-.animate-radar-sweep-fast {
-  animation: radar-sweep 2.2s linear infinite;
-  transform-origin: center center;
-}
-
 .animate-blip {
   animation: blip-glow 2.5s ease-in-out infinite;
 }
 
 .animate-popup-reveal {
-  animation: popup-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: popup-pop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-float-slow {
-  animation: float-slow 6s ease-in-out infinite;
+.animate-draw-line {
+  stroke-dasharray: 1200;
+  animation: draw-path 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-bar-grow {
+  transform-origin: left center;
+  animation: bar-grow-x 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-bar-grow-vertical {
+  transform-origin: bottom center;
+  animation: bar-grow-y 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-up {
+  animation: fade-slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-progress-scan {
   animation: progress-scan 4s ease-in-out infinite;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

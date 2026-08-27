@@ -144,42 +144,22 @@ export default function Home() {
           </div>
         </Link>
 
-        {/* Centered Navigation Pill Tabs (Overview, Details, Investigation, Compare, History) */}
-        <nav className="hidden md:flex items-center gap-1 bg-[#101014]/90 p-1 rounded-xl border border-zinc-800/80 backdrop-blur-md shadow-inner">
-          <Link
-            href="/overview"
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-zinc-950 bg-[#d5b579] shadow-sm transition-all"
-          >
-            <Activity className="w-3.5 h-3.5" />
-            <span>Overview</span>
+        {/* Clean Text-Only Navigation Links */}
+        <nav className="hidden md:flex items-center gap-8 text-xs font-medium">
+          <Link href="/overview" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
+            How it works
           </Link>
-          <Link
-            href="/details"
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50 transition-all"
-          >
-            <Layers className="w-3.5 h-3.5" />
-            <span>Details</span>
+          <Link href="/details" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
+            Features
           </Link>
-          <Link
-            href="/investigation"
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50 transition-all"
-          >
-            <FileSearch className="w-3.5 h-3.5" />
-            <span>Investigation</span>
+          <Link href="/history" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
+            Cases
           </Link>
-          <Link
-            href="/compare"
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50 transition-all"
-          >
-            <Scale className="w-3.5 h-3.5" />
-            <span>Compare</span>
+          <Link href="/compare" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
+            Pricing
           </Link>
-          <Link
-            href="/history"
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50 transition-all"
-          >
-            <HistoryIcon className="w-3.5 h-3.5" />
-            <span>History</span>
+          <Link href="/investigation" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
+            Docs
           </Link>
         </nav>
 
