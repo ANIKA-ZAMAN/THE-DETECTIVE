@@ -279,9 +279,9 @@ export default function Home() {
             </div>
 
             {/* Subtle Fingerprint in lower center-right of investigation scene */}
-            <div className="absolute right-[24%] bottom-4 pointer-events-none opacity-25 z-0">
+            <div className="absolute right-[28%] bottom-3 pointer-events-none opacity-25 z-0">
               <svg
-                className="w-48 h-48 text-[#c8b082]"
+                className="w-44 h-44 text-[#c8b082]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -300,18 +300,18 @@ export default function Home() {
 
             {/* Connecting Golden Constellation Dotted Lines */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-60 z-0">
-              <line x1="160" y1="110" x2="270" y2="190" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
-              <line x1="110" y1="280" x2="260" y2="250" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
-              <line x1="160" y1="440" x2="280" y2="350" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
-              <line x1="280" y1="250" x2="520" y2="150" stroke="#c8b082" strokeWidth="0.8" strokeDasharray="2 2" />
-              <circle cx="270" cy="190" r="3.5" fill="#c8b082" className="animate-pulse" />
-              <circle cx="260" cy="250" r="3.5" fill="#c8b082" />
-              <circle cx="280" cy="350" r="3.5" fill="#c8b082" />
-              <circle cx="520" cy="150" r="2.5" fill="#c8b082" />
+              <line x1="140" y1="110" x2="230" y2="190" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
+              <line x1="90" y1="280" x2="220" y2="250" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
+              <line x1="140" y1="440" x2="240" y2="350" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
+              <line x1="240" y1="250" x2="450" y2="130" stroke="#c8b082" strokeWidth="0.8" strokeDasharray="2 2" />
+              <circle cx="230" cy="190" r="3.5" fill="#c8b082" className="animate-pulse" />
+              <circle cx="220" cy="250" r="3.5" fill="#c8b082" />
+              <circle cx="240" cy="350" r="3.5" fill="#c8b082" />
+              <circle cx="450" cy="130" r="2.5" fill="#c8b082" />
             </svg>
 
             {/* Evidence Node 1 (Top Left) */}
-            <div className="absolute top-12 left-8 bg-[#121217]/95 border border-zinc-800/90 rounded-xl px-3.5 py-1.5 text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2.5 z-10">
+            <div className="absolute top-12 left-6 bg-[#121217]/95 border border-zinc-800/90 rounded-xl px-3.5 py-1.5 text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2.5 z-10">
               <span className="w-2 h-2 rounded-full bg-[#c8b082] shadow-[0_0_8px_#c8b082]" />
               <div>
                 <div className="text-zinc-200 font-medium leading-tight">Render Blocking</div>
@@ -320,7 +320,7 @@ export default function Home() {
             </div>
 
             {/* Evidence Node 2 (Middle Left) */}
-            <div className="absolute top-[245px] left-4 bg-[#121217]/95 border border-zinc-800/90 rounded-xl px-3.5 py-1.5 text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2.5 z-10">
+            <div className="absolute top-[245px] left-2 bg-[#121217]/95 border border-zinc-800/90 rounded-xl px-3.5 py-1.5 text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2.5 z-10">
               <span className="w-2 h-2 rounded-full bg-[#c8b082] shadow-[0_0_8px_#c8b082]" />
               <div>
                 <div className="text-zinc-200 font-medium leading-tight">Large Image</div>
@@ -329,7 +329,7 @@ export default function Home() {
             </div>
 
             {/* Evidence Node 3 (Bottom Left) */}
-            <div className="absolute bottom-16 left-12 bg-[#121217]/95 border border-zinc-800/90 rounded-xl px-3.5 py-1.5 text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2.5 z-10">
+            <div className="absolute bottom-16 left-10 bg-[#121217]/95 border border-zinc-800/90 rounded-xl px-3.5 py-1.5 text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2.5 z-10">
               <span className="w-2 h-2 rounded-full bg-[#c8b082] shadow-[0_0_8px_#c8b082]" />
               <div>
                 <div className="text-zinc-200 font-medium leading-tight">Third Party Script</div>
@@ -337,43 +337,10 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Pinned Manila Case File #0001 Note Card (Top Right) */}
-            <div className="absolute top-4 right-8 z-20 select-none">
-              {/* Pushpin */}
-              <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none">
-                <div className="w-4 h-4 rounded-full bg-gradient-to-br from-amber-500 via-amber-700 to-zinc-950 border border-amber-400 shadow-[0_4px_8px_rgba(0,0,0,0.9)]" />
-                <div className="w-1.5 h-1.5 bg-black/70 rounded-full blur-[1px]" />
-              </div>
-
-              {/* Manila Card */}
-              <div className="bg-[#dfd7c2] text-zinc-900 rounded-sm p-4 pt-5 text-xs font-mono shadow-[0_15px_35px_rgba(0,0,0,0.85)] border border-[#c7beaa] w-52 transform rotate-1">
-                <div className="flex items-center justify-between border-b border-zinc-700/40 pb-1 mb-2">
-                  <span className="font-bold tracking-widest text-zinc-900 text-xs">
-                    CASE FILE
-                  </span>
-                  <span className="text-zinc-700 font-semibold">#0001</span>
-                </div>
-
-                <div className="space-y-1 text-[11px] text-zinc-800">
-                  <div className="font-semibold text-zinc-950 tracking-tight text-xs">
-                    {displayDomain}
-                  </div>
-                  <div className="text-zinc-600 text-[10px]">Investigated on</div>
-                  <div className="text-zinc-800 font-medium">May 21, 2024</div>
-                </div>
-
-                <div className="mt-3 text-right">
-                  <span className="inline-block px-2.5 py-0.5 border-2 border-[#b91c1c] text-[#b91c1c] font-black text-[10px] tracking-widest rounded-xs transform -rotate-6 shadow-sm uppercase">
-                    OPEN
-                  </span>
-                </div>
-              </div>
-            </div>
-
             {/* ══════════════════════════════════════════════════════════════════
                 PHYSICAL MAGNIFYING GLASS OVER CONTINUOUS BACKGROUND
                ══════════════════════════════════════════════════════════════════ */}
-            <div className="relative z-20 flex items-center justify-center -translate-x-6 select-none">
+            <div className="relative z-20 flex items-center justify-center -translate-x-12 sm:-translate-x-16 select-none">
               {/* Outer Metallic Brass Bezel Ring (Round Double-Rim Bezel) */}
               <div className="relative w-[315px] h-[315px] rounded-full p-[8px] bg-gradient-to-br from-[#c8b082] via-[#8c6f48] via-[#45321f] to-[#1a140e] shadow-[0_35px_80px_rgba(0,0,0,0.95),0_0_25px_rgba(200,176,130,0.18)] border border-[#c8b082]/70">
                 {/* Transparent Convex Glass Lens with Subtle Tint & Refraction */}
@@ -473,11 +440,44 @@ export default function Home() {
             </div>
 
             {/* ══════════════════════════════════════════════════════════════════════
-                COMPACT FLOATING REPORT CARDS (POSITIONED ABOVE THE HANDLE)
+                CLEAN VERTICAL STACK ON THE RIGHT (CASE FILE -> SCORE -> VITALS)
                ══════════════════════════════════════════════════════════════════════ */}
-            <div className="absolute right-2 sm:right-6 top-[22%] sm:top-[20%] flex flex-col gap-2.5 z-30 w-44 sm:w-48 transform -rotate-[1.5deg] select-none animate-float-slow">
-              {/* Card 1: PERFORMANCE SCORE */}
-              <div className="bg-[#13131a]/95 border border-zinc-800/90 rounded-xl p-3 sm:p-3.5 shadow-[0_20px_45px_rgba(0,0,0,0.9)] backdrop-blur-md">
+            <div className="absolute right-0 sm:right-2 top-2 sm:top-4 z-30 flex flex-col gap-3 w-48 sm:w-52 select-none">
+              {/* 1. TOP-RIGHT: PINNED CASE FILE #0001 */}
+              <div className="relative">
+                {/* Pushpin */}
+                <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none">
+                  <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-br from-amber-500 via-amber-700 to-zinc-950 border border-amber-400 shadow-[0_3px_6px_rgba(0,0,0,0.9)]" />
+                  <div className="w-1 h-1 bg-black/70 rounded-full blur-[1px]" />
+                </div>
+
+                {/* Manila Card */}
+                <div className="bg-[#dfd7c2] text-zinc-900 rounded-sm p-3.5 pt-4 text-xs font-mono shadow-[0_12px_28px_rgba(0,0,0,0.85)] border border-[#c7beaa] transform rotate-1 hover:rotate-0 transition-transform">
+                  <div className="flex items-center justify-between border-b border-zinc-700/40 pb-1 mb-1.5">
+                    <span className="font-bold tracking-widest text-zinc-900 text-[11px]">
+                      CASE FILE
+                    </span>
+                    <span className="text-zinc-700 font-semibold text-[11px]">#0001</span>
+                  </div>
+
+                  <div className="space-y-0.5 text-[10px] text-zinc-800">
+                    <div className="font-semibold text-zinc-950 tracking-tight text-xs truncate">
+                      {displayDomain}
+                    </div>
+                    <div className="text-zinc-600 text-[9px]">Investigated on</div>
+                    <div className="text-zinc-800 font-medium">May 21, 2024</div>
+                  </div>
+
+                  <div className="mt-2 text-right">
+                    <span className="inline-block px-2 py-0.5 border-2 border-[#b91c1c] text-[#b91c1c] font-black text-[9px] tracking-widest rounded-xs transform -rotate-6 shadow-sm uppercase">
+                      OPEN
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. MIDDLE: PERFORMANCE SCORE CARD */}
+              <div className="bg-[#13131a]/95 border border-zinc-800/90 rounded-2xl p-3 sm:p-3.5 shadow-[0_16px_35px_rgba(0,0,0,0.9)] backdrop-blur-md">
                 <div className="text-[9px] font-bold text-zinc-400 tracking-wider uppercase mb-0.5">
                   PERFORMANCE SCORE
                 </div>
@@ -498,8 +498,8 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Card 2: CORE WEB VITALS */}
-              <div className="bg-[#13131a]/95 border border-zinc-800/90 rounded-xl p-3 sm:p-3.5 shadow-[0_20px_45px_rgba(0,0,0,0.9)] backdrop-blur-md">
+              {/* 3. BOTTOM: CORE WEB VITALS CARD */}
+              <div className="bg-[#13131a]/95 border border-zinc-800/90 rounded-2xl p-3 sm:p-3.5 shadow-[0_16px_35px_rgba(0,0,0,0.9)] backdrop-blur-md">
                 <div className="text-[9px] font-bold text-zinc-400 tracking-wider uppercase mb-2">
                   CORE WEB VITALS
                 </div>
