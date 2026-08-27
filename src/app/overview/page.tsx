@@ -26,6 +26,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import type { AnalysisResult, FaultItem } from "@/types";
+import { Navbar } from "@/components/layout/Navbar";
 
 function OverviewContent() {
   const searchParams = useSearchParams();
@@ -116,88 +117,7 @@ function OverviewContent() {
   return (
     <div className="min-h-screen bg-[#070709] text-zinc-100 detective-grid relative overflow-x-hidden flex flex-col">
       {/* ────────────────── TOP NAVBAR ────────────────── */}
-      <header className="w-full bg-[#0a0a0f]/95 border-b border-zinc-800/90 sticky top-0 z-40 backdrop-blur-md px-6 py-3.5 flex items-center justify-between">
-        <div className="flex items-center gap-6">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-8 h-8 flex items-center justify-center bg-[#101014] rounded border border-zinc-800 group-hover:border-[#c8b082]/60 transition-colors">
-              <span className="absolute top-0.5 left-0.5 w-1 h-1 border-t border-l border-[#c8b082]" />
-              <span className="absolute top-0.5 right-0.5 w-1 h-1 border-t border-r border-[#c8b082]" />
-              <span className="absolute bottom-0.5 left-0.5 w-1 h-1 border-b border-l border-[#c8b082]" />
-              <span className="absolute bottom-0.5 right-0.5 w-1 h-1 border-b border-r border-[#c8b082]" />
-              <svg className="w-4 h-4 text-[#c8b082]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
-                <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" />
-                <path d="M14 13.12c0 2.38 0 6.38-1 8.88" />
-                <path d="M17.29 21.02c.12-.6.43-2.3.43-5.02 0-3.04-1.28-5.32-3.72-6.49" />
-                <path d="M7 11.23a4 4 0 0 1 7.24-2.22" />
-                <path d="M6 15c.34 2.87 1.5 5.5 2 6" />
-                <path d="M9 6.8a6 6 0 0 1 9 4.2c0 2.66.5 6 1 7" />
-                <path d="M12 2a10 10 0 0 0-8 10c0 3.51.5 7 1.5 10" />
-              </svg>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[9px] font-bold tracking-widest text-[#c8b082]">PERFORMANCE DETECTIVE</span>
-              <span className="text-xs font-extrabold text-zinc-100 tracking-wider">CASE EVIDENCE DOSSIER</span>
-            </div>
-          </Link>
-
-          {/* Navigation Sub-Tabs */}
-          <nav className="hidden lg:flex items-center gap-1 bg-[#101015] p-1 rounded-xl border border-zinc-800/80 text-xs">
-            <Link
-              href={`/overview?url=${encodeURIComponent(targetUrlParam)}`}
-              className="px-3.5 py-1.5 rounded-lg bg-[#c8b082] text-zinc-950 font-bold shadow-sm flex items-center gap-1.5"
-            >
-              <Activity className="w-3.5 h-3.5" />
-              Overview
-            </Link>
-            <Link
-              href={`/admin?url=${encodeURIComponent(targetUrlParam)}`}
-              className="px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/50 transition-colors flex items-center gap-1.5"
-            >
-              <FileText className="w-3.5 h-3.5" />
-              Faults & Clues
-            </Link>
-          </nav>
-        </div>
-
-        {/* Dynamic Investigation URL Search Bar */}
-        <form onSubmit={handleSubmit} className="hidden md:flex items-center gap-2 bg-[#121217] border border-zinc-800 rounded-xl p-1.5 w-96 shadow-inner">
-          <Globe className="w-4 h-4 text-zinc-500 ml-2 shrink-0" />
-          <input
-            type="text"
-            value={inputUrl}
-            onChange={(e) => setInputUrl(e.target.value)}
-            placeholder="Audit another website (e.g. target.com)..."
-            className="bg-transparent text-xs text-zinc-200 placeholder-zinc-500 outline-none w-full py-0.5 font-mono"
-          />
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-[#c8b082] hover:bg-[#b89f71] text-zinc-950 font-bold text-xs px-3.5 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors shrink-0 shadow"
-          >
-            {loading ? <RefreshCw className="w-3 h-3 animate-spin" /> : "Inspect"}
-          </button>
-        </form>
-
-        {/* Right Actions */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => fetchAnalysis(targetUrlParam)}
-            disabled={loading}
-            className="px-3.5 py-2 text-xs font-semibold text-zinc-300 bg-zinc-900/90 border border-zinc-800 hover:border-zinc-700 rounded-xl flex items-center gap-2 transition-all shadow"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-[#c8b082]" : "text-zinc-400"}`} />
-            <span>Re-Audit</span>
-          </button>
-          <Link
-            href="/"
-            className="px-3.5 py-2 text-xs font-semibold text-zinc-400 hover:text-white border border-zinc-800 rounded-xl hover:bg-zinc-900 transition-colors flex items-center gap-1.5"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Home</span>
-          </Link>
-        </div>
-      </header>
+      <Navbar />
 
       {/* ────────────────── MAIN OVERVIEW DOSSIER ────────────────── */}
       <main className="w-full max-w-7xl mx-auto px-6 py-8 flex-1 space-y-8">

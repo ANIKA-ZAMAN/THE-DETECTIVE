@@ -11,6 +11,7 @@ import {
   Shield,
   RefreshCw,
 } from "lucide-react";
+import { Navbar } from "@/components/layout/Navbar";
 
 export default function Home() {
   const router = useRouter();
@@ -27,85 +28,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#070709] text-zinc-100 detective-grid detective-radial-glow relative overflow-hidden flex flex-col justify-between">
       {/* ----------------- NAVBAR ----------------- */}
-      <header className="w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between z-30 relative">
-        {/* Logo */}
-        <div className="flex items-center gap-3 cursor-pointer group" onClick={() => router.push("/")}>
-          {/* Fingerprint logo inside corner brackets frame */}
-          <div className="relative w-9 h-9 flex items-center justify-center bg-[#101014] rounded border border-zinc-800/80 group-hover:border-[#c8b082]/50 transition-colors">
-            {/* Top-left corner bracket */}
-            <span className="absolute top-0.5 left-0.5 w-1.5 h-1.5 border-t border-l border-[#c8b082]" />
-            {/* Top-right corner bracket */}
-            <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 border-t border-r border-[#c8b082]" />
-            {/* Bottom-left corner bracket */}
-            <span className="absolute bottom-0.5 left-0.5 w-1.5 h-1.5 border-b border-l border-[#c8b082]" />
-            {/* Bottom-right corner bracket */}
-            <span className="absolute bottom-0.5 right-0.5 w-1.5 h-1.5 border-b border-r border-[#c8b082]" />
-
-            <svg
-              className="w-5 h-5 text-[#c8b082]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.7"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" />
-              <path d="M14 13.12c0 2.38 0 6.38-1 8.88" />
-              <path d="M17.29 21.02c.12-.6.43-2.3.43-5.02 0-3.04-1.28-5.32-3.72-6.49" />
-              <path d="M7 11.23a4 4 0 0 1 7.24-2.22" />
-              <path d="M6 15c.34 2.87 1.5 5.5 2 6" />
-              <path d="M9 6.8a6 6 0 0 1 9 4.2c0 2.66.5 6 1 7" />
-              <path d="M12 2a10 10 0 0 0-8 10c0 3.51.5 7 1.5 10" />
-            </svg>
-          </div>
-
-          <div className="flex flex-col">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-400 leading-tight">
-              PERFORMANCE
-            </span>
-            <span className="text-sm font-extrabold uppercase tracking-[0.18em] text-zinc-100 leading-tight">
-              DETECTIVE
-            </span>
-          </div>
-        </div>
-
-        {/* Nav Links */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
-          <a href="#how-it-works" className="hover:text-zinc-100 transition-colors">
-            How it works
-          </a>
-          <a href="#features" className="hover:text-zinc-100 transition-colors">
-            Features
-          </a>
-          <a href="#cases" className="hover:text-zinc-100 transition-colors">
-            Cases
-          </a>
-          <a href="#pricing" className="hover:text-zinc-100 transition-colors">
-            Pricing
-          </a>
-          <a href="#docs" className="hover:text-zinc-100 transition-colors">
-            Docs
-          </a>
-        </nav>
-
-        {/* Right CTA */}
-        <div className="flex items-center gap-6">
-          <a
-            href="/admin"
-            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
-          >
-            Log in
-          </a>
-          <a
-            href="/overview"
-            className="px-4 py-2 text-xs font-medium text-zinc-200 border border-zinc-800 hover:border-zinc-700 bg-[#0d0d12]/80 hover:bg-zinc-900 rounded-lg flex items-center gap-2 transition-all shadow-sm"
-          >
-            Start Investigation
-            <ArrowRight className="w-3.5 h-3.5 text-zinc-400" />
-          </a>
-        </div>
-      </header>
+      <Navbar />
 
       {/* ----------------- MAIN HERO SECTION ----------------- */}
       <main className="w-full max-w-7xl mx-auto px-6 py-4 my-auto z-20">
