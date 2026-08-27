@@ -17,11 +17,13 @@ import {
   Scale,
   History as HistoryIcon,
 } from "lucide-react";
+import { getActiveSession, InvestigatorProfile } from "@/lib/auth";
 
 export default function Home() {
   const router = useRouter();
   const [urlInput, setUrlInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [user, setUser] = useState<InvestigatorProfile | null>(null);
   const [liveData, setLiveData] = useState<{
     overallHealthScore?: number;
     lcpSec?: number;
@@ -34,6 +36,8 @@ export default function Home() {
   } | null>(null);
 
   useEffect(() => {
+    setUser(getActiveSession());
+
     let mounted = true;
     async function loadLatestMetrics() {
       try {
@@ -165,12 +169,25 @@ export default function Home() {
 
         {/* Right CTA Actions */}
         <div className="flex items-center gap-6">
-          <Link
-            href="/overview"
-            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
-          >
-            Log in
-          </Link>
+          {user ? (
+            <Link
+              href="/overview"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#121218] hover:bg-[#181822] border border-zinc-800 hover:border-[#c8b082]/60 text-xs font-mono transition-all shadow-sm"
+            >
+              <div className="w-5 h-5 rounded-full bg-[#c8b082]/20 border border-[#c8b082]/40 flex items-center justify-center text-[#c8b082]">
+                <Shield className="w-3 h-3" />
+              </div>
+              <span className="text-zinc-200 font-bold max-w-[120px] truncate">{user.name}</span>
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+            >
+              Log in
+            </Link>
+          )}
+
           <button
             onClick={() => {
               const input = document.getElementById("hero-url-input") as HTMLInputElement;

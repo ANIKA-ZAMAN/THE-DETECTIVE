@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import {
@@ -9,7 +9,12 @@ import {
   ArrowRight,
   Menu,
   X,
+  Shield,
+  LogOut,
+  User,
+  ChevronDown,
 } from "lucide-react";
+import { getActiveSession, clearSession, InvestigatorProfile } from "@/lib/auth";
 
 export interface NavbarProps {
   /** Optional custom class name */
@@ -24,6 +29,28 @@ function NavbarContent({ className = "" }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalUrl, setModalUrl] = useState("");
+  const [user, setUser] = useState<InvestigatorProfile | null>(null);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    setUser(getActiveSession());
+
+    const handleAuthChange = () => {
+      setUser(getActiveSession());
+    };
+
+    window.addEventListener("auth_state_changed", handleAuthChange);
+    return () => {
+      window.removeEventListener("auth_state_changed", handleAuthChange);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    clearSession();
+    setUser(null);
+    setUserDropdownOpen(false);
+    router.refresh();
+  };
 
   const currentUrlParam = searchParams.get("url") || "";
 
@@ -129,14 +156,59 @@ function NavbarContent({ className = "" }: NavbarProps) {
             })}
           </nav>
 
-          {/* Right Action: Clean Log in link + subtle Start Investigation CTA */}
-          <div className="hidden sm:flex items-center gap-6">
-            <Link
-              href="/overview"
-              className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
-            >
-              Log in
-            </Link>
+          {/* Right Action: Investigator Profile Dropdown OR Log in Link */}
+          <div className="hidden sm:flex items-center gap-5">
+            {user ? (
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#121218] hover:bg-[#181822] border border-zinc-800 hover:border-[#c8b082]/60 text-xs font-mono transition-all cursor-pointer shadow-sm"
+                >
+                  <div className="w-5 h-5 rounded-full bg-[#c8b082]/20 border border-[#c8b082]/40 flex items-center justify-center text-[#c8b082]">
+                    <Shield className="w-3 h-3" />
+                  </div>
+                  <span className="text-zinc-200 font-bold max-w-[120px] truncate">{user.name}</span>
+                  <ChevronDown className="w-3 h-3 text-zinc-400" />
+                </button>
+
+                {/* Dropdown Menu */}
+                {userDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-[#0e0e14] border border-zinc-800/90 rounded-2xl shadow-2xl p-2 z-50 animate-fade-up font-mono text-xs">
+                    <div className="px-3 py-2 border-b border-zinc-800/80 mb-1">
+                      <div className="font-bold text-white truncate">{user.name}</div>
+                      <div className="text-[10px] text-[#c8b082] font-semibold">{user.badgeId} • {user.rank}</div>
+                    </div>
+
+                    <Link
+                      href="/history"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-800/50 transition-colors"
+                    >
+                      <User className="w-3.5 h-3.5 text-[#c8b082]" />
+                      <span>My Case Files</span>
+                    </Link>
+
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-950/40 transition-colors cursor-pointer text-left"
+                    >
+                      <LogOut className="w-3.5 h-3.5 text-red-400" />
+                      <span>Sign Out</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+              >
+                Log in
+              </Link>
+            )}
+
             <button
               onClick={() => setModalOpen(true)}
               className="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-xl text-sm font-semibold text-zinc-200 hover:text-white bg-[#0e0e14]/90 hover:bg-[#161622] border border-zinc-800 hover:border-zinc-700 transition-all shadow-sm cursor-pointer"
@@ -183,13 +255,26 @@ function NavbarContent({ className = "" }: NavbarProps) {
             </div>
 
             <div className="pt-3 border-t border-zinc-800 flex items-center justify-between">
-              <Link
-                href="/overview"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-xs font-medium text-zinc-400 hover:text-white"
-              >
-                Log in
-              </Link>
+              {user ? (
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-mono text-zinc-300">{user.name}</span>
+                  <button
+                    onClick={handleLogout}
+                    className="text-xs font-mono text-red-400 hover:text-red-300"
+                  >
+                    Log out
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-xs font-medium text-zinc-400 hover:text-white"
+                >
+                  Log in
+                </Link>
+              )}
+
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
