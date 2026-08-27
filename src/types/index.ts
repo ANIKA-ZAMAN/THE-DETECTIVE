@@ -102,6 +102,7 @@ export interface HistoryEntry {
   targetUrl: string;
   normalizedUrl: string;
   investigatedAt: string;
+  timestamp?: number;
   overallHealthScore: number;
   categoryScores: {
     performance: number;
@@ -113,6 +114,7 @@ export interface HistoryEntry {
     ttfbMs: number;
     fcpSec: number;
     lcpSec: number;
+    inpMs?: number;
     cls: number;
     pageSizeKb: number;
     requestsCount: number;
