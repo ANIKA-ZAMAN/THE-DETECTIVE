@@ -1,35 +1,35 @@
 [
   {
-    "id": "HIST-1787828489845-943",
-    "caseId": "#CASE-2672",
+    "id": "HIST-1787828650863-363",
+    "caseId": "#CASE-2542",
     "targetUrl": "https://httpbin.org",
     "normalizedUrl": "https://httpbin.org",
     "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787828489845,
-    "overallHealthScore": 48,
+    "timestamp": 1787828650863,
+    "overallHealthScore": 44,
     "categoryScores": {
-      "performance": 53,
+      "performance": 43,
       "seo": 20,
       "security": 35,
       "accessibility": 100
     },
     "metrics": {
-      "ttfbMs": 375,
+      "ttfbMs": 402,
       "fcpSec": 1,
       "lcpSec": 1.7,
-      "inpMs": 320,
+      "inpMs": 332,
       "cls": 0.06,
-      "pageSizeKb": 172,
+      "pageSizeKb": 214,
       "requestsCount": 6
     }
   },
   {
-    "id": "HIST-1787828489615-650",
-    "caseId": "#CASE-7078",
+    "id": "HIST-1787828650736-81",
+    "caseId": "#CASE-2886",
     "targetUrl": "https://example.com",
     "normalizedUrl": "https://example.com",
     "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787828489615,
+    "timestamp": 1787828650736,
     "overallHealthScore": 78,
     "categoryScores": {
       "performance": 99,
@@ -38,36 +38,36 @@
       "accessibility": 100
     },
     "metrics": {
-      "ttfbMs": 145,
+      "ttfbMs": 276,
       "fcpSec": 0.6,
       "lcpSec": 1.3,
-      "inpMs": 71,
+      "inpMs": 130,
       "cls": 0.01,
       "pageSizeKb": 4,
       "requestsCount": 1
     }
   },
   {
-    "id": "HIST-1787828489099-886",
-    "caseId": "#CASE-1442",
+    "id": "HIST-1787828650093-70",
+    "caseId": "#CASE-8777",
     "targetUrl": "https://httpbin.org",
     "normalizedUrl": "https://httpbin.org",
     "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787828489099,
-    "overallHealthScore": 40,
+    "timestamp": 1787828650093,
+    "overallHealthScore": 44,
     "categoryScores": {
-      "performance": 33,
+      "performance": 43,
       "seo": 20,
       "security": 35,
       "accessibility": 100
     },
     "metrics": {
-      "ttfbMs": 1161,
-      "fcpSec": 1.8,
-      "lcpSec": 2.5,
-      "inpMs": 673,
+      "ttfbMs": 994,
+      "fcpSec": 1.6,
+      "lcpSec": 2.3,
+      "inpMs": 598,
       "cls": 0.06,
-      "pageSizeKb": 175,
+      "pageSizeKb": 187,
       "requestsCount": 6
     }
   }
