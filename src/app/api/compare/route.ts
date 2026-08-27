@@ -139,3 +139,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse<C
     return errorResponse(message, 500, "COMPARE_FAILED");
   }
 }
+
+// Reject all other HTTP methods cleanly
+export function GET(): NextResponse<ApiResponse<CompareResult>> {
+  return errorResponse("Method not allowed. Use POST.", 405, "METHOD_NOT_ALLOWED");
+}

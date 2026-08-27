@@ -29,46 +29,57 @@ export type ValidationOutcome = ValidationResult | ValidationError;
 const MAX_URL_LENGTH = 2048;
 
 /**
- * Checks if a string is a standard IPv4 address or an integer/hex/octal encoded IP.
+ * Checks if a string is an IPv4 address in any standard BSD-socket format:
+ * 4-part (a.b.c.d), 3-part (a.b.c), 2-part (a.b), or 1-part (integer/hex/octal).
  */
 function parseIPv4(ipStr: string): number[] | null {
-  // Standard dot-decimal
-  const dotParts = ipStr.split(".");
-  if (dotParts.length === 4) {
-    const nums = dotParts.map((p) => {
-      // Handle hex (0x...) or octal (0...)
-      if (/^0x[0-9a-f]+$/i.test(p)) return parseInt(p, 16);
-      if (/^0[0-7]+$/.test(p) && p.length > 1) return parseInt(p, 8);
-      if (/^\d+$/.test(p)) return parseInt(p, 10);
-      return NaN;
-    });
-    if (nums.every((n) => !isNaN(n) && n >= 0 && n <= 255)) {
-      return nums;
+  const parts = ipStr.split(".");
+  if (parts.length >= 1 && parts.length <= 4) {
+    const parsedParts: number[] = [];
+    for (const p of parts) {
+      let n: number;
+      if (/^0x[0-9a-f]+$/i.test(p)) {
+        n = parseInt(p, 16);
+      } else if (/^0[0-7]+$/.test(p) && p.length > 1) {
+        n = parseInt(p, 8);
+      } else if (/^\d+$/.test(p)) {
+        n = parseInt(p, 10);
+      } else {
+        return null;
+      }
+      if (isNaN(n) || n < 0) return null;
+      parsedParts.push(n);
     }
-  }
 
-  // Single integer or hex IP (e.g. 2130706433 or 0x7f000001)
-  if (/^\d+$/.test(ipStr)) {
-    const intVal = parseInt(ipStr, 10);
-    if (!isNaN(intVal) && intVal >= 0 && intVal <= 4294967295) {
-      return [
-        (intVal >>> 24) & 255,
-        (intVal >>> 16) & 255,
-        (intVal >>> 8) & 255,
-        intVal & 255,
-      ];
-    }
-  }
-
-  if (/^0x[0-9a-f]+$/i.test(ipStr)) {
-    const hexVal = parseInt(ipStr, 16);
-    if (!isNaN(hexVal) && hexVal >= 0 && hexVal <= 4294967295) {
-      return [
-        (hexVal >>> 24) & 255,
-        (hexVal >>> 16) & 255,
-        (hexVal >>> 8) & 255,
-        hexVal & 255,
-      ];
+    if (parsedParts.length === 4) {
+      if (parsedParts.every((n) => n <= 255)) return parsedParts;
+    } else if (parsedParts.length === 3) {
+      if (parsedParts[0] <= 255 && parsedParts[1] <= 255 && parsedParts[2] <= 65535) {
+        return [
+          parsedParts[0],
+          parsedParts[1],
+          (parsedParts[2] >>> 8) & 255,
+          parsedParts[2] & 255,
+        ];
+      }
+    } else if (parsedParts.length === 2) {
+      if (parsedParts[0] <= 255 && parsedParts[1] <= 16777215) {
+        return [
+          parsedParts[0],
+          (parsedParts[1] >>> 16) & 255,
+          (parsedParts[1] >>> 8) & 255,
+          parsedParts[1] & 255,
+        ];
+      }
+    } else if (parsedParts.length === 1) {
+      if (parsedParts[0] <= 4294967295) {
+        return [
+          (parsedParts[0] >>> 24) & 255,
+          (parsedParts[0] >>> 16) & 255,
+          (parsedParts[0] >>> 8) & 255,
+          parsedParts[0] & 255,
+        ];
+      }
     }
   }
 
@@ -114,22 +125,44 @@ function isRestrictedIPv6(hostname: string): boolean {
   const clean = hostname.replace(/^\[|\]$/g, "").toLowerCase();
 
   // Loopback / Unspecified
-  if (clean === "::1" || clean === "::" || clean === "0:0:0:0:0:0:0:1" || clean === "0:0:0:0:0:0:0:0") {
+  if (
+    clean === "::1" ||
+    clean === "::" ||
+    clean === "0:0:0:0:0:0:0:1" ||
+    clean === "0:0:0:0:0:0:0:0"
+  ) {
     return true;
   }
 
-  // IPv4-mapped IPv6 (::ffff:127.0.0.1)
-  if (clean.startsWith("::ffff:")) {
-    const mapped = clean.replace("::ffff:", "");
-    const octets = parseIPv4(mapped);
-    if (octets && isRestrictedIPv4(octets)) return true;
+  // IPv4-mapped IPv6 (::ffff:127.0.0.1 or ::ffff:7f00:1 or ::ffff:7f00:0001)
+  if (clean.startsWith("::ffff:") || clean.startsWith("0:0:0:0:0:ffff:")) {
+    const mapped = clean.replace(/^(::ffff:|0:0:0:0:0:ffff:)/, "");
+    if (mapped.includes(".")) {
+      const octets = parseIPv4(mapped);
+      if (octets && isRestrictedIPv4(octets)) return true;
+    } else if (mapped.includes(":")) {
+      const hexParts = mapped.split(":");
+      if (hexParts.length === 2) {
+        const hi = parseInt(hexParts[0], 16);
+        const lo = parseInt(hexParts[1], 16);
+        if (!isNaN(hi) && !isNaN(lo)) {
+          const octets = [(hi >>> 8) & 255, hi & 255, (lo >>> 8) & 255, lo & 255];
+          if (isRestrictedIPv4(octets)) return true;
+        }
+      }
+    }
   }
 
   // Unique Local Address (fc00::/7)
   if (clean.startsWith("fc") || clean.startsWith("fd")) return true;
 
   // Link-Local Unicast (fe80::/10)
-  if (clean.startsWith("fe8") || clean.startsWith("fe9") || clean.startsWith("fea") || clean.startsWith("feb")) {
+  if (
+    clean.startsWith("fe8") ||
+    clean.startsWith("fe9") ||
+    clean.startsWith("fea") ||
+    clean.startsWith("feb")
+  ) {
     return true;
   }
 
@@ -235,7 +268,16 @@ export function validateUrl(input: unknown): ValidationOutcome {
   }
 
   // 11. Must have a valid-looking hostname
-  if (!hostname.includes(".") && !ipv4Octets && !hostname.startsWith("[")) {
+  if (
+    !hostname ||
+    /^[\.\s]+$/.test(hostname) ||
+    hostname.includes("..") ||
+    hostname.startsWith(".") ||
+    hostname.endsWith(".") ||
+    hostname.startsWith("-") ||
+    hostname.endsWith("-") ||
+    (!hostname.includes(".") && !ipv4Octets && !hostname.startsWith("["))
+  ) {
     return {
       valid: false,
       error: "Please enter a complete domain name (e.g. example.com).",

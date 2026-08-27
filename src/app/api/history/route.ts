@@ -27,3 +27,10 @@ export async function DELETE(): Promise<NextResponse<{ success: boolean; message
     message: "History successfully cleared.",
   });
 }
+
+export function POST(): NextResponse<ApiResponse> {
+  return NextResponse.json<ApiResponse>(
+    { success: false, error: "Method not allowed. Use GET or DELETE.", code: "METHOD_NOT_ALLOWED" },
+    { status: 405 }
+  );
+}

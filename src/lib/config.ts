@@ -49,6 +49,7 @@ export const config = {
     "0.0.0.0",
     "metadata.google.internal",
     "169.254.169.254", // AWS/Azure IMDS
+    "instance-data",
   ] as string[],
 
   isDev: process.env.NODE_ENV === "development",
