@@ -1,5 +1,101 @@
 [
   {
+    "id": "HIST-1787834906572-443",
+    "caseId": "#CASE-3643",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834906572,
+    "overallHealthScore": 69,
+    "categoryScores": {
+      "performance": 78,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 756,
+      "fcpSec": 0.8,
+      "lcpSec": 1.5,
+      "inpMs": 346,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834906073-367",
+    "caseId": "#CASE-2656",
+    "targetUrl": "https://httpbin.org",
+    "normalizedUrl": "https://httpbin.org",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834906073,
+    "overallHealthScore": 48,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 20,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 245,
+      "fcpSec": 0.8,
+      "lcpSec": 1.5,
+      "inpMs": 261,
+      "cls": 0.06,
+      "pageSizeKb": 104,
+      "requestsCount": 6
+    }
+  },
+  {
+    "id": "HIST-1787834905765-816",
+    "caseId": "#CASE-7026",
+    "targetUrl": "https://httpbin.org",
+    "normalizedUrl": "https://httpbin.org",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834905765,
+    "overallHealthScore": 35,
+    "categoryScores": {
+      "performance": 20,
+      "seo": 20,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 1205,
+      "fcpSec": 1.9,
+      "lcpSec": 2.6,
+      "inpMs": 693,
+      "cls": 0.06,
+      "pageSizeKb": 176,
+      "requestsCount": 6
+    }
+  },
+  {
+    "id": "HIST-1787834904231-202",
+    "caseId": "#CASE-4525",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834904231,
+    "overallHealthScore": 65,
+    "categoryScores": {
+      "performance": 68,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 1609,
+      "fcpSec": 1.8,
+      "lcpSec": 2.5,
+      "inpMs": 730,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
     "id": "HIST-1787834834810-829",
     "caseId": "#CASE-2349",
     "targetUrl": "https://httpbin.org",

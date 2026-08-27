@@ -42,11 +42,11 @@ function NavbarContent({ className = "" }: NavbarProps) {
   };
 
   const navItems = [
-    { label: "How it works", path: "/overview" },
-    { label: "Features", path: "/details" },
-    { label: "Cases", path: "/history" },
-    { label: "Pricing", path: "/compare" },
-    { label: "Docs", path: "/investigation" },
+    { label: "Overview", path: "/overview" },
+    { label: "Details", path: "/details" },
+    { label: "Investigation", path: "/investigation" },
+    { label: "Compare", path: "/compare" },
+    { label: "History", path: "/history" },
   ];
 
   const handleModalSubmit = (e: React.FormEvent) => {
@@ -117,16 +117,13 @@ function NavbarContent({ className = "" }: NavbarProps) {
                 <Link
                   key={item.label}
                   href={getHref(item.path)}
-                  className={`relative py-1 transition-colors ${
+                  className={`py-1 transition-colors ${
                     active
-                      ? "text-[#f3eedc] font-semibold"
+                      ? "text-[#c8b082] font-semibold"
                       : "text-zinc-400 hover:text-[#c8b082]"
                   }`}
                 >
                   {item.label}
-                  {active && (
-                    <span className="absolute -bottom-2 left-0 right-0 h-[2px] bg-[#c8b082] rounded-full" />
-                  )}
                 </Link>
               );
             })}

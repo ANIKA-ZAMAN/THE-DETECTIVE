@@ -147,19 +147,19 @@ export default function Home() {
         {/* Clean Text-Only Navigation Links */}
         <nav className="hidden md:flex items-center gap-8 text-xs font-medium">
           <Link href="/overview" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
-            How it works
+            Overview
           </Link>
           <Link href="/details" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
-            Features
-          </Link>
-          <Link href="/history" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
-            Cases
-          </Link>
-          <Link href="/compare" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
-            Pricing
+            Details
           </Link>
           <Link href="/investigation" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
-            Docs
+            Investigation
+          </Link>
+          <Link href="/compare" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
+            Compare
+          </Link>
+          <Link href="/history" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
+            History
           </Link>
         </nav>
 
