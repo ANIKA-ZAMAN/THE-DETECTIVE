@@ -21,7 +21,8 @@ import {
   CheckCircle2,
   SlidersHorizontal,
 } from "lucide-react";
-import { AnalysisResult, FaultItem } from "@/lib/analyzer";
+import type { AnalysisResult, FaultItem } from "@/types";
+
 
 function AdminContent() {
   const searchParams = useSearchParams();
