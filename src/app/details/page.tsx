@@ -202,6 +202,8 @@ function DetailsContent() {
                 <Search className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
                 <input
                   type="text"
+                  autoComplete="off"
+                  spellCheck={false}
                   value={inputUrl}
                   onChange={(e) => setInputUrl(e.target.value)}
                   placeholder="https://example.com"

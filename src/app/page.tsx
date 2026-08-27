@@ -227,6 +227,8 @@ export default function Home() {
                   id="hero-url-input"
                   type="text"
                   required
+                  autoComplete="off"
+                  spellCheck={false}
                   value={urlInput}
                   onChange={(e) => setUrlInput(e.target.value)}
                   placeholder="Enter website URL to investigate"

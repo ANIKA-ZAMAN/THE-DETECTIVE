@@ -243,6 +243,8 @@ function NavbarContent({ className = "" }: NavbarProps) {
                   <input
                     type="text"
                     required
+                    autoComplete="off"
+                    spellCheck={false}
                     value={modalUrl}
                     onChange={(e) => setModalUrl(e.target.value)}
                     placeholder="https://example.com"

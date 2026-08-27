@@ -22,6 +22,7 @@
 :root {
   --background: #070709;
   --foreground: #f4f4f5;
+  color-scheme: dark;
 }
 
 body {
@@ -29,6 +30,27 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans-custom), system-ui, sans-serif;
   overflow-x: hidden;
+  color-scheme: dark;
+}
+
+/* ────────────────── BROWSER AUTOFILL & INPUT RESET ────────────────── */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #101015 inset !important;
+  -webkit-text-fill-color: #f4f4f5 !important;
+  caret-color: #c8b082 !important;
+  transition: background-color 500000s ease-in-out 0s;
+  background-color: transparent !important;
+}
+
+input, textarea, select {
+  color-scheme: dark;
 }
 
 /* Atmospheric detective noir grid background */

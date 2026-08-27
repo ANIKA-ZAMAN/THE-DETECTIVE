@@ -263,6 +263,8 @@ function CompareContent() {
             <Globe className="w-4 h-4 text-emerald-400 shrink-0" />
             <input
               type="text"
+              autoComplete="off"
+              spellCheck={false}
               value={url1}
               onChange={(e) => setUrl1(e.target.value)}
               placeholder="https://example.com"
@@ -283,6 +285,8 @@ function CompareContent() {
             <Globe className="w-4 h-4 text-red-400 shrink-0" />
             <input
               type="text"
+              autoComplete="off"
+              spellCheck={false}
               value={url2}
               onChange={(e) => setUrl2(e.target.value)}
               placeholder="https://httpbin.org"
