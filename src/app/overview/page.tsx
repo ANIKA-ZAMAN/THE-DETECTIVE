@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import type { AnalysisResult, FaultItem } from "@/types";
 import { Navbar } from "@/components/layout/Navbar";
+import { ShareModal } from "@/components/common/ShareModal";
 
 // Radar Blip Definition
 interface RadarBlip {
@@ -50,7 +51,7 @@ interface RadarBlip {
   actionHref?: string;
 }
 
-function OverviewContent() {
+export function OverviewContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const targetUrlParam = searchParams.get("url") || "";
@@ -60,6 +61,7 @@ function OverviewContent() {
   const [loading, setLoading] = useState(false);
   const [analysisData, setAnalysisData] = useState<AnalysisResult | null>(null);
   const [apiError, setApiError] = useState<string | null>(null);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
 
   // Scan Progression Animation State (0 to 6)
   const [scanStage, setScanStage] = useState<number>(0);
@@ -350,6 +352,15 @@ function OverviewContent() {
               title="Re-Scan Target"
             >
               <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin text-[#c8b082]" : ""}`} />
+            </button>
+
+            <button
+              onClick={() => setShareModalOpen(true)}
+              className="px-3 py-1.5 bg-[#14141c] hover:bg-[#1c1c28] border border-zinc-800 hover:border-[#c8b082]/60 rounded-xl text-xs font-semibold text-zinc-300 hover:text-white flex items-center gap-1.5 transition-all cursor-pointer shrink-0 shadow-sm"
+              title="Share Investigation Dossier"
+            >
+              <Share2 className="w-3.5 h-3.5 text-[#c8b082]" />
+              <span className="hidden sm:inline">Share</span>
             </button>
           </div>
         </div>
@@ -965,6 +976,20 @@ function OverviewContent() {
           </div>
         </div>
       </main>
+
+      {/* Share Report Forensic Dossier Modal */}
+      <ShareModal
+        isOpen={shareModalOpen}
+        onClose={() => setShareModalOpen(false)}
+        targetUrl={analysisData?.normalizedUrl || targetUrlParam || "https://example.com"}
+        caseId={analysisData?.caseId || "#CASE-AUDIT"}
+        score={analysisData?.overallHealthScore ?? 0}
+        metrics={{
+          lcpSec: analysisData?.metrics?.lcpSec,
+          ttfbMs: analysisData?.metrics?.ttfbMs,
+          pageSizeKb: analysisData?.metrics?.pageSizeKb,
+        }}
+      />
     </div>
   );
 }

@@ -1,5 +1,53 @@
 [
   {
+    "id": "HIST-1787836331683-24",
+    "caseId": "#CASE-3051",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787836331683,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 1842,
+      "fcpSec": 2,
+      "lcpSec": 2.7,
+      "inpMs": 835,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787836331666-204",
+    "caseId": "#CASE-2055",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787836331666,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 1820,
+      "fcpSec": 2,
+      "lcpSec": 2.7,
+      "inpMs": 825,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
     "id": "HIST-1787835907727-948",
     "caseId": "#CASE-7502",
     "targetUrl": "https://httpbin.org",

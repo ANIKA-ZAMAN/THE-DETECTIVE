@@ -50,6 +50,7 @@ import {
 } from "lucide-react";
 import type { AnalysisResult, WaterfallItem, FaultItem, OpportunityItem } from "@/types";
 import { Navbar } from "@/components/layout/Navbar";
+import { ShareModal } from "@/components/common/ShareModal";
 
 export function InvestigationContent() {
   const searchParams = useSearchParams();
@@ -61,6 +62,7 @@ export function InvestigationContent() {
   const [loading, setLoading] = useState(false);
   const [analysisData, setAnalysisData] = useState<AnalysisResult | null>(null);
   const [apiError, setApiError] = useState<string | null>(null);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
 
   // Graph state
   const [activeTab, setActiveTab] = useState<"GRAPH" | "TIMELINE">("GRAPH");
@@ -233,8 +235,9 @@ export function InvestigationContent() {
             </button>
 
             <button
-              onClick={() => navigator.clipboard?.writeText(window.location.href)}
-              className="px-3 py-1.5 bg-[#14141c] hover:bg-zinc-800 border border-zinc-800 rounded-xl text-xs font-semibold text-zinc-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+              onClick={() => setShareModalOpen(true)}
+              className="px-3.5 py-1.5 bg-[#14141c] hover:bg-[#1c1c28] border border-zinc-800 hover:border-[#c8b082]/60 rounded-xl text-xs font-semibold text-zinc-300 hover:text-white flex items-center gap-2 transition-all cursor-pointer shadow-sm"
+              title="Share Investigation Dossier"
             >
               <Share2 className="w-3.5 h-3.5 text-[#c8b082]" />
               <span>Share Report</span>
@@ -930,6 +933,20 @@ export function InvestigationContent() {
           </div>
         </div>
       </main>
+
+      {/* Share Report Forensic Dossier Modal */}
+      <ShareModal
+        isOpen={shareModalOpen}
+        onClose={() => setShareModalOpen(false)}
+        targetUrl={analysisData?.normalizedUrl || targetUrlParam || "https://example.com"}
+        caseId={analysisData?.caseId || "#CASE-AUDIT"}
+        score={analysisData?.overallHealthScore ?? 0}
+        metrics={{
+          lcpSec: analysisData?.metrics?.lcpSec,
+          ttfbMs: analysisData?.metrics?.ttfbMs,
+          pageSizeKb: analysisData?.metrics?.pageSizeKb,
+        }}
+      />
     </div>
   );
 }
