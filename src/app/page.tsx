@@ -467,35 +467,78 @@ export default function Home() {
                 CLEAN VERTICAL STACK ON THE RIGHT (CASE FILE -> SCORE -> VITALS)
                ══════════════════════════════════════════════════════════════════════ */}
             <div className="absolute right-0 sm:right-2 top-0 sm:top-2 z-30 flex flex-col gap-2.5 w-44 sm:w-48 select-none">
-              {/* 1. TOP-RIGHT: PINNED CASE FILE #0001 */}
+              {/* 1. TOP-RIGHT: REALISTIC PINNED CASE FILE CARD (VINTAGE PAPER DOSSIER) */}
               <div className="relative">
-                {/* Pushpin */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none">
-                  <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-br from-amber-500 via-amber-700 to-zinc-950 border border-amber-400 shadow-[0_3px_6px_rgba(0,0,0,0.9)]" />
-                  <div className="w-1 h-1 bg-black/70 rounded-full blur-[1px]" />
+                {/* Realistic 3D Pushpin with Specular Highlight & Cast Shadow */}
+                <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none">
+                  <div
+                    className="w-4 h-4 rounded-full shadow-[0_4px_8px_rgba(0,0,0,0.85),0_1px_3px_rgba(0,0,0,0.9)] border border-amber-900/60 relative"
+                    style={{
+                      background: "radial-gradient(circle at 35% 30%, #ffdf9e 0%, #d97706 40%, #78350f 75%, #291003 100%)",
+                    }}
+                  >
+                    {/* Pin Specular Glint */}
+                    <div className="absolute top-0.5 left-1 w-1 h-1 rounded-full bg-white/70 blur-[0.3px]" />
+                  </div>
+                  {/* Cast shadow directly onto the paper */}
+                  <div className="w-2.5 h-1.5 bg-black/60 rounded-full blur-[1px] -mt-0.5" />
                 </div>
 
-                {/* Manila Card */}
-                <div className="bg-[#dfd7c2] text-zinc-900 rounded-sm p-3 pt-3.5 text-xs font-mono shadow-[0_10px_24px_rgba(0,0,0,0.85)] border border-[#c7beaa] transform rotate-1 hover:rotate-0 transition-transform">
-                  <div className="flex items-center justify-between border-b border-zinc-700/40 pb-1 mb-1">
-                    <span className="font-bold tracking-widest text-zinc-900 text-[10px]">
+                {/* Weathered Vintage Paper Dossier Card */}
+                <div
+                  className="relative text-zinc-900 rounded-sm p-3 pt-3.5 text-xs font-mono border border-[#b8ab96]/90 transform rotate-1 hover:rotate-0 transition-transform overflow-hidden"
+                  style={{
+                    background: `
+                      radial-gradient(circle at 50% 30%, rgba(255, 250, 240, 0.3) 0%, rgba(0, 0, 0, 0.08) 100%),
+                      linear-gradient(175deg, #d8cebc 0%, #cfc4b0 45%, #c5b9a4 85%, #b8ab96 100%)
+                    `,
+                    boxShadow: "0 14px 32px rgba(0,0,0,0.85), 0 4px 10px rgba(0,0,0,0.6), inset 0 0 18px rgba(110, 95, 75, 0.18)",
+                  }}
+                >
+                  {/* Subtle Paper Crease Lines Texture */}
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-35"
+                    style={{
+                      backgroundImage: "repeating-linear-gradient(to bottom, transparent 0px, transparent 16px, rgba(100, 85, 65, 0.12) 17px, transparent 18px)",
+                    }}
+                  />
+
+                  {/* Corner Vignette & Texture Grain */}
+                  <div
+                    className="absolute inset-0 pointer-events-none mix-blend-multiply opacity-25"
+                    style={{
+                      background: "radial-gradient(ellipse at top left, transparent 60%, rgba(90, 75, 55, 0.35) 100%), radial-gradient(ellipse at bottom right, transparent 50%, rgba(80, 65, 45, 0.45) 100%)",
+                    }}
+                  />
+
+                  {/* Header: CASE FILE and #0001 with Underline */}
+                  <div className="relative z-10 border-b border-zinc-800/30 pb-1 mb-1.5 flex items-center justify-between">
+                    <span className="text-[10px] font-bold tracking-[0.18em] text-zinc-900 uppercase">
                       CASE FILE
                     </span>
-                    <span className="text-zinc-700 font-semibold text-[10px]">#0001</span>
-                  </div>
-
-                  <div className="space-y-0.5 text-[9px] text-zinc-800">
-                    <div className="font-semibold text-zinc-950 tracking-tight text-[11px] truncate">
-                      {displayDomain}
-                    </div>
-                    <div className="text-zinc-600 text-[8px]">Investigated on</div>
-                    <div className="text-zinc-800 font-medium">May 21, 2024</div>
-                  </div>
-
-                  <div className="mt-1.5 text-right">
-                    <span className="inline-block px-2 py-0.5 border-2 border-[#b91c1c] text-[#b91c1c] font-black text-[8px] tracking-widest rounded-xs transform -rotate-6 shadow-sm uppercase">
-                      OPEN
+                    <span className="text-[10px] font-extrabold text-zinc-850 tracking-wider">
+                      #0001
                     </span>
+                  </div>
+
+                  {/* Body Info with Underline Separators */}
+                  <div className="relative z-10 space-y-1 text-[9px] text-zinc-800">
+                    <div className="border-b border-zinc-800/25 pb-1">
+                      <div className="font-bold text-zinc-950 tracking-tight text-[11px] truncate">
+                        {displayDomain}
+                      </div>
+                    </div>
+                    <div className="pt-0.5">
+                      <div className="text-zinc-600 text-[8.5px] tracking-wide">Investigated on</div>
+                      <div className="text-zinc-900 font-semibold text-[9.5px]">May 21, 2024</div>
+                    </div>
+                  </div>
+
+                  {/* Authentic Weathered Red Stamp (Like Reference Photo) */}
+                  <div className="relative z-10 mt-1.5 text-right flex justify-end">
+                    <div className="inline-flex items-center justify-center px-2 py-0.5 border-[1.5px] border-[#991b1b]/80 bg-[#991b1b]/5 text-[#991b1b] font-black text-[8.5px] tracking-[0.16em] rounded-[2px] transform -rotate-4 shadow-[0_1px_3px_rgba(153,27,27,0.15)] uppercase">
+                      OPEN
+                    </div>
                   </div>
                 </div>
               </div>

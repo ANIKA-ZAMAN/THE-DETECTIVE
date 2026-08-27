@@ -1,5 +1,101 @@
 [
   {
+    "id": "HIST-1787839633158-831",
+    "caseId": "#CASE-4347",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787839633158,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2122,
+      "fcpSec": 2.3,
+      "lcpSec": 3,
+      "inpMs": 961,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787839633132-396",
+    "caseId": "#CASE-6375",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787839633133,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2144,
+      "fcpSec": 2.4,
+      "lcpSec": 3.1,
+      "inpMs": 971,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787839624395-605",
+    "caseId": "#CASE-6704",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787839624395,
+    "overallHealthScore": 65,
+    "categoryScores": {
+      "performance": 68,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 1022,
+      "fcpSec": 1.1,
+      "lcpSec": 1.8,
+      "inpMs": 466,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787839492766-542",
+    "caseId": "#CASE-4015",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787839492766,
+    "overallHealthScore": 69,
+    "categoryScores": {
+      "performance": 78,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 786,
+      "fcpSec": 0.9,
+      "lcpSec": 1.6,
+      "inpMs": 360,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
     "id": "HIST-1787839199698-73",
     "caseId": "#CASE-4771",
     "targetUrl": "https://example.com",
@@ -1338,102 +1434,6 @@
       "fcpSec": 0.6,
       "lcpSec": 1.3,
       "inpMs": 173,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836582573-40",
-    "caseId": "#CASE-3050",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836582573,
-    "overallHealthScore": 74,
-    "categoryScores": {
-      "performance": 90,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 408,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 190,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836582563-419",
-    "caseId": "#CASE-9771",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836582563,
-    "overallHealthScore": 78,
-    "categoryScores": {
-      "performance": 99,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 394,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 183,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836582552-297",
-    "caseId": "#CASE-8003",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836582552,
-    "overallHealthScore": 78,
-    "categoryScores": {
-      "performance": 99,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 362,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 169,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836582535-416",
-    "caseId": "#CASE-8296",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836582535,
-    "overallHealthScore": 78,
-    "categoryScores": {
-      "performance": 99,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 314,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 147,
       "cls": 0.01,
       "pageSizeKb": 1,
       "requestsCount": 1
