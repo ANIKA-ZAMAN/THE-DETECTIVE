@@ -1,5 +1,893 @@
 [
   {
+    "id": "HIST-1787849262843-478",
+    "caseId": "#CASE-8357",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787849262843,
+    "overallHealthScore": 69,
+    "categoryScores": {
+      "performance": 78,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 646,
+      "fcpSec": 0.7,
+      "lcpSec": 1.4,
+      "inpMs": 297,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787848970509-49",
+    "caseId": "#CASE-9654",
+    "targetUrl": "https://www.rng-gamez.com",
+    "normalizedUrl": "https://www.rng-gamez.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848970509,
+    "overallHealthScore": 74,
+    "categoryScores": {
+      "performance": 56,
+      "seo": 100,
+      "security": 58,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 207,
+      "fcpSec": 0.6,
+      "lcpSec": 3,
+      "inpMs": 537,
+      "cls": 0.29,
+      "pageSizeKb": 1716,
+      "requestsCount": 34
+    }
+  },
+  {
+    "id": "HIST-1787848970327-144",
+    "caseId": "#CASE-4547",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848970327,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 57,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 486,
+      "cls": 0.02,
+      "pageSizeKb": 1707,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848964491-193",
+    "caseId": "#CASE-6925",
+    "targetUrl": "https://www.rng-gamez.com",
+    "normalizedUrl": "https://www.rng-gamez.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848964491,
+    "overallHealthScore": 74,
+    "categoryScores": {
+      "performance": 56,
+      "seo": 100,
+      "security": 58,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 281,
+      "fcpSec": 0.6,
+      "lcpSec": 3,
+      "inpMs": 570,
+      "cls": 0.29,
+      "pageSizeKb": 1756,
+      "requestsCount": 34
+    }
+  },
+  {
+    "id": "HIST-1787848964456-966",
+    "caseId": "#CASE-9304",
+    "targetUrl": "https://www.rng-gamez.com",
+    "normalizedUrl": "https://www.rng-gamez.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848964456,
+    "overallHealthScore": 74,
+    "categoryScores": {
+      "performance": 56,
+      "seo": 100,
+      "security": 58,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 213,
+      "fcpSec": 0.6,
+      "lcpSec": 3,
+      "inpMs": 540,
+      "cls": 0.29,
+      "pageSizeKb": 1850,
+      "requestsCount": 34
+    }
+  },
+  {
+    "id": "HIST-1787848964387-405",
+    "caseId": "#CASE-3653",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848964387,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 151,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 528,
+      "cls": 0.02,
+      "pageSizeKb": 1808,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848964363-605",
+    "caseId": "#CASE-3975",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848964363,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 204,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 552,
+      "cls": 0.02,
+      "pageSizeKb": 1719,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848912372-429",
+    "caseId": "#CASE-7257",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848912372,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 275,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 584,
+      "cls": 0.02,
+      "pageSizeKb": 1578,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848912324-934",
+    "caseId": "#CASE-6652",
+    "targetUrl": "https://www.rng-gamez.com",
+    "normalizedUrl": "https://www.rng-gamez.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848912324,
+    "overallHealthScore": 74,
+    "categoryScores": {
+      "performance": 56,
+      "seo": 100,
+      "security": 58,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 238,
+      "fcpSec": 0.6,
+      "lcpSec": 3,
+      "inpMs": 551,
+      "cls": 0.29,
+      "pageSizeKb": 1763,
+      "requestsCount": 34
+    }
+  },
+  {
+    "id": "HIST-1787848910379-727",
+    "caseId": "#CASE-5453",
+    "targetUrl": "https://www.rng-gamez.com",
+    "normalizedUrl": "https://www.rng-gamez.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848910379,
+    "overallHealthScore": 70,
+    "categoryScores": {
+      "performance": 46,
+      "seo": 100,
+      "security": 58,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 436,
+      "fcpSec": 0.7,
+      "lcpSec": 3.1,
+      "inpMs": 640,
+      "cls": 0.29,
+      "pageSizeKb": 1687,
+      "requestsCount": 34
+    }
+  },
+  {
+    "id": "HIST-1787848910320-535",
+    "caseId": "#CASE-1982",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848910320,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 389,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 635,
+      "cls": 0.02,
+      "pageSizeKb": 1990,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848910292-666",
+    "caseId": "#CASE-6329",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848910292,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 318,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 603,
+      "cls": 0.02,
+      "pageSizeKb": 1775,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848910253-800",
+    "caseId": "#CASE-1446",
+    "targetUrl": "https://www.rng-gamez.com",
+    "normalizedUrl": "https://www.rng-gamez.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848910253,
+    "overallHealthScore": 74,
+    "categoryScores": {
+      "performance": 56,
+      "seo": 100,
+      "security": 58,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 369,
+      "fcpSec": 0.6,
+      "lcpSec": 3,
+      "inpMs": 610,
+      "cls": 0.29,
+      "pageSizeKb": 1702,
+      "requestsCount": 34
+    }
+  },
+  {
+    "id": "HIST-1787848904074-370",
+    "caseId": "#CASE-8242",
+    "targetUrl": "https://www.rng-gamez.com",
+    "normalizedUrl": "https://www.rng-gamez.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848904074,
+    "overallHealthScore": 74,
+    "categoryScores": {
+      "performance": 56,
+      "seo": 100,
+      "security": 58,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 73,
+      "fcpSec": 0.6,
+      "lcpSec": 3,
+      "inpMs": 477,
+      "cls": 0.29,
+      "pageSizeKb": 1731,
+      "requestsCount": 34
+    }
+  },
+  {
+    "id": "HIST-1787848904040-986",
+    "caseId": "#CASE-4235",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848904040,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 37,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 477,
+      "cls": 0.02,
+      "pageSizeKb": 1711,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848901232-882",
+    "caseId": "#CASE-7652",
+    "targetUrl": "https://www.rng-gamez.com",
+    "normalizedUrl": "https://www.rng-gamez.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848901232,
+    "overallHealthScore": 70,
+    "categoryScores": {
+      "performance": 46,
+      "seo": 100,
+      "security": 58,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 839,
+      "fcpSec": 1.1,
+      "lcpSec": 3.5,
+      "inpMs": 822,
+      "cls": 0.29,
+      "pageSizeKb": 1515,
+      "requestsCount": 34
+    }
+  },
+  {
+    "id": "HIST-1787848900520-554",
+    "caseId": "#CASE-3526",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848900520,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 135,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 521,
+      "cls": 0.02,
+      "pageSizeKb": 2040,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848862144-178",
+    "caseId": "#CASE-5711",
+    "targetUrl": "https://httpbin.org",
+    "normalizedUrl": "https://httpbin.org",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848862144,
+    "overallHealthScore": 35,
+    "categoryScores": {
+      "performance": 20,
+      "seo": 20,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2942,
+      "fcpSec": 3.8,
+      "lcpSec": 4.5,
+      "inpMs": 1475,
+      "cls": 0.06,
+      "pageSizeKb": 178,
+      "requestsCount": 6
+    }
+  },
+  {
+    "id": "HIST-1787848860825-465",
+    "caseId": "#CASE-6538",
+    "targetUrl": "https://httpbin.org",
+    "normalizedUrl": "https://httpbin.org",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848860825,
+    "overallHealthScore": 35,
+    "categoryScores": {
+      "performance": 20,
+      "seo": 20,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 1665,
+      "fcpSec": 2.4,
+      "lcpSec": 3.1,
+      "inpMs": 900,
+      "cls": 0.06,
+      "pageSizeKb": 188,
+      "requestsCount": 6
+    }
+  },
+  {
+    "id": "HIST-1787848859867-47",
+    "caseId": "#CASE-6280",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848859867,
+    "overallHealthScore": 69,
+    "categoryScores": {
+      "performance": 78,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 715,
+      "fcpSec": 0.8,
+      "lcpSec": 1.5,
+      "inpMs": 328,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787848859742-285",
+    "caseId": "#CASE-2100",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848859742,
+    "overallHealthScore": 69,
+    "categoryScores": {
+      "performance": 78,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 538,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 248,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787848829651-70",
+    "caseId": "#CASE-4358",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848829651,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 62,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 488,
+      "cls": 0.02,
+      "pageSizeKb": 1513,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848829598-474",
+    "caseId": "#CASE-7335",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848829598,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 89,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 500,
+      "cls": 0.02,
+      "pageSizeKb": 1712,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848801821-229",
+    "caseId": "#CASE-9906",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848801821,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 247,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 571,
+      "cls": 0.02,
+      "pageSizeKb": 1623,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848801776-420",
+    "caseId": "#CASE-9725",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848801776,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 211,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 555,
+      "cls": 0.02,
+      "pageSizeKb": 1854,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848790027-902",
+    "caseId": "#CASE-6526",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848790027,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 117,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 513,
+      "cls": 0.02,
+      "pageSizeKb": 1867,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848789998-759",
+    "caseId": "#CASE-6648",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848789998,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 80,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 496,
+      "cls": 0.02,
+      "pageSizeKb": 1766,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848772592-70",
+    "caseId": "#CASE-5354",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848772592,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 70,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 492,
+      "cls": 0.02,
+      "pageSizeKb": 1755,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848772556-286",
+    "caseId": "#CASE-3466",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848772556,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 79,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 496,
+      "cls": 0.02,
+      "pageSizeKb": 1671,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848766406-291",
+    "caseId": "#CASE-3879",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848766406,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 83,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 497,
+      "cls": 0.02,
+      "pageSizeKb": 1747,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848766362-404",
+    "caseId": "#CASE-9000",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848766362,
+    "overallHealthScore": 71,
+    "categoryScores": {
+      "performance": 73,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 93,
+      "fcpSec": 0.6,
+      "lcpSec": 2.2,
+      "inpMs": 502,
+      "cls": 0.02,
+      "pageSizeKb": 1854,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848750123-724",
+    "caseId": "#CASE-3182",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848750123,
+    "overallHealthScore": 67,
+    "categoryScores": {
+      "performance": 63,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 557,
+      "fcpSec": 0.8,
+      "lcpSec": 2.4,
+      "inpMs": 711,
+      "cls": 0.02,
+      "pageSizeKb": 1848,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848750071-76",
+    "caseId": "#CASE-2104",
+    "targetUrl": "https://murakkaz.com",
+    "normalizedUrl": "https://murakkaz.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848750071,
+    "overallHealthScore": 67,
+    "categoryScores": {
+      "performance": 63,
+      "seo": 80,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 500,
+      "fcpSec": 0.7,
+      "lcpSec": 2.3,
+      "inpMs": 685,
+      "cls": 0.02,
+      "pageSizeKb": 1918,
+      "requestsCount": 36
+    }
+  },
+  {
+    "id": "HIST-1787848733797-312",
+    "caseId": "#CASE-9613",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787848733797,
+    "overallHealthScore": 78,
+    "categoryScores": {
+      "performance": 99,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 258,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 122,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787844658867-298",
+    "caseId": "#CASE-2720",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787844658867,
+    "overallHealthScore": 0,
+    "categoryScores": {
+      "performance": 0,
+      "seo": 0,
+      "security": 50,
+      "accessibility": 0
+    },
+    "metrics": {
+      "ttfbMs": 8,
+      "fcpSec": 0,
+      "lcpSec": 0,
+      "inpMs": 0,
+      "cls": 0,
+      "pageSizeKb": 0,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787844655582-168",
+    "caseId": "#CASE-6991",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787844655582,
+    "overallHealthScore": 0,
+    "categoryScores": {
+      "performance": 0,
+      "seo": 0,
+      "security": 50,
+      "accessibility": 0
+    },
+    "metrics": {
+      "ttfbMs": 32,
+      "fcpSec": 0,
+      "lcpSec": 0,
+      "inpMs": 0,
+      "cls": 0,
+      "pageSizeKb": 0,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787844655562-67",
+    "caseId": "#CASE-3414",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787844655562,
+    "overallHealthScore": 0,
+    "categoryScores": {
+      "performance": 0,
+      "seo": 0,
+      "security": 50,
+      "accessibility": 0
+    },
+    "metrics": {
+      "ttfbMs": 40,
+      "fcpSec": 0,
+      "lcpSec": 0,
+      "inpMs": 0,
+      "cls": 0,
+      "pageSizeKb": 0,
+      "requestsCount": 1
+    }
+  },
+  {
     "id": "HIST-1787840160912-28",
     "caseId": "#CASE-7703",
     "targetUrl": "https://example.com",
@@ -549,894 +1437,6 @@
       "cls": 0.01,
       "pageSizeKb": 1,
       "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787837942610-46",
-    "caseId": "#CASE-1792",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787837942610,
-    "overallHealthScore": 74,
-    "categoryScores": {
-      "performance": 90,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 429,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 199,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787837942580-945",
-    "caseId": "#CASE-7005",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787837942580,
-    "overallHealthScore": 78,
-    "categoryScores": {
-      "performance": 99,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 378,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 176,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787837847422-411",
-    "caseId": "#CASE-8448",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787837847422,
-    "overallHealthScore": 69,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 538,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 248,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787837847406-310",
-    "caseId": "#CASE-7169",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787837847406,
-    "overallHealthScore": 69,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 562,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 259,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836734492-38",
-    "caseId": "#CASE-5275",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836734492,
-    "overallHealthScore": 78,
-    "categoryScores": {
-      "performance": 99,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 323,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 151,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836734475-991",
-    "caseId": "#CASE-8190",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836734475,
-    "overallHealthScore": 78,
-    "categoryScores": {
-      "performance": 99,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 336,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 157,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836730066-15",
-    "caseId": "#CASE-4126",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836730066,
-    "overallHealthScore": 69,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 750,
-      "fcpSec": 0.8,
-      "lcpSec": 1.5,
-      "inpMs": 344,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836656402-455",
-    "caseId": "#CASE-8581",
-    "targetUrl": "https://httpbin.org",
-    "normalizedUrl": "https://httpbin.org",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836656402,
-    "overallHealthScore": 35,
-    "categoryScores": {
-      "performance": 20,
-      "seo": 20,
-      "security": 35,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 2873,
-      "fcpSec": 3.7,
-      "lcpSec": 4.4,
-      "inpMs": 1444,
-      "cls": 0.06,
-      "pageSizeKb": 174,
-      "requestsCount": 6
-    }
-  },
-  {
-    "id": "HIST-1787836655816-466",
-    "caseId": "#CASE-7188",
-    "targetUrl": "https://httpbin.org",
-    "normalizedUrl": "https://httpbin.org",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836655816,
-    "overallHealthScore": 35,
-    "categoryScores": {
-      "performance": 20,
-      "seo": 20,
-      "security": 35,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 2238,
-      "fcpSec": 3,
-      "lcpSec": 3.7,
-      "inpMs": 1158,
-      "cls": 0.06,
-      "pageSizeKb": 131,
-      "requestsCount": 6
-    }
-  },
-  {
-    "id": "HIST-1787836654088-919",
-    "caseId": "#CASE-5487",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836654088,
-    "overallHealthScore": 69,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 497,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 230,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836654078-831",
-    "caseId": "#CASE-7725",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836654078,
-    "overallHealthScore": 69,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 544,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 251,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836650667-796",
-    "caseId": "#CASE-4059",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836650667,
-    "overallHealthScore": 69,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 509,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 235,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836650656-857",
-    "caseId": "#CASE-7034",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836650656,
-    "overallHealthScore": 69,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 538,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 248,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836646832-85",
-    "caseId": "#CASE-3334",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836646832,
-    "overallHealthScore": 69,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 696,
-      "fcpSec": 0.8,
-      "lcpSec": 1.5,
-      "inpMs": 319,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836646791-217",
-    "caseId": "#CASE-4512",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836646792,
-    "overallHealthScore": 69,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 692,
-      "fcpSec": 0.8,
-      "lcpSec": 1.5,
-      "inpMs": 317,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836641028-15",
-    "caseId": "#CASE-4749",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836641028,
-    "overallHealthScore": 65,
-    "categoryScores": {
-      "performance": 68,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 1387,
-      "fcpSec": 1.5,
-      "lcpSec": 2.2,
-      "inpMs": 630,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836641013-168",
-    "caseId": "#CASE-3037",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836641013,
-    "overallHealthScore": 65,
-    "categoryScores": {
-      "performance": 68,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 1408,
-      "fcpSec": 1.5,
-      "lcpSec": 2.2,
-      "inpMs": 640,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836610221-367",
-    "caseId": "#CASE-5876",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836610221,
-    "overallHealthScore": 78,
-    "categoryScores": {
-      "performance": 99,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 352,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 164,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836591158-666",
-    "caseId": "#CASE-6711",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836591158,
-    "overallHealthScore": 59,
-    "categoryScores": {
-      "performance": 53,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 2564,
-      "fcpSec": 2.8,
-      "lcpSec": 3.5,
-      "inpMs": 1160,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836591154-869",
-    "caseId": "#CASE-2097",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836591154,
-    "overallHealthScore": 59,
-    "categoryScores": {
-      "performance": 53,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 2555,
-      "fcpSec": 2.8,
-      "lcpSec": 3.5,
-      "inpMs": 1156,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836589193-541",
-    "caseId": "#CASE-6290",
-    "targetUrl": "https://httpbin.org",
-    "normalizedUrl": "https://httpbin.org",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836589193,
-    "overallHealthScore": 44,
-    "categoryScores": {
-      "performance": 43,
-      "seo": 20,
-      "security": 35,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 589,
-      "fcpSec": 1.2,
-      "lcpSec": 1.9,
-      "inpMs": 416,
-      "cls": 0.06,
-      "pageSizeKb": 148,
-      "requestsCount": 6
-    }
-  },
-  {
-    "id": "HIST-1787836589070-733",
-    "caseId": "#CASE-9199",
-    "targetUrl": "https://httpbin.org/get",
-    "normalizedUrl": "https://httpbin.org/get",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836589070,
-    "overallHealthScore": 53,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 15,
-      "security": 35,
-      "accessibility": 75
-    },
-    "metrics": {
-      "ttfbMs": 471,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 218,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836588550-485",
-    "caseId": "#CASE-7791",
-    "targetUrl": "https://xn--e1afmkfd.xn--p1ai",
-    "normalizedUrl": "https://xn--e1afmkfd.xn--p1ai",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836588550,
-    "overallHealthScore": 72,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 70,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 668,
-      "fcpSec": 0.7,
-      "lcpSec": 1.4,
-      "inpMs": 307,
-      "cls": 0.01,
-      "pageSizeKb": 2,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836587802-16",
-    "caseId": "#CASE-9535",
-    "targetUrl": "https://httpbin.org/get?key0=val0&key1=val1&key2=val2&key3=val3&key4=val4&key5=val5&key6=val6&key7=val7&key8=val8&key9=val9&key10=val10&key11=val11&key12=val12&key13=val13&key14=val14&key15=val15&key16=val16&key17=val17&key18=val18&key19=val19&key20=val20&key21=val21&key22=val22&key23=val23&key24=val24&key25=val25&key26=val26&key27=val27&key28=val28&key29=val29&key30=val30&key31=val31&key32=val32&key33=val33&key34=val34&key35=val35&key36=val36&key37=val37&key38=val38&key39=val39&key40=val40&key41=val41&key42=val42&key43=val43&key44=val44&key45=val45&key46=val46&key47=val47&key48=val48&key49=val49",
-    "normalizedUrl": "https://httpbin.org/get?key0=val0&key1=val1&key2=val2&key3=val3&key4=val4&key5=val5&key6=val6&key7=val7&key8=val8&key9=val9&key10=val10&key11=val11&key12=val12&key13=val13&key14=val14&key15=val15&key16=val16&key17=val17&key18=val18&key19=val19&key20=val20&key21=val21&key22=val22&key23=val23&key24=val24&key25=val25&key26=val26&key27=val27&key28=val28&key29=val29&key30=val30&key31=val31&key32=val32&key33=val33&key34=val34&key35=val35&key36=val36&key37=val37&key38=val38&key39=val39&key40=val40&key41=val41&key42=val42&key43=val43&key44=val44&key45=val45&key46=val46&key47=val47&key48=val48&key49=val49",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836587802,
-    "overallHealthScore": 62,
-    "categoryScores": {
-      "performance": 99,
-      "seo": 15,
-      "security": 35,
-      "accessibility": 75
-    },
-    "metrics": {
-      "ttfbMs": 256,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 121,
-      "cls": 0.01,
-      "pageSizeKb": 2,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836587516-199",
-    "caseId": "#CASE-5153",
-    "targetUrl": "https://httpbin.org/bytes/1024",
-    "normalizedUrl": "https://httpbin.org/bytes/1024",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836587516,
-    "overallHealthScore": 62,
-    "categoryScores": {
-      "performance": 99,
-      "seo": 15,
-      "security": 35,
-      "accessibility": 75
-    },
-    "metrics": {
-      "ttfbMs": 255,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 121,
-      "cls": 0.01,
-      "pageSizeKb": 2,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836587228-135",
-    "caseId": "#CASE-5091",
-    "targetUrl": "https://httpbin.org/redirect/2",
-    "normalizedUrl": "https://httpbin.org/redirect/2",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836587228,
-    "overallHealthScore": 49,
-    "categoryScores": {
-      "performance": 68,
-      "seo": 15,
-      "security": 35,
-      "accessibility": 75
-    },
-    "metrics": {
-      "ttfbMs": 1614,
-      "fcpSec": 1.8,
-      "lcpSec": 2.5,
-      "inpMs": 732,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836585586-928",
-    "caseId": "#CASE-2588",
-    "targetUrl": "https://httpbin.org/status/500",
-    "normalizedUrl": "https://httpbin.org/status/500",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836585586,
-    "overallHealthScore": 54,
-    "categoryScores": {
-      "performance": 80,
-      "seo": 15,
-      "security": 35,
-      "accessibility": 75
-    },
-    "metrics": {
-      "ttfbMs": 263,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 124,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836585292-159",
-    "caseId": "#CASE-1355",
-    "targetUrl": "https://httpbin.org/status/404",
-    "normalizedUrl": "https://httpbin.org/status/404",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836585292,
-    "overallHealthScore": 45,
-    "categoryScores": {
-      "performance": 58,
-      "seo": 15,
-      "security": 35,
-      "accessibility": 75
-    },
-    "metrics": {
-      "ttfbMs": 769,
-      "fcpSec": 0.8,
-      "lcpSec": 1.5,
-      "inpMs": 352,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836584484-534",
-    "caseId": "#CASE-3685",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836584484,
-    "overallHealthScore": 69,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 585,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 269,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836584479-769",
-    "caseId": "#CASE-9027",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836584479,
-    "overallHealthScore": 69,
-    "categoryScores": {
-      "performance": 78,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 591,
-      "fcpSec": 0.7,
-      "lcpSec": 1.4,
-      "inpMs": 272,
-      "cls": 0.01,
-      "pageSizeKb": 1,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787836584260-934",
-    "caseId": "#CASE-2715",
-    "targetUrl": "https://httpbin.org",
-    "normalizedUrl": "https://httpbin.org",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836584260,
-    "overallHealthScore": 48,
-    "categoryScores": {
-      "performance": 53,
-      "seo": 20,
-      "security": 35,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 351,
-      "fcpSec": 0.9,
-      "lcpSec": 1.6,
-      "inpMs": 309,
-      "cls": 0.06,
-      "pageSizeKb": 217,
-      "requestsCount": 6
-    }
-  },
-  {
-    "id": "HIST-1787836584154-85",
-    "caseId": "#CASE-7286",
-    "targetUrl": "https://httpbin.org",
-    "normalizedUrl": "https://httpbin.org",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836584154,
-    "overallHealthScore": 48,
-    "categoryScores": {
-      "performance": 53,
-      "seo": 20,
-      "security": 35,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 245,
-      "fcpSec": 0.8,
-      "lcpSec": 1.5,
-      "inpMs": 261,
-      "cls": 0.06,
-      "pageSizeKb": 162,
-      "requestsCount": 6
-    }
-  },
-  {
-    "id": "HIST-1787836583808-282",
-    "caseId": "#CASE-7654",
-    "targetUrl": "https://httpbin.org",
-    "normalizedUrl": "https://httpbin.org",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836583808,
-    "overallHealthScore": 40,
-    "categoryScores": {
-      "performance": 33,
-      "seo": 20,
-      "security": 35,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 1084,
-      "fcpSec": 1.7,
-      "lcpSec": 2.4,
-      "inpMs": 639,
-      "cls": 0.06,
-      "pageSizeKb": 168,
-      "requestsCount": 6
-    }
-  },
-  {
-    "id": "HIST-1787836583790-167",
-    "caseId": "#CASE-6692",
-    "targetUrl": "https://httpbin.org",
-    "normalizedUrl": "https://httpbin.org",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836583790,
-    "overallHealthScore": 40,
-    "categoryScores": {
-      "performance": 33,
-      "seo": 20,
-      "security": 35,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 1121,
-      "fcpSec": 1.8,
-      "lcpSec": 2.5,
-      "inpMs": 655,
-      "cls": 0.06,
-      "pageSizeKb": 168,
-      "requestsCount": 6
-    }
-  },
-  {
-    "id": "HIST-1787836583732-786",
-    "caseId": "#CASE-3690",
-    "targetUrl": "https://httpbin.org",
-    "normalizedUrl": "https://httpbin.org",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836583732,
-    "overallHealthScore": 40,
-    "categoryScores": {
-      "performance": 33,
-      "seo": 20,
-      "security": 35,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 1034,
-      "fcpSec": 1.7,
-      "lcpSec": 2.4,
-      "inpMs": 616,
-      "cls": 0.06,
-      "pageSizeKb": 188,
-      "requestsCount": 6
-    }
-  },
-  {
-    "id": "HIST-1787836583712-918",
-    "caseId": "#CASE-8045",
-    "targetUrl": "https://httpbin.org",
-    "normalizedUrl": "https://httpbin.org",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836583712,
-    "overallHealthScore": 44,
-    "categoryScores": {
-      "performance": 43,
-      "seo": 20,
-      "security": 35,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 996,
-      "fcpSec": 1.6,
-      "lcpSec": 2.3,
-      "inpMs": 599,
-      "cls": 0.06,
-      "pageSizeKb": 186,
-      "requestsCount": 6
-    }
-  },
-  {
-    "id": "HIST-1787836582940-845",
-    "caseId": "#CASE-6961",
-    "targetUrl": "https://httpbin.org",
-    "normalizedUrl": "https://httpbin.org",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787836582940,
-    "overallHealthScore": 48,
-    "categoryScores": {
-      "performance": 53,
-      "seo": 20,
-      "security": 35,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 285,
-      "fcpSec": 0.9,
-      "lcpSec": 1.6,
-      "inpMs": 279,
-      "cls": 0.06,
-      "pageSizeKb": 159,
-      "requestsCount": 6
     }
   }
 ]
