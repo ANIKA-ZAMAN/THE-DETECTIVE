@@ -350,11 +350,36 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Metallic Joint Collar */}
-                <div className="absolute -bottom-3 -right-1 w-11 h-9 bg-gradient-to-r from-amber-600 via-amber-800 to-zinc-950 rounded-md border border-amber-600/80 shadow-xl transform rotate-[-42deg] z-20" />
+                {/* Metallic Joint Collar - amber/gold ring at base of lens */}
+                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-gradient-to-b from-amber-600 via-amber-800 to-amber-950 rounded-b-full border-x border-b border-amber-500/60 shadow-[0_4px_12px_rgba(0,0,0,0.9)] z-20" />
 
-                {/* Wood/Bronze Handle extending to bottom right */}
-                <div className="absolute -bottom-24 -right-20 w-8 h-44 bg-gradient-to-b from-amber-950 via-zinc-900 to-black rounded-b-xl border border-amber-800/40 shadow-[0_20px_50px_rgba(0,0,0,0.95)] transform rotate-[-42deg] pointer-events-none z-10" />
+                {/* Multiple curved leather/wood stripes hanging down from lens bottom */}
+                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 z-10 flex items-start justify-center" style={{width: '80px'}}>
+                  {/* Stripe group - 5 parallel curved dark strips */}
+                  {['-8px', '-4px', '0px', '4px', '8px'].map((offset, i) => (
+                    <div
+                      key={i}
+                      className="absolute top-0"
+                      style={{ left: `calc(50% + ${offset})`, transform: 'translateX(-50%)' }}
+                    >
+                      <svg width="8" height="110" viewBox="0 0 8 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d={`M4 0 C${3 + (i - 2) * 1.5} 30 ${5 + (i - 2) * 1.2} 70 4 110`}
+                          stroke="url(#stripe-grad)"
+                          strokeWidth="5"
+                          strokeLinecap="round"
+                        />
+                        <defs>
+                          <linearGradient id="stripe-grad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                            <stop offset="0%" stopColor="#5c3d1a" />
+                            <stop offset="40%" stopColor="#1a1008" />
+                            <stop offset="100%" stopColor="#000000" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
