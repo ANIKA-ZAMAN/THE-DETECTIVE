@@ -1,7 +1,6 @@
 /**
- * Shared TypeScript interfaces for the Performance Detective analysis engine.
- * Kept separate from server logic so client components can safely import types
- * without pulling in server-only code (fetch, Node APIs, etc.).
+ * Shared TypeScript interfaces for Performance Detective.
+ * Safe to import from client components and server-side route handlers alike.
  */
 
 export interface FaultItem {
@@ -12,6 +11,69 @@ export interface FaultItem {
   description: string;
   recommendation: string;
   clueCode?: string;
+}
+
+export interface WaterfallItem {
+  id: string;
+  url: string;
+  filename: string;
+  type: "document" | "script" | "stylesheet" | "image" | "font" | "media" | "other";
+  status: number;
+  sizeKb: number;
+  ttfbMs: number;
+  durationMs: number;
+  isRenderBlocking: boolean;
+  isThirdParty: boolean;
+  domain: string;
+}
+
+export interface ThirdPartyResource {
+  domain: string;
+  category: "Analytics" | "CDN" | "Ads" | "Social" | "Fonts" | "Utility" | "Other";
+  requestCount: number;
+  sizeKb: number;
+  urls: string[];
+}
+
+export interface OpportunityItem {
+  id: string;
+  title: string;
+  description: string;
+  savingsKb?: number;
+  savingsMs?: number;
+  impact: "High" | "Medium" | "Low";
+}
+
+export interface MetricsSummary {
+  ttfbMs: number;
+  fcpSec: number;
+  lcpSec: number;
+  inpMs: number;
+  tbtMs: number;
+  cls: number;
+  speedIndex?: number;
+  pageSizeKb: number;
+  requestsCount: number;
+  domNodesCount: number;
+}
+
+export interface ResourceBreakdown {
+  htmlKb: number;
+  jsKb: number;
+  cssKb: number;
+  imageKb: number;
+  fontKb: number;
+  otherKb: number;
+  thirdPartyCount: number;
+  counts: {
+    html: number;
+    js: number;
+    css: number;
+    image: number;
+    font: number;
+    other: number;
+    thirdParty: number;
+  };
 }
 
 export interface AnalysisResult {
@@ -26,28 +88,53 @@ export interface AnalysisResult {
     security: number;
     accessibility: number;
   };
-  metrics: {
-    ttfbMs: number;
-    lcpSec: number;
-    inpMs: number;
-    cls: number;
-    pageSizeKb: number;
-    requestsCount: number;
-    domNodesCount: number;
-  };
-  resourceBreakdown: {
-    htmlKb: number;
-    jsKb: number;
-    cssKb: number;
-    imageKb: number;
-    thirdPartyCount: number;
-  };
+  metrics: MetricsSummary;
+  resourceBreakdown: ResourceBreakdown;
+  thirdPartyResources: ThirdPartyResource[];
+  opportunities: OpportunityItem[];
+  waterfall: WaterfallItem[];
   faults: FaultItem[];
 }
 
-export interface ApiSuccessResponse {
+export interface HistoryEntry {
+  id: string;
+  caseId: string;
+  targetUrl: string;
+  normalizedUrl: string;
+  investigatedAt: string;
+  overallHealthScore: number;
+  categoryScores: {
+    performance: number;
+    seo: number;
+    security: number;
+    accessibility: number;
+  };
+  metrics: {
+    ttfbMs: number;
+    fcpSec: number;
+    lcpSec: number;
+    cls: number;
+    pageSizeKb: number;
+    requestsCount: number;
+  };
+}
+
+export interface CompareSummary {
+  bestOverall: string;
+  fastestTTFB: string;
+  smallestPayload: string;
+  scoresDiff: Record<string, number>;
+}
+
+export interface CompareResult {
+  sites: AnalysisResult[];
+  summary: CompareSummary;
+}
+
+// API Response Models
+export interface ApiSuccessResponse<T = AnalysisResult> {
   success: true;
-  data: AnalysisResult;
+  data: T;
 }
 
 export interface ApiErrorResponse {
@@ -56,4 +143,4 @@ export interface ApiErrorResponse {
   code?: string;
 }
 
-export type ApiResponse = ApiSuccessResponse | ApiErrorResponse;
+export type ApiResponse<T = AnalysisResult> = ApiSuccessResponse<T> | ApiErrorResponse;

@@ -16,6 +16,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { analyzeWebsite } from "@/lib/analyzer";
 import { validateUrl } from "@/lib/validator";
 import { checkRateLimit } from "@/lib/rateLimit";
+import { addHistoryEntry } from "@/lib/history";
 import type { ApiResponse } from "@/types";
 
 // ─────────────────────────────────────────────
@@ -90,6 +91,8 @@ export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse>>
   // 4. Run analysis engine
   try {
     const result = await analyzeWebsite(validation.url);
+    // Record scan in history
+    addHistoryEntry(result);
     return NextResponse.json<ApiResponse>({ success: true, data: result });
   } catch (err) {
     const message =
