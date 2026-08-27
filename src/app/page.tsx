@@ -21,7 +21,7 @@ export default function Home() {
     e.preventDefault();
     if (!urlInput.trim()) return;
     setIsSubmitting(true);
-    router.push(`/admin?url=${encodeURIComponent(urlInput.trim())}`);
+    router.push(`/overview?url=${encodeURIComponent(urlInput.trim())}`);
   };
 
   return (
@@ -98,7 +98,7 @@ export default function Home() {
             Log in
           </a>
           <a
-            href="/admin"
+            href="/overview"
             className="px-4 py-2 text-xs font-medium text-zinc-200 border border-zinc-800 hover:border-zinc-700 bg-[#0d0d12]/80 hover:bg-zinc-900 rounded-lg flex items-center gap-2 transition-all shadow-sm"
           >
             Start Investigation

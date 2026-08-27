@@ -20,6 +20,8 @@ import {
   Eye,
   CheckCircle2,
   SlidersHorizontal,
+  Activity,
+  FileText,
 } from "lucide-react";
 import type { AnalysisResult, FaultItem } from "@/types";
 
@@ -108,10 +110,27 @@ function AdminContent() {
               </svg>
             </div>
             <div className="flex flex-col">
-              <span className="text-[9px] font-semibold tracking-widest text-zinc-400">PERFORMANCE DETECTIVE</span>
-              <span className="text-xs font-bold text-zinc-100 tracking-wider uppercase">GENERIC DIAGNOSTIC ADMIN</span>
+              <span className="text-[9px] font-semibold tracking-widest text-[#c8b082]">PERFORMANCE DETECTIVE</span>
+              <span className="text-xs font-extrabold text-zinc-100 tracking-wider uppercase">FAULT EVIDENCE DOSSIER</span>
             </div>
           </div>
+
+          {/* Navigation Sub-Tabs */}
+          <nav className="hidden lg:flex items-center gap-1 bg-[#101015] p-1 rounded-xl border border-zinc-800/80 text-xs ml-4">
+            <button
+              onClick={() => router.push(`/overview?url=${encodeURIComponent(targetUrlParam)}`)}
+              className="px-3.5 py-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/50 transition-colors flex items-center gap-1.5"
+            >
+              <Activity className="w-3.5 h-3.5" />
+              Overview
+            </button>
+            <button
+              className="px-3.5 py-1.5 rounded-lg bg-[#c8b082] text-zinc-950 font-bold shadow-sm flex items-center gap-1.5"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              Faults & Clues
+            </button>
+          </nav>
         </div>
 
         {/* Dynamic URL Search Bar */}
