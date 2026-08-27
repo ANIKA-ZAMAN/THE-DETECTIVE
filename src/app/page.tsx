@@ -315,72 +315,91 @@ export default function Home() {
             </div>
 
             {/* ══════════════════════════════════════════════════════════════════
-                MAIN FOCAL POINT: PHOTO-ACCURATE CONVEX GLASS MAGNIFYING GLASS
+                MAIN FOCAL POINT: PHYSICAL TRANSPARENT MAGNIFYING GLASS
                ══════════════════════════════════════════════════════════════════ */}
             <div className="relative z-20 flex items-center justify-center -translate-x-8 -translate-y-2 select-none">
-              {/* Outer Metallic Brass Bezel Ring (Round Double-Rim Bezel) */}
-              <div className="relative w-[310px] h-[310px] rounded-full p-[8px] bg-gradient-to-br from-[#c8b082] via-[#8c6f48] via-[#45321f] to-[#1a140e] shadow-[0_35px_80px_rgba(0,0,0,0.98),0_0_25px_rgba(200,176,130,0.2)] border border-[#c8b082]/70">
-                {/* Inner Convex Lens Container (Strictly Rounded with Seamless Glass Effects) */}
-                <div className="w-full h-full rounded-full bg-[#09090e] relative overflow-hidden flex items-center justify-center border border-[#523d24]/80 shadow-[inset_0_0_45px_rgba(0,0,0,0.98)]">
-                  {/* Spherical Convex Glass Lens Shading & Ambient Vignette */}
-                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_45%_45%,_rgba(25,25,35,0.2)_0%,_rgba(10,10,15,0.75)_65%,_rgba(0,0,0,0.95)_100%)] pointer-events-none z-10" />
+              {/* Outer Thin Metallic Gold/Bronze Rim */}
+              <div className="relative w-[325px] h-[325px] rounded-full p-[6px] bg-gradient-to-br from-[#dfd7c2] via-[#c8b082] via-[#8c6f48] to-[#2a1d12] shadow-[0_30px_70px_rgba(0,0,0,0.95),0_0_20px_rgba(200,176,130,0.2)] border border-[#f3eedc]/50">
+                {/* Transparent Lens with Subtle Inner Depth & Magnification View */}
+                <div className="w-full h-full rounded-full relative overflow-hidden flex flex-col justify-center px-7 bg-[#070709]/20 backdrop-blur-[0.5px] border border-[#523d24]/60 shadow-[inset_0_0_35px_rgba(0,0,0,0.7),inset_0_0_12px_rgba(255,255,255,0.08)]">
+                  
+                  {/* Magnified Background Clone inside the Lens (Scaled 1.2x) */}
+                  <div className="absolute inset-0 pointer-events-none transform scale-[1.22] origin-center opacity-70 z-0">
+                    {/* Magnified Fingerprint Lines */}
+                    <svg
+                      className="absolute -left-12 -bottom-8 w-80 h-80 text-[#c8b082]/70"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                    >
+                      <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" />
+                      <path d="M14 13.12c0 2.38 0 6.38-1 8.88" />
+                      <path d="M17.29 21.02c.12-.6.43-2.3.43-5.02 0-3.04-1.28-5.32-3.72-6.49" />
+                      <path d="M7 11.23a4 4 0 0 1 7.24-2.22" />
+                      <path d="M6 15c.34 2.87 1.5 5.5 2 6" />
+                    </svg>
 
-                  {/* Primary Curving Glass Specular Glare (Top-Left Angle) */}
-                  <div className="absolute -top-12 -left-12 w-52 h-52 rounded-full bg-gradient-to-br from-white/22 via-white/5 to-transparent pointer-events-none transform rotate-12 blur-[1.5px] z-20" />
+                    {/* Magnified Constellation Network Line */}
+                    <svg className="absolute inset-0 w-full h-full">
+                      <line x1="20" y1="120" x2="280" y2="180" stroke="#c8b082" strokeWidth="1.2" strokeDasharray="3 3" />
+                      <circle cx="150" cy="150" r="4.5" fill="#c8b082" className="animate-pulse" />
+                    </svg>
+                  </div>
 
-                  {/* Secondary Rim Glare Arcs (Top Right & Bottom Left) */}
-                  <div className="absolute top-2 right-6 w-28 h-8 rounded-full bg-white/12 pointer-events-none transform rotate-[-25deg] blur-[2px] z-20" />
-                  <div className="absolute bottom-3 left-8 w-24 h-6 rounded-full bg-white/8 pointer-events-none transform rotate-[35deg] blur-[3px] z-20" />
+                  {/* Diagonal Glass Glare Reflection Highlight */}
+                  <div className="absolute -top-16 -left-16 w-60 h-60 rounded-full bg-gradient-to-br from-white/20 via-white/4 to-transparent pointer-events-none transform rotate-12 blur-[1px] z-20" />
+                  <div className="absolute bottom-4 right-10 w-28 h-6 rounded-full bg-white/6 pointer-events-none transform rotate-[-30deg] blur-[2px] z-20" />
 
-                  {/* UI Window FULLY CONTAINED INSIDE the Circular Glass Lens */}
-                  <div className="relative z-10 w-[84%] bg-[#0e0e14]/85 border border-zinc-800/80 rounded-2xl p-4 shadow-2xl backdrop-blur-md">
+                  {/* Scanning Content FLOATING DIRECTLY on the Transparent Scene */}
+                  <div className="relative z-10 space-y-2.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                     {/* Header */}
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[11px] font-serif italic text-[#c8b082]">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-serif italic text-[#c8b082] drop-shadow">
                         analyzing...
                       </span>
-                      <div className="flex items-center gap-1 opacity-50">
-                        <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
-                        <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
+                      <div className="flex items-center gap-1 opacity-60">
+                        <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 shadow" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-zinc-300 shadow" />
                       </div>
                     </div>
 
-                    {/* Green Monospace URL */}
-                    <span className="text-base font-mono font-bold text-[#86efac] block tracking-tight mb-2.5 drop-shadow-[0_0_8px_rgba(134,239,172,0.4)]">
+                    {/* Bright Phosphor Green Monospace URL */}
+                    <span className="text-base sm:text-lg font-mono font-bold text-[#4ade80] block tracking-tight drop-shadow-[0_0_10px_rgba(74,222,128,0.5)]">
                       https://example.com
                     </span>
 
-                    {/* Progress Bar with Scanner Keyframes */}
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="flex-1 h-1.5 bg-zinc-800/90 rounded-full overflow-hidden border border-zinc-700/40">
+                    {/* Thin Gold Progress Bar */}
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 h-1 bg-zinc-900/90 rounded-full overflow-hidden border border-zinc-700/60 shadow-inner">
                         <div className="h-full bg-gradient-to-r from-[#b59a68] to-[#c8b082] rounded-full shadow-[0_0_8px_#c8b082] animate-progress-scan" />
                       </div>
-                      <div className="w-3 h-3 border-2 border-[#c8b082] border-t-transparent rounded-full animate-spin shrink-0 opacity-70" />
+                      <div className="w-3 h-3 border-2 border-[#c8b082] border-t-transparent rounded-full animate-spin shrink-0 opacity-80" />
                     </div>
 
-                    {/* Checklist with Glowing Status Dots */}
-                    <ul className="space-y-1.5 text-[11px] text-zinc-300 font-sans">
+                    {/* Investigation Steps Checklist */}
+                    <ul className="space-y-1.5 text-[11px] text-zinc-100 font-sans font-medium pt-0.5">
                       <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#86efac] shrink-0 shadow-[0_0_6px_#86efac]" />
-                        <span className="text-zinc-200">Collecting resources</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] shrink-0 shadow-[0_0_6px_#4ade80]" />
+                        <span className="text-zinc-100 drop-shadow">Collecting resources</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#86efac] shrink-0 shadow-[0_0_6px_#86efac]" />
-                        <span className="text-zinc-200">Measuring performance</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] shrink-0 shadow-[0_0_6px_#4ade80]" />
+                        <span className="text-zinc-100 drop-shadow">Measuring performance</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#86efac] shrink-0 shadow-[0_0_6px_#86efac]" />
-                        <span className="text-zinc-200">Analyzing bottlenecks</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] shrink-0 shadow-[0_0_6px_#4ade80]" />
+                        <span className="text-zinc-100 drop-shadow">Analyzing bottlenecks</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 shrink-0" />
-                        <span className="text-zinc-400">Compiling evidence</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 shrink-0" />
+                        <span className="text-zinc-400 drop-shadow">Compiling evidence</span>
                       </li>
                     </ul>
                   </div>
                 </div>
 
-                {/* 45° Stepped Brass Joint Collar */}
+                {/* 45° Stepped Metallic Brass Joint Collar */}
                 <div className="absolute -bottom-4 -right-3 z-30 pointer-events-none transform rotate-[-45deg] flex flex-col items-center">
                   <div className="w-8 h-4 rounded-t-sm bg-gradient-to-r from-[#c8b082] via-[#ffe0a3] to-[#5c3e1e] border-t border-x border-[#ffe0a3]/80 shadow-md" />
                   <div className="w-10 h-6 bg-gradient-to-r from-[#7a5328] via-[#c8b082] via-[#ffe0a3] to-[#3a220d] rounded-sm border border-[#c8b082]/90 shadow-lg" />
