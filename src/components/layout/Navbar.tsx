@@ -136,27 +136,12 @@ function NavbarContent({ className = "" }: NavbarProps) {
             })}
           </nav>
 
-          {/* Right Action: Analyze URL CTA */}
+          {/* Right Action placeholder / empty */}
           <div className="hidden sm:flex items-center gap-3">
-            <button
-              onClick={() => setModalOpen(true)}
-              className="bg-[#c8b082] hover:bg-[#b89f71] text-zinc-950 font-bold text-xs px-4 py-2 rounded-xl flex items-center gap-2 transition-all shadow-[0_2px_12px_rgba(200,176,130,0.25)] hover:shadow-[0_4px_18px_rgba(200,176,130,0.4)] active:scale-95 cursor-pointer"
-            >
-              <Search className="w-3.5 h-3.5" />
-              <span>Analyze URL</span>
-              <ArrowRight className="w-3.5 h-3.5 opacity-80" />
-            </button>
           </div>
 
           {/* Mobile Hamburger Toggle Button */}
           <div className="flex items-center gap-2 md:hidden">
-            <button
-              onClick={() => setModalOpen(true)}
-              className="p-2 rounded-lg bg-[#121218] border border-zinc-800 text-[#c8b082]"
-              title="Quick Analyze"
-            >
-              <Search className="w-4 h-4" />
-            </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg bg-[#121218] border border-zinc-800 text-zinc-300 hover:text-white"
@@ -193,20 +178,6 @@ function NavbarContent({ className = "" }: NavbarProps) {
                   </Link>
                 );
               })}
-            </div>
-
-            <div className="pt-2 border-t border-zinc-800/80">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setModalOpen(true);
-                }}
-                className="w-full bg-[#c8b082] text-zinc-950 font-bold text-xs py-2.5 rounded-xl flex items-center justify-center gap-2 shadow cursor-pointer"
-              >
-                <Search className="w-3.5 h-3.5" />
-                <span>Analyze URL</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
             </div>
           </div>
         )}
