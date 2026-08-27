@@ -32,11 +32,13 @@ function AdminContent() {
   const [inputUrl, setInputUrl] = useState(targetUrlParam);
   const [loading, setLoading] = useState(false);
   const [analysisData, setAnalysisData] = useState<AnalysisResult | null>(null);
+  const [apiError, setApiError] = useState<string | null>(null);
   const [categoryFilter, setCategoryFilter] = useState<string>("ALL");
   const [impactFilter, setImpactFilter] = useState<string>("ALL");
 
   const runInvestigation = async (urlToFetch: string) => {
     setLoading(true);
+    setApiError(null);
     try {
       const res = await fetch("/api/investigate", {
         method: "POST",
@@ -46,9 +48,12 @@ function AdminContent() {
       const json = await res.json();
       if (json.success && json.data) {
         setAnalysisData(json.data);
+      } else {
+        setApiError(json.error || "Failed to analyze target website.");
       }
     } catch (err) {
       console.error("Failed to run investigation", err);
+      setApiError("Network error: Could not contact investigation server.");
     } finally {
       setLoading(false);
     }
@@ -151,6 +156,16 @@ function AdminContent() {
 
       {/* Main Dashboard Body */}
       <main className="w-full max-w-7xl mx-auto px-6 py-8 flex-1 space-y-8">
+        {/* API Error Alert Banner */}
+        {apiError && (
+          <div className="bg-red-950/40 border border-red-800/80 rounded-xl p-4 flex items-center gap-3 text-red-200 text-sm shadow-lg">
+            <AlertTriangle className="w-5 h-5 text-red-400 shrink-0" />
+            <div className="flex-1">
+              <span className="font-semibold text-red-300">Investigation Error:</span> {apiError}
+            </div>
+          </div>
+        )}
+
         {/* Case File Metadata Card */}
         <div className="bg-[#0e0e13] border border-zinc-800/90 rounded-2xl p-6 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="space-y-2">

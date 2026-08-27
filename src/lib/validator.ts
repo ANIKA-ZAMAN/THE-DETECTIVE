@@ -61,8 +61,21 @@ export function validateUrl(input: unknown): ValidationOutcome {
     };
   }
 
+  // --- Check for explicit disallowed protocols first (e.g. file://, ftp://, javascript:) ---
+  const schemeMatch = raw.match(/^([a-zA-Z][a-zA-Z0-9+.-]*):/);
+  if (schemeMatch) {
+    const scheme = `${schemeMatch[1].toLowerCase()}:`;
+    if (!config.allowedProtocols.includes(scheme)) {
+      return {
+        valid: false,
+        error: `Protocol "${scheme}" is not allowed. Only http:// and https:// are supported.`,
+        code: "BLOCKED_PROTOCOL",
+      };
+    }
+  }
+
   // --- Normalize: prepend https:// if no protocol given ---
-  const normalized = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+  const normalized = schemeMatch ? raw : `https://${raw}`;
 
   // --- Parse to validate structure ---
   let parsed: URL;
@@ -76,7 +89,7 @@ export function validateUrl(input: unknown): ValidationOutcome {
     };
   }
 
-  // --- Protocol allowlist ---
+  // --- Protocol allowlist secondary check ---
   if (!config.allowedProtocols.includes(parsed.protocol)) {
     return {
       valid: false,
