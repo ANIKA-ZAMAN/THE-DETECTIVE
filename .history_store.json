@@ -1,35 +1,11 @@
 [
   {
-    "id": "HIST-1787830896086-272",
-    "caseId": "#CASE-4817",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787830896086,
-    "overallHealthScore": 59,
-    "categoryScores": {
-      "performance": 53,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 2870,
-      "fcpSec": 3.2,
-      "lcpSec": 3.9,
-      "inpMs": 1298,
-      "cls": 0.01,
-      "pageSizeKb": 4,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787830893472-106",
-    "caseId": "#CASE-7731",
+    "id": "HIST-1787831151613-230",
+    "caseId": "#CASE-4977",
     "targetUrl": "https://httpbin.org",
     "normalizedUrl": "https://httpbin.org",
     "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787830893472,
+    "timestamp": 1787831151613,
     "overallHealthScore": 48,
     "categoryScores": {
       "performance": 53,
@@ -38,22 +14,46 @@
       "accessibility": 100
     },
     "metrics": {
-      "ttfbMs": 248,
+      "ttfbMs": 258,
       "fcpSec": 0.8,
       "lcpSec": 1.5,
-      "inpMs": 263,
+      "inpMs": 267,
       "cls": 0.06,
-      "pageSizeKb": 170,
+      "pageSizeKb": 169,
       "requestsCount": 6
     }
   },
   {
-    "id": "HIST-1787830892543-591",
-    "caseId": "#CASE-8293",
+    "id": "HIST-1787831151361-718",
+    "caseId": "#CASE-7192",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787831151361,
+    "overallHealthScore": 78,
+    "categoryScores": {
+      "performance": 99,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 13,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 60,
+      "cls": 0.01,
+      "pageSizeKb": 4,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787831151154-729",
+    "caseId": "#CASE-9555",
     "targetUrl": "https://httpbin.org",
     "normalizedUrl": "https://httpbin.org",
     "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787830892543,
+    "timestamp": 1787831151154,
     "overallHealthScore": 35,
     "categoryScores": {
       "performance": 20,
@@ -62,12 +62,12 @@
       "accessibility": 100
     },
     "metrics": {
-      "ttfbMs": 3264,
-      "fcpSec": 4.1,
-      "lcpSec": 4.8,
-      "inpMs": 1620,
+      "ttfbMs": 1640,
+      "fcpSec": 2.3,
+      "lcpSec": 3,
+      "inpMs": 889,
       "cls": 0.06,
-      "pageSizeKb": 185,
+      "pageSizeKb": 120,
       "requestsCount": 6
     }
   }
