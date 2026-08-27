@@ -1,11 +1,13 @@
 /**
- * URL validation and sanitization layer.
+ * Performance Detective — Enterprise URL Validation & SSRF Defense Layer
  *
  * Responsibilities:
- *  - Normalize bare hostnames into full URLs
- *  - Reject dangerous protocols (file://, javascript://, ftp://, etc.)
- *  - Block private/internal network targets to prevent SSRF attacks
- *  - Enforce a sensible maximum URL length
+ *  - Normalize bare hostnames into full HTTPS URLs
+ *  - Strictly reject dangerous protocols (file://, javascript://, data://, ftp://, gopher://, etc.)
+ *  - Block loopback, private IPv4 & IPv6, link-local, carrier-grade NAT, and cloud metadata endpoints (SSRF defense)
+ *  - Block decimal, hex, and octal IP bypass notations
+ *  - Block internal domain suffixes (.local, .internal, .lan, .corp, etc.)
+ *  - Enforce maximum URL length and structural safety
  */
 
 import { config } from "./config";
@@ -23,36 +25,130 @@ export interface ValidationError {
 
 export type ValidationOutcome = ValidationResult | ValidationError;
 
-/** Maximum characters we accept for a URL string */
+/** Maximum characters accepted for a URL string */
 const MAX_URL_LENGTH = 2048;
 
 /**
- * Returns true if the hostname looks like a private or loopback IPv4 address.
- * Covers: 10.x, 172.16–31.x, 192.168.x, 127.x
+ * Checks if a string is a standard IPv4 address or an integer/hex/octal encoded IP.
  */
-function isPrivateIPv4(hostname: string): boolean {
-  const privateRanges = [
-    /^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$/,
-    /^172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}$/,
-    /^192\.168\.\d{1,3}\.\d{1,3}$/,
-    /^127\.\d{1,3}\.\d{1,3}\.\d{1,3}$/,
-  ];
-  return privateRanges.some((re) => re.test(hostname));
+function parseIPv4(ipStr: string): number[] | null {
+  // Standard dot-decimal
+  const dotParts = ipStr.split(".");
+  if (dotParts.length === 4) {
+    const nums = dotParts.map((p) => {
+      // Handle hex (0x...) or octal (0...)
+      if (/^0x[0-9a-f]+$/i.test(p)) return parseInt(p, 16);
+      if (/^0[0-7]+$/.test(p) && p.length > 1) return parseInt(p, 8);
+      if (/^\d+$/.test(p)) return parseInt(p, 10);
+      return NaN;
+    });
+    if (nums.every((n) => !isNaN(n) && n >= 0 && n <= 255)) {
+      return nums;
+    }
+  }
+
+  // Single integer or hex IP (e.g. 2130706433 or 0x7f000001)
+  if (/^\d+$/.test(ipStr)) {
+    const intVal = parseInt(ipStr, 10);
+    if (!isNaN(intVal) && intVal >= 0 && intVal <= 4294967295) {
+      return [
+        (intVal >>> 24) & 255,
+        (intVal >>> 16) & 255,
+        (intVal >>> 8) & 255,
+        intVal & 255,
+      ];
+    }
+  }
+
+  if (/^0x[0-9a-f]+$/i.test(ipStr)) {
+    const hexVal = parseInt(ipStr, 16);
+    if (!isNaN(hexVal) && hexVal >= 0 && hexVal <= 4294967295) {
+      return [
+        (hexVal >>> 24) & 255,
+        (hexVal >>> 16) & 255,
+        (hexVal >>> 8) & 255,
+        hexVal & 255,
+      ];
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Returns true if the IPv4 numbers fall into private, loopback, or reserved subnets.
+ */
+function isRestrictedIPv4(octets: number[]): boolean {
+  const [a, b] = octets;
+
+  // 0.0.0.0/8 (Current network)
+  if (a === 0) return true;
+  // 10.0.0.0/8 (Private)
+  if (a === 10) return true;
+  // 100.64.0.0/10 (Shared Address Space / CGN)
+  if (a === 100 && b >= 64 && b <= 127) return true;
+  // 127.0.0.0/8 (Loopback)
+  if (a === 127) return true;
+  // 169.254.0.0/16 (Link-local / AWS / GCP / Azure metadata)
+  if (a === 169 && b === 254) return true;
+  // 172.16.0.0/12 (Private)
+  if (a === 172 && b >= 16 && b <= 31) return true;
+  // 192.0.0.0/24 (IETF Protocol Assignments)
+  if (a === 192 && b === 0 && octets[2] === 0) return true;
+  // 192.168.0.0/16 (Private)
+  if (a === 192 && b === 168) return true;
+  // 198.18.0.0/15 (Benchmarking)
+  if (a === 198 && (b === 18 || b === 19)) return true;
+  // 224.0.0.0/4 (Multicast)
+  if (a >= 224 && a <= 239) return true;
+  // 240.0.0.0/4 (Reserved / Future Use)
+  if (a >= 240) return true;
+
+  return false;
+}
+
+/**
+ * Returns true if the hostname is a private or loopback IPv6 address.
+ */
+function isRestrictedIPv6(hostname: string): boolean {
+  const clean = hostname.replace(/^\[|\]$/g, "").toLowerCase();
+
+  // Loopback / Unspecified
+  if (clean === "::1" || clean === "::" || clean === "0:0:0:0:0:0:0:1" || clean === "0:0:0:0:0:0:0:0") {
+    return true;
+  }
+
+  // IPv4-mapped IPv6 (::ffff:127.0.0.1)
+  if (clean.startsWith("::ffff:")) {
+    const mapped = clean.replace("::ffff:", "");
+    const octets = parseIPv4(mapped);
+    if (octets && isRestrictedIPv4(octets)) return true;
+  }
+
+  // Unique Local Address (fc00::/7)
+  if (clean.startsWith("fc") || clean.startsWith("fd")) return true;
+
+  // Link-Local Unicast (fe80::/10)
+  if (clean.startsWith("fe8") || clean.startsWith("fe9") || clean.startsWith("fea") || clean.startsWith("feb")) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
  * Validates and normalizes a user-provided URL string.
- * Returns either { valid: true, url } or { valid: false, error, code }.
+ * Returns `{ valid: true, url }` or `{ valid: false, error, code }`.
  */
 export function validateUrl(input: unknown): ValidationOutcome {
-  // --- Type and empty check ---
+  // 1. Type and empty check
   if (typeof input !== "string" || input.trim().length === 0) {
     return { valid: false, error: "URL is required.", code: "EMPTY" };
   }
 
   const raw = input.trim();
 
-  // --- Length guard ---
+  // 2. Length guard
   if (raw.length > MAX_URL_LENGTH) {
     return {
       valid: false,
@@ -61,7 +157,7 @@ export function validateUrl(input: unknown): ValidationOutcome {
     };
   }
 
-  // --- Check for explicit disallowed protocols first (e.g. file://, ftp://, javascript:) ---
+  // 3. Check for explicit disallowed protocols first
   const schemeMatch = raw.match(/^([a-zA-Z][a-zA-Z0-9+.-]*):/);
   if (schemeMatch) {
     const scheme = `${schemeMatch[1].toLowerCase()}:`;
@@ -74,10 +170,10 @@ export function validateUrl(input: unknown): ValidationOutcome {
     }
   }
 
-  // --- Normalize: prepend https:// if no protocol given ---
+  // 4. Normalize: prepend https:// if no protocol given
   const normalized = schemeMatch ? raw : `https://${raw}`;
 
-  // --- Parse to validate structure ---
+  // 5. Parse to validate structure
   let parsed: URL;
   try {
     parsed = new URL(normalized);
@@ -89,7 +185,7 @@ export function validateUrl(input: unknown): ValidationOutcome {
     };
   }
 
-  // --- Protocol allowlist secondary check ---
+  // 6. Protocol allowlist secondary check
   if (!config.allowedProtocols.includes(parsed.protocol)) {
     return {
       valid: false,
@@ -98,27 +194,48 @@ export function validateUrl(input: unknown): ValidationOutcome {
     };
   }
 
-  // --- SSRF: block known dangerous hostnames ---
   const hostname = parsed.hostname.toLowerCase();
+
+  // 7. SSRF: block known dangerous hostnames
   if (config.blockedHostnames.includes(hostname)) {
     return {
       valid: false,
-      error: "Requests to internal or reserved addresses are not allowed.",
+      error: "Requests to internal, loopback, or metadata addresses are not allowed.",
       code: "BLOCKED_HOST",
     };
   }
 
-  // --- SSRF: block private IP ranges ---
-  if (isPrivateIPv4(hostname)) {
+  // 8. SSRF: block internal domain suffixes (.local, .internal, .lan, .corp, etc.)
+  const internalSuffixes = [".local", ".internal", ".lan", ".corp", ".home", ".intranet", ".test", ".invalid", ".example"];
+  if (internalSuffixes.some((suffix) => hostname.endsWith(suffix))) {
     return {
       valid: false,
-      error: "Requests to private network addresses are not allowed.",
+      error: "Requests to internal or private domain extensions are not allowed.",
       code: "BLOCKED_HOST",
     };
   }
 
-  // --- Must have a resolvable-looking hostname (at least one dot, or is a known TLD) ---
-  if (!hostname.includes(".") && hostname !== "localhost") {
+  // 9. SSRF: block IPv4 addresses in private/restricted ranges
+  const ipv4Octets = parseIPv4(hostname);
+  if (ipv4Octets && isRestrictedIPv4(ipv4Octets)) {
+    return {
+      valid: false,
+      error: "Requests to private or internal IP network addresses are not allowed.",
+      code: "BLOCKED_HOST",
+    };
+  }
+
+  // 10. SSRF: block IPv6 addresses in private/restricted ranges
+  if (isRestrictedIPv6(hostname)) {
+    return {
+      valid: false,
+      error: "Requests to private or loopback IPv6 addresses are not allowed.",
+      code: "BLOCKED_HOST",
+    };
+  }
+
+  // 11. Must have a valid-looking hostname
+  if (!hostname.includes(".") && !ipv4Octets && !hostname.startsWith("[")) {
     return {
       valid: false,
       error: "Please enter a complete domain name (e.g. example.com).",

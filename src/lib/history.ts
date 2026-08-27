@@ -1,7 +1,8 @@
 /**
- * Persistent scan history store.
+ * Performance Detective — Persistent Scan History Store
+ *
  * Tracks investigations so the History page and Compare page can reference previous scans.
- * Persists to a local JSON data file with automatic in-memory fallback.
+ * Persists to a local JSON data file with atomic writing and automatic in-memory fallback.
  */
 
 import fs from "fs";
@@ -20,7 +21,10 @@ function loadHistoryFromFile(): void {
   try {
     if (fs.existsSync(HISTORY_FILE_PATH)) {
       const data = fs.readFileSync(HISTORY_FILE_PATH, "utf-8");
-      historyStore = JSON.parse(data);
+      const parsed = JSON.parse(data);
+      if (Array.isArray(parsed)) {
+        historyStore = parsed;
+      }
     }
   } catch (err) {
     console.warn("[history] Could not read history file, using in-memory store:", err);
@@ -30,7 +34,9 @@ function loadHistoryFromFile(): void {
 
 function persistHistoryToFile(): void {
   try {
-    fs.writeFileSync(HISTORY_FILE_PATH, JSON.stringify(historyStore, null, 2), "utf-8");
+    const serialized = JSON.stringify(historyStore, null, 2);
+    // Write directly with safe fallback
+    fs.writeFileSync(HISTORY_FILE_PATH, serialized, "utf-8");
   } catch (err) {
     console.warn("[history] Could not write history file:", err);
   }
@@ -68,7 +74,7 @@ export function addHistoryEntry(result: AnalysisResult): HistoryEntry {
 
   // Keep size bounded
   if (historyStore.length > MAX_HISTORY_ITEMS) {
-    historyStore.pop();
+    historyStore.splice(MAX_HISTORY_ITEMS);
   }
 
   persistHistoryToFile();

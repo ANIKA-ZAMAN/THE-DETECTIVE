@@ -1,5 +1,5 @@
 /**
- * Performance Detective — Core Analysis Engine (server-only)
+ * Performance Detective — Core Analysis Engine (Server-Only)
  *
  * Performs deep, multi-dimensional website health diagnostics across:
  *  - 1. Performance (TTFB, FCP, LCP, INP, TBT, CLS, Asset Sizes, Compression, Waterfall)
@@ -20,6 +20,7 @@ import type {
   MetricsSummary,
 } from "@/types";
 import { config } from "./config";
+import { validateUrl } from "./validator";
 
 // ─────────────────────────────────────────────
 // Types & Helpers for Internal Analysis
@@ -32,8 +33,9 @@ interface FetchOutcome {
   headers: Headers;
   responseText: string;
   ttfbMs: number;
+  finalUrl?: string;
   errorMessage?: string;
-  isSimulatedFallback?: boolean;
+  isUnreachable?: boolean;
 }
 
 interface PsiData {
@@ -49,7 +51,7 @@ interface PsiData {
 }
 
 // ─────────────────────────────────────────────
-// 1. Safe Network Fetcher with Timeout & Size Limit
+// 1. Safe Network Fetcher with Timeout, Size Limit & Anti-SSRF Redirect Protection
 // ─────────────────────────────────────────────
 
 async function fetchTargetWebsite(url: string): Promise<FetchOutcome> {
@@ -74,7 +76,15 @@ async function fetchTargetWebsite(url: string): Promise<FetchOutcome> {
 
     const ttfbMs = Date.now() - startTime;
 
-    // Stream body up to maxBodyBytes
+    // Security: Validate the final landing URL after any redirects to prevent SSRF redirect bypasses
+    if (res.url && res.url !== url) {
+      const redirectValidation = validateUrl(res.url);
+      if (!redirectValidation.valid) {
+        throw new Error(`Redirected to a blocked or restricted host: ${redirectValidation.error}`);
+      }
+    }
+
+    // Stream body up to maxBodyBytes (prevents memory exhaustion / zip bombs)
     const reader = res.body?.getReader();
     let bytesRead = 0;
     const chunks: Uint8Array[] = [];
@@ -89,7 +99,7 @@ async function fetchTargetWebsite(url: string): Promise<FetchOutcome> {
       try {
         reader.cancel();
       } catch {
-        // stream already closed
+        // stream already finished
       }
     }
 
@@ -109,6 +119,7 @@ async function fetchTargetWebsite(url: string): Promise<FetchOutcome> {
       headers: res.headers,
       responseText,
       ttfbMs,
+      finalUrl: res.url || url,
     };
   } catch (err: unknown) {
     const isTimeout = err instanceof Error && err.name === "AbortError";
@@ -123,10 +134,10 @@ async function fetchTargetWebsite(url: string): Promise<FetchOutcome> {
       status: 0,
       statusText: "Connection Failed",
       headers: new Headers(),
-      responseText: `<!DOCTYPE html><html lang="en"><head><title>Unreachable Host Diagnostic</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/styles.css"><script src="/app.js"></script></head><body><h1>Connection Error</h1><p>${errorMessage}</p><img src="/offline.jpg"></body></html>`,
+      responseText: "",
       ttfbMs: Math.min(timeoutMs, Date.now() - startTime) || 850,
       errorMessage,
-      isSimulatedFallback: true,
+      isUnreachable: true,
     };
   } finally {
     clearTimeout(timer);
@@ -255,15 +266,15 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
     tryFetchPsiData(normalizedUrl),
   ]);
 
-  const { responseText, headers, ttfbMs, status, isSimulatedFallback, errorMessage } = fetchOutcome;
+  const { responseText, headers, ttfbMs, status, isUnreachable, errorMessage } = fetchOutcome;
 
   const faults: FaultItem[] = [];
 
   // ─────────────────────────────────────────────
-  // A. HTTP Status & Connection Faults
+  // A. Unreachable Site Handling (Honest Zero / Null Representation)
   // ─────────────────────────────────────────────
 
-  if (isSimulatedFallback) {
+  if (isUnreachable || !fetchOutcome.success) {
     faults.push({
       id: "FLT-NET-01",
       title: "Target Website Host Unreachable",
@@ -273,7 +284,86 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
       recommendation: "Ensure the domain has active public DNS A/AAAA records, a running web server, and is not behind a restrictive firewall.",
       clueCode: `Target: ${normalizedUrl}\nError: ${errorMessage || "ERR_CONNECTION_TIMED_OUT"}`,
     });
-  } else if (status >= 400) {
+
+    const randomCaseNum = Math.floor(1000 + Math.random() * 9000);
+    const caseId = `#CASE-${randomCaseNum}`;
+    const now = new Date();
+    const investigatedAt = `${now.toLocaleString("default", { month: "short" })} ${now.getDate()}, ${now.getFullYear()}`;
+
+    const failedWaterfall: WaterfallItem[] = [
+      {
+        id: "req-1",
+        url: normalizedUrl,
+        filename: targetHost,
+        type: "document",
+        status: 0,
+        sizeKb: 0,
+        ttfbMs: ttfbMs,
+        durationMs: ttfbMs,
+        isRenderBlocking: true,
+        isThirdParty: false,
+        domain: targetHost,
+      },
+    ];
+
+    const failedMetrics: MetricsSummary = {
+      ttfbMs,
+      fcpSec: 0,
+      lcpSec: 0,
+      inpMs: 0,
+      tbtMs: 0,
+      cls: 0,
+      speedIndex: 0,
+      pageSizeKb: 0,
+      requestsCount: 1,
+      domNodesCount: 0,
+    };
+
+    const failedBreakdown: ResourceBreakdown = {
+      htmlKb: 0,
+      jsKb: 0,
+      cssKb: 0,
+      imageKb: 0,
+      fontKb: 0,
+      otherKb: 0,
+      thirdPartyCount: 0,
+      counts: {
+        html: 1,
+        js: 0,
+        css: 0,
+        image: 0,
+        font: 0,
+        other: 0,
+        thirdParty: 0,
+      },
+    };
+
+    return {
+      caseId,
+      targetUrl: normalizedUrl,
+      normalizedUrl,
+      investigatedAt,
+      overallHealthScore: 0,
+      categoryScores: {
+        performance: 0,
+        seo: 0,
+        security: isHttps ? 50 : 0,
+        accessibility: 0,
+      },
+      metrics: failedMetrics,
+      resourceBreakdown: failedBreakdown,
+      thirdPartyResources: [],
+      opportunities: [],
+      waterfall: failedWaterfall,
+      faults,
+    };
+  }
+
+  // ─────────────────────────────────────────────
+  // B. HTTP Status Code Evaluation
+  // ─────────────────────────────────────────────
+
+  if (status >= 400) {
     const isServerErr = status >= 500;
     faults.push({
       id: `FLT-HTTP-${status}`,
@@ -289,7 +379,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
   }
 
   // ─────────────────────────────────────────────
-  // B. 1. ASSET PARSING & REAL WATERFALL
+  // C. 1. ASSET PARSING & REAL WATERFALL
   // ─────────────────────────────────────────────
 
   const waterfall: WaterfallItem[] = [];
@@ -297,7 +387,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
 
   // 1. Root Document
   const docBytes = new Blob([responseText]).size || responseText.length;
-  const docSizeKb = Math.max(4, Math.round(docBytes / 1024));
+  const docSizeKb = Math.max(1, Math.round(docBytes / 1024));
   waterfall.push({
     id: `req-${assetCounter++}`,
     url: normalizedUrl,
@@ -356,7 +446,6 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
 
   // 3. Stylesheets & Fonts
   const cssLinks = responseText.match(/<link\b[^>]*rel=["']stylesheet["'][^>]*>/gi) ?? [];
-  const fontLinks = responseText.match(/<link\b[^>]*as=["']font["'][^>]*>|<link\b[^>]*fonts\.googleapis[^>]*>/gi) ?? [];
 
   cssLinks.forEach((c) => {
     const hrefMatch = c.match(/\bhref=["']([^"']+)["']/i);
@@ -434,7 +523,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
   });
 
   // ─────────────────────────────────────────────
-  // C. 2. THIRD-PARTY RESOURCES BREAKDOWN
+  // D. 2. THIRD-PARTY RESOURCES BREAKDOWN
   // ─────────────────────────────────────────────
 
   const thirdPartyMap = new Map<string, { count: number; sizeKb: number; urls: string[] }>();
@@ -460,7 +549,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
   const thirdPartyCount = thirdPartyResources.length;
 
   // ─────────────────────────────────────────────
-  // D. 3. METRICS & RESOURCE BREAKDOWN COMPUTATION
+  // E. 3. METRICS & RESOURCE BREAKDOWN COMPUTATION
   // ─────────────────────────────────────────────
 
   const contentEncoding = (headers.get("content-encoding") || "").toLowerCase();
@@ -527,7 +616,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
   };
 
   // ─────────────────────────────────────────────
-  // E. 4. OPPORTUNITIES & ESTIMATED SAVINGS
+  // F. 4. OPPORTUNITIES & ESTIMATED SAVINGS
   // ─────────────────────────────────────────────
 
   const opportunities: OpportunityItem[] = [];
@@ -556,7 +645,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
     });
   }
 
-  if (!isCompressed && pageSizeKb > 40 && !isSimulatedFallback) {
+  if (!isCompressed && pageSizeKb > 40) {
     const savingsKb = Math.round(pageSizeKb * 0.65);
     opportunities.push({
       id: "OPP-PERF-03",
@@ -568,7 +657,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
     });
   }
 
-  if (ttfbMs > 600 && !isSimulatedFallback) {
+  if (ttfbMs > 600) {
     opportunities.push({
       id: "OPP-PERF-04",
       title: "Reduce Initial Server Response Time",
@@ -590,7 +679,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
   }
 
   // ─────────────────────────────────────────────
-  // F. 5. PERFORMANCE SCORING & FAULTS
+  // G. 5. PERFORMANCE SCORING & FAULTS
   // ─────────────────────────────────────────────
 
   let perfScore = psiData?.performanceScore ?? 100;
@@ -601,7 +690,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
     if (tbtMs > 200) perfScore -= 10;
     if (cls > 0.1) perfScore -= 12;
     if (renderBlockingScripts.length > 0) perfScore -= Math.min(20, renderBlockingScripts.length * 5);
-    if (!isCompressed && pageSizeKb > 50 && !isSimulatedFallback) perfScore -= 10;
+    if (!isCompressed && pageSizeKb > 50) perfScore -= 10;
     if (domNodesCount > 1000) perfScore -= 10;
     if (status >= 400) perfScore -= 20;
     perfScore = Math.max(20, Math.min(99, perfScore));
@@ -631,14 +720,14 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
     });
   }
 
-  if (ttfbMs > 600 && !isSimulatedFallback) {
+  if (ttfbMs > 600) {
     faults.push({
       id: "FLT-PERF-03",
       title: `High Time to First Byte (${ttfbMs}ms)`,
       category: "Performance",
       impact: ttfbMs > 1200 ? "Critical" : "Warning",
-      description: `Server took ${ttfbMs}ms to respond with initial byte. Recommended threshold is under 600ms (Google recommends <800ms).`,
-      recommendation: "Implement Edge/CDN caching (Cloudflare, Vercel), optimize server-side database queries, or enable HTTP/2.",
+      description: `Server took ${ttfbMs}ms to respond with initial byte. Recommended threshold is under 600ms.`,
+      recommendation: "Implement Edge/CDN caching, optimize server-side database queries, or enable HTTP/2.",
       clueCode: `TTFB Measured: ${ttfbMs}ms (Target: <600ms)`,
     });
   }
@@ -655,7 +744,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
     });
   }
 
-  if (!isCompressed && pageSizeKb > 60 && !isSimulatedFallback) {
+  if (!isCompressed && pageSizeKb > 60) {
     faults.push({
       id: "FLT-PERF-05",
       title: "Missing HTTP Text Compression (Gzip / Brotli)",
@@ -668,7 +757,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
   }
 
   // ─────────────────────────────────────────────
-  // G. 6. SEO ANALYSIS
+  // H. 6. SEO ANALYSIS
   // ─────────────────────────────────────────────
 
   const hasTitle = /<title[^>]*>[\s\S]*?<\/title>/i.test(responseText);
@@ -774,7 +863,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
   }
 
   // ─────────────────────────────────────────────
-  // H. 7. SECURITY ANALYSIS
+  // I. 7. SECURITY ANALYSIS
   // ─────────────────────────────────────────────
 
   const hsts = headers.get("strict-transport-security");
@@ -866,7 +955,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
   }
 
   // ─────────────────────────────────────────────
-  // I. 8. ACCESSIBILITY & BEST PRACTICES
+  // J. 8. ACCESSIBILITY & BEST PRACTICES
   // ─────────────────────────────────────────────
 
   const hasHtmlLang = /<html\b[^>]*lang=["'][a-z]{2}(?:-[a-z]{2})?["']/i.test(responseText);
@@ -918,7 +1007,7 @@ export async function analyzeWebsite(normalizedUrl: string): Promise<AnalysisRes
   }
 
   // ─────────────────────────────────────────────
-  // J. Final Health Score & Result Compilation
+  // K. Final Health Score & Result Compilation
   // ─────────────────────────────────────────────
 
   const overallHealthScore = Math.round(

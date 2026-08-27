@@ -33,8 +33,8 @@ export const config = {
   psiTimeoutMs: Number(process.env.PSI_TIMEOUT_MS) || 25_000,
 
   // ── Rate limiting ──────────────────────────────────────────────
-  /** Max requests per IP per window (default 30/min, configurable via RATE_LIMIT_MAX) */
-  rateLimitMax: Number(process.env.RATE_LIMIT_MAX) || 30,
+  /** Max requests per IP per window (default 60/min, configurable via RATE_LIMIT_MAX) */
+  rateLimitMax: Number(process.env.RATE_LIMIT_MAX) || 60,
 
   /** Rate-limit sliding window (ms) */
   rateLimitWindowMs: Number(process.env.RATE_LIMIT_WINDOW_MS) || 60_000,
