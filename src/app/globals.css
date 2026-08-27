@@ -46,3 +46,53 @@ body {
 .magnifier-lens-glow {
   background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.12) 0%, rgba(13, 13, 17, 0.9) 75%);
 }
+
+/* ────────────────── FORENSIC RADAR SCANNER ANIMATIONS ────────────────── */
+@keyframes radar-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blip-glow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 4px currentColor;
+  }
+  50% {
+    transform: scale(1.35);
+    box-shadow: 0 0 12px currentColor;
+  }
+}
+
+@keyframes popup-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-radar-sweep {
+  animation: radar-sweep 4.5s linear infinite;
+  transform-origin: center center;
+}
+
+.animate-radar-sweep-fast {
+  animation: radar-sweep 2.2s linear infinite;
+  transform-origin: center center;
+}
+
+.animate-blip {
+  animation: blip-glow 2.5s ease-in-out infinite;
+}
+
+.animate-popup-reveal {
+  animation: popup-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
