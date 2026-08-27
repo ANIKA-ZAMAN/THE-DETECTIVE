@@ -600,22 +600,21 @@ export function OverviewContent() {
 
               {/* 2. Rotating Radar Sweep Beam (Active during loading / slow idle) */}
               <div
-                className={`absolute inset-0 pointer-events-none ${
+                className={`absolute inset-[3.75%] rounded-full overflow-hidden pointer-events-none ${
                   loading ? "animate-radar-sweep-fast" : "animate-radar-sweep"
                 }`}
               >
-                <div className="w-full h-full rounded-full relative">
-                  {/* Conical Gradient Sweep Cone */}
+                <div className="w-full h-full relative rounded-full overflow-hidden">
+                  {/* Conical Gradient Sweep Cone - strictly bounded inside round radar perimeter */}
                   <div
-                    className="absolute top-0 right-0 w-1/2 h-1/2"
+                    className="absolute inset-0 rounded-full"
                     style={{
-                      background: "conic-gradient(from 270deg at 0% 100%, transparent 0deg, rgba(200, 176, 130, 0.22) 88deg, #c8b082 90deg)",
-                      clipPath: "polygon(0 100%, 100% 0, 100% 100%)",
+                      background: "conic-gradient(from 0deg at 50% 50%, #c8b082 0deg, rgba(200, 176, 130, 0.25) 4deg, rgba(200, 176, 130, 0.08) 30deg, transparent 48deg, transparent 360deg)",
                       opacity: loading ? 0.95 : 0.45,
                     }}
                   />
                   {/* Sweep Leading Edge Line */}
-                  <div className="absolute top-0 right-1/2 w-0.5 h-1/2 bg-gradient-to-t from-[#c8b082] via-[#e5d4ab] to-transparent shadow-[0_0_12px_#c8b082]" />
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-1/2 bg-gradient-to-t from-[#c8b082] via-[#e5d4ab] to-transparent shadow-[0_0_10px_#c8b082]" />
                 </div>
               </div>
 
