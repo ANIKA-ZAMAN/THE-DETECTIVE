@@ -1,5 +1,101 @@
 [
   {
+    "id": "HIST-1787835781320-568",
+    "caseId": "#CASE-3626",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787835781320,
+    "overallHealthScore": 78,
+    "categoryScores": {
+      "performance": 99,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 83,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 60,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787835781312-541",
+    "caseId": "#CASE-5418",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787835781312,
+    "overallHealthScore": 78,
+    "categoryScores": {
+      "performance": 99,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 108,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 60,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787835779015-257",
+    "caseId": "#CASE-5828",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787835779015,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2166,
+      "fcpSec": 2.4,
+      "lcpSec": 3.1,
+      "inpMs": 981,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787835778997-697",
+    "caseId": "#CASE-9136",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787835778997,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2128,
+      "fcpSec": 2.3,
+      "lcpSec": 3,
+      "inpMs": 964,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
     "id": "HIST-1787835739370-955",
     "caseId": "#CASE-3336",
     "targetUrl": "https://example.com",

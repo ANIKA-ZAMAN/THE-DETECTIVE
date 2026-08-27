@@ -105,10 +105,10 @@ export default function Home() {
       }}
     >
       {/* ────────────────── TOP NAVBAR WITH 5-PAGE PILL TABS ────────────────── */}
-      <header className="w-full max-w-[1440px] mx-auto px-6 sm:px-12 h-16 sm:h-18 flex items-center justify-between z-30 shrink-0">
+      <header className="w-full max-w-[1440px] mx-auto px-6 sm:px-12 h-18 sm:h-20 flex items-center justify-between z-30 shrink-0">
         {/* Brand Logo with Viewfinder Brackets */}
-        <Link href="/" className="flex items-center gap-3 group select-none">
-          <div className="relative w-8 h-8 flex items-center justify-center bg-[#0d0d12] rounded border border-zinc-800/80 shadow-sm">
+        <Link href="/" className="flex items-center gap-3.5 group select-none">
+          <div className="relative w-9 h-9 flex items-center justify-center bg-[#0d0d12] rounded-lg border border-zinc-800/80 shadow-sm">
             {/* Viewfinder Corner Ticks */}
             <span className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-[#c8b082]" />
             <span className="absolute -top-1 -right-1 w-2 h-2 border-t border-r border-[#c8b082]" />
@@ -116,7 +116,7 @@ export default function Home() {
             <span className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-[#c8b082]" />
 
             <svg
-              className="w-4 h-4 text-[#c8b082]"
+              className="w-4.5 h-4.5 text-[#c8b082]"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -135,39 +135,39 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col">
-            <span className="text-[9px] font-bold tracking-[0.22em] text-zinc-400 uppercase leading-tight">
+            <span className="text-[10px] font-bold tracking-[0.24em] text-zinc-400 uppercase leading-tight">
               PERFORMANCE
             </span>
-            <span className="text-xs font-black uppercase tracking-[0.18em] text-zinc-100 leading-tight">
+            <span className="text-[13px] font-black uppercase tracking-[0.18em] text-zinc-100 leading-tight">
               DETECTIVE
             </span>
           </div>
         </Link>
 
         {/* Clean Text-Only Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-xs font-medium">
-          <Link href="/overview" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
+        <nav className="hidden md:flex items-center gap-9 text-sm font-medium tracking-wide">
+          <Link href="/overview" className="text-zinc-300 hover:text-[#c8b082] transition-colors py-1.5">
             Overview
           </Link>
-          <Link href="/details" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
+          <Link href="/details" className="text-zinc-300 hover:text-[#c8b082] transition-colors py-1.5">
             Details
           </Link>
-          <Link href="/investigation" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
+          <Link href="/investigation" className="text-zinc-300 hover:text-[#c8b082] transition-colors py-1.5">
             Investigation
           </Link>
-          <Link href="/compare" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
+          <Link href="/compare" className="text-zinc-300 hover:text-[#c8b082] transition-colors py-1.5">
             Compare
           </Link>
-          <Link href="/history" className="text-zinc-400 hover:text-[#c8b082] transition-colors">
+          <Link href="/history" className="text-zinc-300 hover:text-[#c8b082] transition-colors py-1.5">
             History
           </Link>
         </nav>
 
         {/* Right CTA Actions */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-6">
           <Link
             href="/overview"
-            className="text-xs font-medium text-zinc-400 hover:text-white transition-colors"
+            className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
           >
             Log in
           </Link>
@@ -176,10 +176,10 @@ export default function Home() {
               const input = document.getElementById("hero-url-input") as HTMLInputElement;
               if (input) input.focus();
             }}
-            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-zinc-300 hover:text-white bg-[#0e0e14]/80 hover:bg-[#15151f] border border-zinc-800 hover:border-zinc-700 transition-all shadow-sm cursor-pointer"
+            className="hidden sm:inline-flex items-center gap-2 px-4.5 py-2.5 rounded-xl text-sm font-semibold text-zinc-200 hover:text-white bg-[#0e0e14]/90 hover:bg-[#161622] border border-zinc-800 hover:border-zinc-700 transition-all shadow-sm cursor-pointer"
           >
             <span>Start Investigation</span>
-            <ArrowRight className="w-3.5 h-3.5 text-zinc-400" />
+            <ArrowRight className="w-4 h-4 text-zinc-400" />
           </button>
         </div>
       </header>
