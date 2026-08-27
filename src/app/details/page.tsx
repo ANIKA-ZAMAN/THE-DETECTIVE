@@ -101,7 +101,11 @@ function DetailsContent() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputUrl.trim()) return;
-    router.push(`/details?url=${encodeURIComponent(inputUrl.trim())}`);
+    if (inputUrl.trim() === targetUrlParam) {
+      fetchDetails(inputUrl.trim());
+    } else {
+      router.push(`/details?url=${encodeURIComponent(inputUrl.trim())}`);
+    }
   };
 
   // Safe Metric Extractions from 100% Real Backend Data

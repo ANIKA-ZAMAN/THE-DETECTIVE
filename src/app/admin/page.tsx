@@ -103,7 +103,11 @@ export function InvestigationContent() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputUrl.trim()) return;
-    router.push(`/investigation?url=${encodeURIComponent(inputUrl.trim())}`);
+    if (inputUrl.trim() === targetUrlParam) {
+      runInvestigation(inputUrl.trim());
+    } else {
+      router.push(`/investigation?url=${encodeURIComponent(inputUrl.trim())}`);
+    }
   };
 
   // Safe Metric Extractions from 100% Real Backend Data

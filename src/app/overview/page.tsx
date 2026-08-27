@@ -145,7 +145,11 @@ function OverviewContent() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputUrl.trim()) return;
-    router.push(`/overview?url=${encodeURIComponent(inputUrl.trim())}`);
+    if (inputUrl.trim() === targetUrlParam) {
+      fetchAnalysis(inputUrl.trim());
+    } else {
+      router.push(`/overview?url=${encodeURIComponent(inputUrl.trim())}`);
+    }
   };
 
   // Safe Metric Extractions

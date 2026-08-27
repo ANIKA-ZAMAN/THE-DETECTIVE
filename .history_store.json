@@ -1,35 +1,227 @@
 [
   {
-    "id": "HIST-1787834468598-499",
-    "caseId": "#CASE-9633",
-    "targetUrl": "https://httpbin.org",
-    "normalizedUrl": "https://httpbin.org",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787834468598,
-    "overallHealthScore": 44,
-    "categoryScores": {
-      "performance": 43,
-      "seo": 20,
-      "security": 35,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 425,
-      "fcpSec": 1,
-      "lcpSec": 1.7,
-      "inpMs": 342,
-      "cls": 0.06,
-      "pageSizeKb": 177,
-      "requestsCount": 6
-    }
-  },
-  {
-    "id": "HIST-1787834468197-922",
-    "caseId": "#CASE-6180",
+    "id": "HIST-1787834589275-144",
+    "caseId": "#CASE-8906",
     "targetUrl": "https://example.com",
     "normalizedUrl": "https://example.com",
     "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787834468197,
+    "timestamp": 1787834589275,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2148,
+      "fcpSec": 2.4,
+      "lcpSec": 3.1,
+      "inpMs": 973,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834589271-658",
+    "caseId": "#CASE-8769",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834589271,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2127,
+      "fcpSec": 2.3,
+      "lcpSec": 3,
+      "inpMs": 963,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834589268-552",
+    "caseId": "#CASE-2507",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834589268,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2154,
+      "fcpSec": 2.4,
+      "lcpSec": 3.1,
+      "inpMs": 975,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834589263-203",
+    "caseId": "#CASE-4347",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834589263,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2133,
+      "fcpSec": 2.3,
+      "lcpSec": 3,
+      "inpMs": 966,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834589258-48",
+    "caseId": "#CASE-5100",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834589258,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2164,
+      "fcpSec": 2.4,
+      "lcpSec": 3.1,
+      "inpMs": 980,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834589250-407",
+    "caseId": "#CASE-3031",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834589250,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2187,
+      "fcpSec": 2.4,
+      "lcpSec": 3.1,
+      "inpMs": 990,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834589244-286",
+    "caseId": "#CASE-4758",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834589244,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2167,
+      "fcpSec": 2.4,
+      "lcpSec": 3.1,
+      "inpMs": 981,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834589233-584",
+    "caseId": "#CASE-7077",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834589233,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2146,
+      "fcpSec": 2.4,
+      "lcpSec": 3.1,
+      "inpMs": 972,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834589229-779",
+    "caseId": "#CASE-9445",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834589229,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2170,
+      "fcpSec": 2.4,
+      "lcpSec": 3.1,
+      "inpMs": 983,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834587094-945",
+    "caseId": "#CASE-2612",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834587094,
     "overallHealthScore": 78,
     "categoryScores": {
       "performance": 99,
@@ -38,7 +230,7 @@
       "accessibility": 100
     },
     "metrics": {
-      "ttfbMs": 28,
+      "ttfbMs": 86,
       "fcpSec": 0.6,
       "lcpSec": 1.3,
       "inpMs": 60,
@@ -48,12 +240,228 @@
     }
   },
   {
-    "id": "HIST-1787834467854-228",
-    "caseId": "#CASE-6728",
+    "id": "HIST-1787834586895-187",
+    "caseId": "#CASE-6599",
     "targetUrl": "https://httpbin.org",
     "normalizedUrl": "https://httpbin.org",
     "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787834467854,
+    "timestamp": 1787834586895,
+    "overallHealthScore": 48,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 20,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 283,
+      "fcpSec": 0.9,
+      "lcpSec": 1.6,
+      "inpMs": 278,
+      "cls": 0.06,
+      "pageSizeKb": 143,
+      "requestsCount": 6
+    }
+  },
+  {
+    "id": "HIST-1787834586700-152",
+    "caseId": "#CASE-6991",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834586700,
+    "overallHealthScore": 78,
+    "categoryScores": {
+      "performance": 99,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 89,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 60,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834586548-858",
+    "caseId": "#CASE-2024",
+    "targetUrl": "https://this-domain-definitely-does-not-exist-993821.org",
+    "normalizedUrl": "https://this-domain-definitely-does-not-exist-993821.org",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834586548,
+    "overallHealthScore": 0,
+    "categoryScores": {
+      "performance": 0,
+      "seo": 0,
+      "security": 50,
+      "accessibility": 0
+    },
+    "metrics": {
+      "ttfbMs": 195,
+      "fcpSec": 0,
+      "lcpSec": 0,
+      "inpMs": 0,
+      "cls": 0,
+      "pageSizeKb": 0,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834586075-338",
+    "caseId": "#CASE-5189",
+    "targetUrl": "https://example.com/",
+    "normalizedUrl": "https://example.com/",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834586075,
+    "overallHealthScore": 78,
+    "categoryScores": {
+      "performance": 99,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 37,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 60,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834586008-684",
+    "caseId": "#CASE-4742",
+    "targetUrl": "https://httpbin.org/get?test=1&debug=true#section",
+    "normalizedUrl": "https://httpbin.org/get?test=1&debug=true#section",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834586008,
+    "overallHealthScore": 62,
+    "categoryScores": {
+      "performance": 99,
+      "seo": 15,
+      "security": 35,
+      "accessibility": 75
+    },
+    "metrics": {
+      "ttfbMs": 389,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 181,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834585582-310",
+    "caseId": "#CASE-9439",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834585582,
+    "overallHealthScore": 78,
+    "categoryScores": {
+      "performance": 99,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 52,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 60,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834585486-931",
+    "caseId": "#CASE-1924",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834585486,
+    "overallHealthScore": 78,
+    "categoryScores": {
+      "performance": 99,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 56,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 60,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834585126-680",
+    "caseId": "#CASE-5570",
+    "targetUrl": "https://httpbin.org",
+    "normalizedUrl": "https://httpbin.org",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834585126,
+    "overallHealthScore": 48,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 20,
+      "security": 35,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 293,
+      "fcpSec": 0.9,
+      "lcpSec": 1.6,
+      "inpMs": 283,
+      "cls": 0.06,
+      "pageSizeKb": 178,
+      "requestsCount": 6
+    }
+  },
+  {
+    "id": "HIST-1787834584903-760",
+    "caseId": "#CASE-8753",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834584903,
+    "overallHealthScore": 78,
+    "categoryScores": {
+      "performance": 99,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 68,
+      "fcpSec": 0.6,
+      "lcpSec": 1.3,
+      "inpMs": 60,
+      "cls": 0.01,
+      "pageSizeKb": 1,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787834584531-735",
+    "caseId": "#CASE-1770",
+    "targetUrl": "https://httpbin.org",
+    "normalizedUrl": "https://httpbin.org",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787834584531,
     "overallHealthScore": 35,
     "categoryScores": {
       "performance": 20,
@@ -62,12 +470,12 @@
       "accessibility": 100
     },
     "metrics": {
-      "ttfbMs": 1831,
-      "fcpSec": 2.6,
-      "lcpSec": 3.3,
-      "inpMs": 975,
+      "ttfbMs": 1504,
+      "fcpSec": 2.2,
+      "lcpSec": 2.9,
+      "inpMs": 828,
       "cls": 0.06,
-      "pageSizeKb": 160,
+      "pageSizeKb": 179,
       "requestsCount": 6
     }
   }
