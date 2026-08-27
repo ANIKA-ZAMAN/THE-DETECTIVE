@@ -204,16 +204,16 @@ export default function Home() {
               RIGHT COLUMN: CINEMATIC DETECTIVE SCENE CANVAS
              ══════════════════════════════════════════════════ */}
           <div
-            className="lg:col-span-7 relative w-full min-h-[520px] sm:min-h-[560px] rounded-2xl border border-zinc-800/80 bg-[#07070a] overflow-hidden shadow-[0_25px_65px_rgba(0,0,0,0.95)] flex items-center justify-center p-4"
+            className="lg:col-span-7 relative w-full min-h-[520px] sm:min-h-[560px] rounded-3xl border border-zinc-800/80 bg-[#08080c] overflow-hidden shadow-[0_30px_75px_rgba(0,0,0,0.95)] flex items-center justify-center p-4"
             style={{
-              backgroundImage: "radial-gradient(circle at 48% 45%, rgba(45,36,20,0.55) 0%, rgba(7,7,10,0.98) 85%)",
+              backgroundImage: "radial-gradient(circle at 48% 45%, rgba(55,42,22,0.55) 0%, rgba(8,8,12,0.98) 85%)",
             }}
           >
             {/* Ambient Sepia Noir Vignette Glow */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_45%,_rgba(40,32,18,0.4)_0%,_rgba(7,7,10,0.95)_85%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_45%,_rgba(40,32,18,0.4)_0%,_rgba(8,8,12,0.95)_85%)] pointer-events-none" />
 
-            {/* Faint Background HTML/JS Code Snippets */}
-            <div className="absolute left-6 bottom-6 pointer-events-none font-mono text-[10px] sm:text-[11px] text-[#6b583c]/80 space-y-1 select-none z-10">
+            {/* Faint Background HTML/JS Code Snippets (Bottom Left) */}
+            <div className="absolute left-7 bottom-7 pointer-events-none font-mono text-[10px] sm:text-[11px] text-[#6b583c]/75 space-y-1 select-none z-10">
               <div className="text-zinc-600 text-[9px]">019</div>
               <div className="text-zinc-600 text-[9px]">102</div>
               <div>103 &lt;header class=&quot;site-header&quot;&gt;</div>
@@ -222,14 +222,15 @@ export default function Home() {
               <div>103 &lt;/header&gt;</div>
             </div>
 
-            {/* Chalk Fingerprint Arch Lines directly behind the magnifying glass */}
-            <div className="absolute left-[34%] bottom-2 pointer-events-none opacity-45 z-0">
+            {/* Large Chalk Fingerprint Arch Lines behind & below the magnifying glass */}
+            <div className="absolute left-[34%] bottom-2 pointer-events-none opacity-50 z-0 select-none">
               <svg
-                className="w-60 h-60 text-[#c8b082]"
+                className="w-64 h-64 text-[#c8b082]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.3"
+                strokeWidth="1.35"
+                strokeLinecap="round"
               >
                 <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" />
                 <path d="M14 13.12c0 2.38 0 6.38-1 8.88" />
@@ -242,7 +243,7 @@ export default function Home() {
             </div>
 
             {/* Radiating Golden Dotted Connection Lines */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-60 z-0">
+            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-65 z-0">
               <line x1="130" y1="90" x2="250" y2="190" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
               <line x1="90" y1="270" x2="250" y2="240" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
               <line x1="140" y1="430" x2="270" y2="340" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
@@ -254,7 +255,7 @@ export default function Home() {
             </svg>
 
             {/* Evidence Node 1 (Top Left) */}
-            <div className="absolute top-10 left-12 bg-[#121217]/95 border border-zinc-800/90 rounded-lg px-3 py-1.5 text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2.5 z-10">
+            <div className="absolute top-10 left-12 bg-[#121217]/95 border border-zinc-800/90 rounded-xl px-3.5 py-1.5 text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2.5 z-10">
               <span className="w-2 h-2 rounded-full bg-[#c8b082] shadow-[0_0_8px_#c8b082]" />
               <div>
                 <div className="text-zinc-200 font-medium leading-tight">Render Blocking</div>
@@ -263,7 +264,7 @@ export default function Home() {
             </div>
 
             {/* Evidence Node 2 (Middle Left) */}
-            <div className="absolute top-[230px] left-8 bg-[#121217]/95 border border-zinc-800/90 rounded-lg px-3 py-1.5 text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2.5 z-10">
+            <div className="absolute top-[230px] left-8 bg-[#121217]/95 border border-zinc-800/90 rounded-xl px-3.5 py-1.5 text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2.5 z-10">
               <span className="w-2 h-2 rounded-full bg-[#c8b082] shadow-[0_0_8px_#c8b082]" />
               <div>
                 <div className="text-zinc-200 font-medium leading-tight">Large Image</div>
@@ -272,7 +273,7 @@ export default function Home() {
             </div>
 
             {/* Evidence Node 3 (Bottom Left) */}
-            <div className="absolute bottom-16 left-16 bg-[#121217]/95 border border-zinc-800/90 rounded-lg px-3 py-1.5 text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2.5 z-10">
+            <div className="absolute bottom-16 left-16 bg-[#121217]/95 border border-zinc-800/90 rounded-xl px-3.5 py-1.5 text-[11px] backdrop-blur-md shadow-xl flex items-center gap-2.5 z-10">
               <span className="w-2 h-2 rounded-full bg-[#c8b082] shadow-[0_0_8px_#c8b082]" />
               <div>
                 <div className="text-zinc-200 font-medium leading-tight">Third Party Script</div>
@@ -283,13 +284,13 @@ export default function Home() {
             {/* Pinned Manila Case File #0001 Note Card (Top Right) */}
             <div className="absolute top-6 right-6 z-20 select-none">
               {/* Pushpin */}
-              <div className="absolute -top-2 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none">
-                <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-br from-amber-600 via-amber-800 to-zinc-950 border border-amber-500 shadow-[0_3px_6px_rgba(0,0,0,0.9)]" />
-                <div className="w-1 h-1 bg-black/60 rounded-full blur-[1px]" />
+              <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none">
+                <div className="w-4 h-4 rounded-full bg-gradient-to-br from-amber-500 via-amber-700 to-zinc-950 border border-amber-400 shadow-[0_4px_8px_rgba(0,0,0,0.9)]" />
+                <div className="w-1.5 h-1.5 bg-black/70 rounded-full blur-[1px]" />
               </div>
 
               {/* Manila Card */}
-              <div className="bg-[#dfd7c2] text-zinc-900 rounded-sm p-4 pt-5 text-xs font-mono shadow-[0_15px_30px_rgba(0,0,0,0.8)] border border-[#c7beaa] w-48 transform rotate-1">
+              <div className="bg-[#dfd7c2] text-zinc-900 rounded-sm p-4 pt-5 text-xs font-mono shadow-[0_15px_35px_rgba(0,0,0,0.85)] border border-[#c7beaa] w-52 transform rotate-1">
                 <div className="flex items-center justify-between border-b border-zinc-700/40 pb-1 mb-2">
                   <span className="font-bold tracking-widest text-zinc-900 text-xs">
                     CASE FILE
@@ -306,7 +307,7 @@ export default function Home() {
                 </div>
 
                 <div className="mt-3 text-right">
-                  <span className="inline-block px-2 py-0.5 border-2 border-[#b91c1c] text-[#b91c1c] font-black text-[10px] tracking-widest rounded-xs transform -rotate-6 shadow-sm uppercase">
+                  <span className="inline-block px-2.5 py-0.5 border-2 border-[#b91c1c] text-[#b91c1c] font-black text-[10px] tracking-widest rounded-xs transform -rotate-6 shadow-sm uppercase">
                     OPEN
                   </span>
                 </div>
@@ -315,17 +316,17 @@ export default function Home() {
 
             {/* ══════════════════════════════════════════════════════════════════
                 MAIN FOCAL POINT: PHOTO-ACCURATE CONVEX GLASS MAGNIFYING GLASS
-               ══════════════════════════════════════════════════ */}
+               ══════════════════════════════════════════════════════════════════ */}
             <div className="relative z-20 flex items-center justify-center -translate-x-8 -translate-y-2 select-none">
               {/* Outer Metallic Brass Bezel Ring (Round Double-Rim Bezel) */}
               <div className="relative w-[310px] h-[310px] rounded-full p-[8px] bg-gradient-to-br from-[#c8b082] via-[#8c6f48] via-[#45321f] to-[#1a140e] shadow-[0_35px_80px_rgba(0,0,0,0.98),0_0_25px_rgba(200,176,130,0.2)] border border-[#c8b082]/70">
                 {/* Inner Convex Lens Container (Strictly Rounded with Seamless Glass Effects) */}
                 <div className="w-full h-full rounded-full bg-[#09090e] relative overflow-hidden flex items-center justify-center border border-[#523d24]/80 shadow-[inset_0_0_45px_rgba(0,0,0,0.98)]">
                   {/* Spherical Convex Glass Lens Shading & Ambient Vignette */}
-                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_45%_45%,_rgba(25,25,35,0.25)_0%,_rgba(10,10,15,0.75)_65%,_rgba(0,0,0,0.95)_100%)] pointer-events-none z-10" />
+                  <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_45%_45%,_rgba(25,25,35,0.2)_0%,_rgba(10,10,15,0.75)_65%,_rgba(0,0,0,0.95)_100%)] pointer-events-none z-10" />
 
                   {/* Primary Curving Glass Specular Glare (Top-Left Angle) */}
-                  <div className="absolute -top-12 -left-12 w-52 h-52 rounded-full bg-gradient-to-br from-white/25 via-white/5 to-transparent pointer-events-none transform rotate-12 blur-[1.5px] z-20" />
+                  <div className="absolute -top-12 -left-12 w-52 h-52 rounded-full bg-gradient-to-br from-white/22 via-white/5 to-transparent pointer-events-none transform rotate-12 blur-[1.5px] z-20" />
 
                   {/* Secondary Rim Glare Arcs (Top Right & Bottom Left) */}
                   <div className="absolute top-2 right-6 w-28 h-8 rounded-full bg-white/12 pointer-events-none transform rotate-[-25deg] blur-[2px] z-20" />
