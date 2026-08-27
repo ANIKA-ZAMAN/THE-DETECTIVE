@@ -11,7 +11,6 @@ import {
   TrendingUp,
   Shield,
   RefreshCw,
-  Lock,
 } from "lucide-react";
 
 export default function Home() {
@@ -204,28 +203,46 @@ export default function Home() {
           {/* ══════════════════════════════════════════════════
               RIGHT COLUMN: CINEMATIC DETECTIVE SCENE CANVAS
              ══════════════════════════════════════════════════ */}
-          <div className="lg:col-span-7 relative w-full min-h-[520px] sm:min-h-[560px] rounded-2xl border border-zinc-800/80 bg-[#07070a]/90 overflow-hidden shadow-[0_25px_65px_rgba(0,0,0,0.95)] flex items-center justify-center p-4">
-            {/* Ambient Sepia Noir Vignette Radial Background */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_45%,_rgba(40,32,18,0.7)_0%,_rgba(7,7,10,1)_85%)]" />
+          <div
+            className="lg:col-span-7 relative w-full min-h-[520px] sm:min-h-[560px] rounded-2xl border border-zinc-800/80 bg-[#07070a] overflow-hidden shadow-[0_25px_65px_rgba(0,0,0,0.95)] flex items-center justify-center p-4"
+            style={{
+              backgroundImage: "url('/elements/texture.svg'), radial-gradient(circle at 48% 45%, rgba(45,36,20,0.65) 0%, rgba(7,7,10,0.98) 85%)",
+              backgroundSize: "cover, cover",
+              backgroundPosition: "center, center",
+              backgroundBlendMode: "overlay, normal",
+            }}
+          >
+            {/* Additional Chalkboard Grain Texture Overlay */}
+            <div
+              className="absolute inset-0 opacity-40 pointer-events-none mix-blend-screen"
+              style={{
+                backgroundImage: "url('/elements/board.png')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            />
+
+            {/* Ambient Sepia Noir Vignette Glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_45%,_rgba(40,32,18,0.5)_0%,_rgba(7,7,10,0.92)_85%)] pointer-events-none" />
 
             {/* Faint Background HTML/JS Code Snippets */}
-            <div className="absolute left-6 bottom-6 pointer-events-none font-mono text-[10px] sm:text-[11px] text-[#6b583c]/60 space-y-1 select-none z-10">
-              <div className="text-zinc-700 text-[9px]">019</div>
-              <div className="text-zinc-700 text-[9px]">102</div>
+            <div className="absolute left-6 bottom-6 pointer-events-none font-mono text-[10px] sm:text-[11px] text-[#6b583c]/80 space-y-1 select-none z-10">
+              <div className="text-zinc-600 text-[9px]">019</div>
+              <div className="text-zinc-600 text-[9px]">102</div>
               <div>103 &lt;header class=&quot;site-header&quot;&gt;</div>
               <div className="pl-6">103 &lt;img src=&quot;hero.jpg&quot; alt=&quot;hero&quot; /&gt;</div>
               <div className="pl-6">103 &lt;script src=&quot;tracking.js&quot;&gt;&lt;/script&gt;</div>
               <div>103 &lt;/header&gt;</div>
             </div>
 
-            {/* Faint Fingerprint Watermark Evidence */}
-            <div className="absolute left-[36%] bottom-3 pointer-events-none opacity-25 z-0">
+            {/* Faint Chalk Fingerprint Arch Lines behind/below the lens */}
+            <div className="absolute left-[36%] bottom-3 pointer-events-none opacity-40 z-0">
               <svg
                 className="w-56 h-56 text-[#c8b082]"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.0"
+                strokeWidth="1.2"
               >
                 <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" />
                 <path d="M14 13.12c0 2.38 0 6.38-1 8.88" />
@@ -238,7 +255,7 @@ export default function Home() {
             </div>
 
             {/* Connecting Golden Constellation Network Graph */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-50 z-0">
+            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-60 z-0">
               <line x1="120" y1="90" x2="240" y2="180" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
               <line x1="80" y1="270" x2="250" y2="240" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
               <line x1="130" y1="430" x2="260" y2="340" stroke="#c8b082" strokeWidth="1" strokeDasharray="3 3" />
