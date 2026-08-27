@@ -1,11 +1,35 @@
 [
   {
-    "id": "HIST-1787831151613-230",
-    "caseId": "#CASE-4977",
+    "id": "HIST-1787831461973-56",
+    "caseId": "#CASE-4906",
+    "targetUrl": "https://example.com",
+    "normalizedUrl": "https://example.com",
+    "investigatedAt": "Aug 27, 2026",
+    "timestamp": 1787831461973,
+    "overallHealthScore": 59,
+    "categoryScores": {
+      "performance": 53,
+      "seo": 60,
+      "security": 40,
+      "accessibility": 100
+    },
+    "metrics": {
+      "ttfbMs": 2232,
+      "fcpSec": 2.5,
+      "lcpSec": 3.2,
+      "inpMs": 1010,
+      "cls": 0.01,
+      "pageSizeKb": 4,
+      "requestsCount": 1
+    }
+  },
+  {
+    "id": "HIST-1787831460055-339",
+    "caseId": "#CASE-2905",
     "targetUrl": "https://httpbin.org",
     "normalizedUrl": "https://httpbin.org",
     "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787831151613,
+    "timestamp": 1787831460055,
     "overallHealthScore": 48,
     "categoryScores": {
       "performance": 53,
@@ -14,46 +38,22 @@
       "accessibility": 100
     },
     "metrics": {
-      "ttfbMs": 258,
-      "fcpSec": 0.8,
-      "lcpSec": 1.5,
-      "inpMs": 267,
+      "ttfbMs": 290,
+      "fcpSec": 0.9,
+      "lcpSec": 1.6,
+      "inpMs": 282,
       "cls": 0.06,
-      "pageSizeKb": 169,
+      "pageSizeKb": 183,
       "requestsCount": 6
     }
   },
   {
-    "id": "HIST-1787831151361-718",
-    "caseId": "#CASE-7192",
-    "targetUrl": "https://example.com",
-    "normalizedUrl": "https://example.com",
-    "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787831151361,
-    "overallHealthScore": 78,
-    "categoryScores": {
-      "performance": 99,
-      "seo": 60,
-      "security": 40,
-      "accessibility": 100
-    },
-    "metrics": {
-      "ttfbMs": 13,
-      "fcpSec": 0.6,
-      "lcpSec": 1.3,
-      "inpMs": 60,
-      "cls": 0.01,
-      "pageSizeKb": 4,
-      "requestsCount": 1
-    }
-  },
-  {
-    "id": "HIST-1787831151154-729",
-    "caseId": "#CASE-9555",
+    "id": "HIST-1787831459299-503",
+    "caseId": "#CASE-7578",
     "targetUrl": "https://httpbin.org",
     "normalizedUrl": "https://httpbin.org",
     "investigatedAt": "Aug 27, 2026",
-    "timestamp": 1787831151154,
+    "timestamp": 1787831459299,
     "overallHealthScore": 35,
     "categoryScores": {
       "performance": 20,
@@ -62,12 +62,12 @@
       "accessibility": 100
     },
     "metrics": {
-      "ttfbMs": 1640,
-      "fcpSec": 2.3,
-      "lcpSec": 3,
-      "inpMs": 889,
+      "ttfbMs": 3337,
+      "fcpSec": 4.2,
+      "lcpSec": 4.9,
+      "inpMs": 1653,
       "cls": 0.06,
-      "pageSizeKb": 120,
+      "pageSizeKb": 197,
       "requestsCount": 6
     }
   }

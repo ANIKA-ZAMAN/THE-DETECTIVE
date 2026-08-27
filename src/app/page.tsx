@@ -372,21 +372,38 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* 45° Stepped Brass Joint Collar */}
-                <div className="absolute -bottom-4 -right-3 z-30 pointer-events-none transform rotate-[-45deg] flex flex-col items-center">
-                  <div className="w-8 h-4 rounded-t-sm bg-gradient-to-r from-[#c8b082] via-[#ffe0a3] to-[#5c3e1e] border-t border-x border-[#ffe0a3]/80 shadow-md" />
-                  <div className="w-10 h-6 bg-gradient-to-r from-[#7a5328] via-[#c8b082] via-[#ffe0a3] to-[#3a220d] rounded-sm border border-[#c8b082]/90 shadow-lg" />
-                </div>
-
-                {/* Cylindrical Dark Walnut Wood Handle */}
+                {/* Co-Axial Physical Brass Collar & Walnut Handle attached naturally at 45° to bottom-right */}
                 <div
-                  className="absolute -bottom-36 -right-32 w-10 h-52 pointer-events-none z-20 transform rotate-[-45deg] origin-top-left rounded-b-2xl border-x border-b border-[#3d2415]/70 shadow-[0_25px_60px_rgba(0,0,0,0.98)]"
+                  className="absolute pointer-events-none z-30 flex flex-col items-center"
                   style={{
-                    background: "linear-gradient(90deg, #1c0e07 0%, #4a2815 35%, #6a3c20 50%, #30170a 75%, #120703 100%)",
+                    top: "50%",
+                    left: "50%",
+                    width: "36px",
+                    transformOrigin: "top center",
+                    transform: "translate(-50%, 0) rotate(-45deg) translate(0, 156px)",
                   }}
                 >
-                  <div className="absolute inset-y-0 left-[35%] w-1.5 bg-white/10 blur-[0.5px]" />
-                  <div className="absolute bottom-0 inset-x-0 h-4 rounded-b-2xl bg-gradient-to-r from-[#7a5328] via-[#c8b082] to-[#3a220d] border-t border-[#ffe0a3]/60" />
+                  {/* Step 1: Upper Brass Transition Lip */}
+                  <div className="w-6 h-2 rounded-t-sm bg-gradient-to-r from-[#7a5328] via-[#c8b082] via-[#ffe0a3] to-[#3a220d] border-t border-x border-[#ffe0a3]/60 shadow-sm" />
+                  
+                  {/* Step 2: Ribbed Middle Brass Collar Sleeve */}
+                  <div className="w-9 h-4 bg-gradient-to-r from-[#5c3e1e] via-[#c8b082] via-[#ffe0a3] to-[#3a220d] rounded-sm border border-[#c8b082]/90 shadow-md my-0.5" />
+                  
+                  {/* Step 3: Base Brass Collar Ring */}
+                  <div className="w-7 h-2 bg-gradient-to-r from-[#7a5328] via-[#c8b082] via-[#ffe0a3] to-[#3a220d] rounded-sm shadow-sm" />
+
+                  {/* Step 4: Cylindrical Polished Walnut Wood Handle */}
+                  <div
+                    className="w-8 h-48 rounded-b-2xl shadow-[0_25px_60px_rgba(0,0,0,0.98)] border-x border-b border-[#3d2415]/80 relative overflow-hidden"
+                    style={{
+                      background: "linear-gradient(90deg, #1c0e07 0%, #4a2815 30%, #6a3c20 50%, #30170a 75%, #120703 100%)",
+                    }}
+                  >
+                    {/* Cylinder Specular Wood Sheen */}
+                    <div className="absolute inset-y-0 left-[32%] w-1.5 bg-white/12 blur-[0.5px]" />
+                    {/* Polished Brass End Cap */}
+                    <div className="absolute bottom-0 inset-x-0 h-3.5 rounded-b-2xl bg-gradient-to-r from-[#7a5328] via-[#c8b082] to-[#3a220d] border-t border-[#ffe0a3]/60" />
+                  </div>
                 </div>
               </div>
             </div>
