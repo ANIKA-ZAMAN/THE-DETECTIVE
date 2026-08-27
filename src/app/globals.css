@@ -79,6 +79,27 @@ body {
   }
 }
 
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(-2.5deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-2deg);
+  }
+}
+
+@keyframes progress-scan {
+  0% {
+    width: 25%;
+  }
+  50% {
+    width: 78%;
+  }
+  100% {
+    width: 25%;
+  }
+}
+
 .animate-radar-sweep {
   animation: radar-sweep 4.5s linear infinite;
   transform-origin: center center;
@@ -95,4 +116,12 @@ body {
 
 .animate-popup-reveal {
   animation: popup-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-progress-scan {
+  animation: progress-scan 4s ease-in-out infinite;
 }
