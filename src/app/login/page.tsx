@@ -134,9 +134,10 @@ function LoginContent() {
         backgroundPosition: "center top, center",
       }}
     >
-      {/* ────────────────── TOP NAVBAR ────────────────── */}
-      <header className="w-full max-w-7xl mx-auto px-6 sm:px-12 h-18 sm:h-20 flex items-center justify-between z-30 shrink-0 border-b border-zinc-850/60">
-        <Link href="/" className="flex items-center gap-3.5 group select-none">
+      {/* ────────────────── MAIN LOGIN CARD ────────────────── */}
+      <main className="w-full max-w-md mx-auto px-6 py-10 z-20 flex-1 flex flex-col items-center justify-center">
+        {/* Brand Viewfinder Logo */}
+        <Link href="/" className="flex items-center gap-3 group mb-6 select-none">
           <div className="relative w-9 h-9 flex items-center justify-center bg-[#0d0d12] rounded-lg border border-zinc-800/90 group-hover:border-[#c8b082]/60 transition-colors shadow-sm">
             <span className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-[#c8b082]" />
             <span className="absolute -top-1 -right-1 w-2 h-2 border-t border-r border-[#c8b082]" />
@@ -172,17 +173,6 @@ function LoginContent() {
           </div>
         </Link>
 
-        <Link
-          href="/"
-          className="text-xs font-mono text-zinc-400 hover:text-[#c8b082] transition-colors flex items-center gap-1.5"
-        >
-          <span>Return Home</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </Link>
-      </header>
-
-      {/* ────────────────── MAIN LOGIN CARD ────────────────── */}
-      <main className="w-full max-w-md mx-auto px-6 py-10 z-20 flex-1 flex items-center">
         <div className="w-full bg-[#0c0c11]/95 border border-zinc-800/90 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 backdrop-blur-xl relative">
           {/* Top Dossier Header */}
           <div className="text-center space-y-1.5">
